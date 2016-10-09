@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dixit_Service.Data
 {
-    public class GameState
+    public class Card
     {
-        public Guid Game_Id;
     }
 }

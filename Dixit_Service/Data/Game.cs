@@ -11,6 +11,8 @@ namespace Dixit_Service.Data
     public class Game
     {
         [DataMember]
+        public Guid Id;
+        [DataMember]
         public string Name;
         [DataMember]
         public Player[] Players;

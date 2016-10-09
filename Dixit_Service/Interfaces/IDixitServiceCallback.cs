@@ -11,20 +11,20 @@ namespace Dixit_Service
     public interface IDixitServiceCallback
     {
         /// <summary>
-        /// m:161005: Jelzes a klienseknek, hogy a jatek elindult.
+        /// Jelzes a klienseknek, hogy a jatek elindult.
         /// </summary>
         [OperationContract(IsOneWay = true)]
-        void CurrentGameStart();
+        void GameStart(GameState state);
         /// <summary>
-        /// m:161005: Jelzes a klienseknek, hogy a jatek vegetert;
-        /// </summary>
-        [OperationContract(IsOneWay = true)]
-        void CurrentGameEnd();
-        /// <summary>
-        /// m:161005: Jelzes a klienseknek, hogy soron kovetkezo jatekos megvaltozott.
+        /// Jelzes a klienseknek, hogy jatek allapota megvaltozott.
         /// </summary> 
         /// <param name="player">A soron kovetkezo jatekos.</param>
         [OperationContract(IsOneWay = true)]
-        void CurrentPlayerChanged(Player player);
+        void GameStateChanged(GameState state);
+        /// <summary>
+        /// Jelzes a klienseknek, hogy a jatek vegetert.
+        /// </summary>
+        [OperationContract(IsOneWay = true)]
+        void GameEnd(GameState state);
     }
 }
