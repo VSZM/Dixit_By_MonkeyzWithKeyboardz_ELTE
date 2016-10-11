@@ -15,7 +15,7 @@ namespace Dixit_Logic.Interfaces
         /// It add optional piece of cards to the deck.
         /// </summary>
         /// <param name="cards">Array of cards what you want to add.</param>
-        void AddCards(ICard[] cards);
+        void AddCards(IList<ICard> cards);
 
         /// <summary>
         /// It change the card order in the deck, what make a new drawing order.

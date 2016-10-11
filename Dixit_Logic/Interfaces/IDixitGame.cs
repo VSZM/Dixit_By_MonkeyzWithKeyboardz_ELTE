@@ -14,7 +14,7 @@ namespace Dixit_Logic.Interfaces
         /// <summary>
         /// It contain all players who playe in the acutal game. 
         /// </summary>
-        IPlayer[] Players
+        IList<IPlayer> Players
         {
             get;
             set;
