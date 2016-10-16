@@ -1,0 +1,58 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Dixit_Logic.Interfaces
+{
+    /// <summary>
+    /// It describe a state of game. So, it keep every necessary information about a game's moment.
+    /// </summary>
+    interface IGameState
+    {
+        /// <summary>
+        /// It contain all players who playe in the acutal game. 
+        /// </summary>
+        IList<IPlayer> Players
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// This is the text what describe the association of turn's starter card.
+        /// </summary>
+        String CardAssociationText
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// The player who start the actual turn.
+        /// </summary>
+        IPlayer ActualPlayer
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// This is the deck from wich the players draw new cards.
+        /// </summary>
+        IDeck MainDeck
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// This are the cards what the players put on the table.
+        /// </summary>
+        IDeck BoardDeck
+        {
+            get;
+            set;
+        }
+    }
+}
