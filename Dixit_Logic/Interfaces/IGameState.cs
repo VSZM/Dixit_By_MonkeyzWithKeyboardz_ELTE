@@ -11,18 +11,30 @@ namespace Dixit_Logic.Interfaces
     /// </summary>
     interface IGameState
     {
+
         /// <summary>
-        /// It contain all players who playe in the acutal game. 
+        /// This dictionary associate a palyer with own deck.
         /// </summary>
-        IList<IPlayer> Players
+        Dictionary<IPlayer, IDeck> Hands
         {
             get;
             set;
         }
+
         /// <summary>
-        /// This is the text what describe the association of turn's starter card.
+        /// This dictionary associate a palyer with own game's point value.
         /// </summary>
-        String CardAssociationText
+        Dictionary<IPlayer, int> Points
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// This dictionary associate a palyer with his/her guess.
+        /// (guess: Players guess in every turn that what is the originally selected card in the current turn.)
+        /// </summary>
+        Dictionary<IPlayer, ICard> Guesses
         {
             get;
             set;
@@ -32,6 +44,15 @@ namespace Dixit_Logic.Interfaces
         /// The player who start the actual turn.
         /// </summary>
         IPlayer ActualPlayer
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// This is the text what describe the association of turn's starter card.
+        /// </summary>
+        String CardAssociationText
         {
             get;
             set;
