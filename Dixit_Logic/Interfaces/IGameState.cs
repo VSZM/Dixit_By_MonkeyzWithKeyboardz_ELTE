@@ -11,6 +11,14 @@ namespace Dixit_Logic.Interfaces
     /// </summary>
     interface IGameState
     {
+        /// <summary>
+        /// It contain all players who playe in the actual game. 
+        /// </summary>
+        IList<IPlayer> Players
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         /// This dictionary associate a palyer with own deck.

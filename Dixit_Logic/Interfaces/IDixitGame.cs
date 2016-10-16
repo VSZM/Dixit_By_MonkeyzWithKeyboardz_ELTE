@@ -12,15 +12,6 @@ namespace Dixit_Logic.Interfaces
     interface IDixitGame
     {
         /// <summary>
-        /// It contain all players who playe in the acutal game. 
-        /// </summary>
-        IList<IPlayer> Players
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
         /// This holds the actual game state what is changed by actions during the game.
         /// </summary>
         IGameState ActualGameState
