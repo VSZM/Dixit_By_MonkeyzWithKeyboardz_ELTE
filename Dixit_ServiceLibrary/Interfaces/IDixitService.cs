@@ -6,7 +6,7 @@ using System.ServiceModel;
 using System.Text;
 using Dixit_Logic.Interfaces;
 
-namespace Dixit_Service
+namespace Dixit_ServiceLibrary.Interfaces
 {
     [ServiceContract(SessionMode = SessionMode.Required, CallbackContract = typeof(IDixitServiceCallback))]
     public interface IDixitService

@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Dixit_Logic.Interfaces;
 
-namespace Dixit_Service
+namespace Dixit_ServiceLibrary.Interfaces
 {
     public interface IDixitServiceCallback
     {
