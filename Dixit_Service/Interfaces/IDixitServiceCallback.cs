@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Dixit_Service
 {
+    [ServiceContract]
     public interface IDixitServiceCallback
     {
         /// <summary>

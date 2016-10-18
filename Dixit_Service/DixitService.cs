@@ -7,6 +7,7 @@ using System.Text;
 
 namespace Dixit_Service
 {
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class DixitService //: IDixitService
     {
     }
