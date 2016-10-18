@@ -9,7 +9,7 @@ namespace Dixit_Logic.Interfaces
     /// <summary>
     /// This is a general game deck inteface. A deck consists of cards. It makes the cards' usage more easier.
     /// </summary>
-    interface IDeck
+    public interface IDeck
     {
         /// <summary>
         /// It add optional piece of cards to the deck.
