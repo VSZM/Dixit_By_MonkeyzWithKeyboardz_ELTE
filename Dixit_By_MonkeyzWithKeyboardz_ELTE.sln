@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dixit_Client", "Dixit_Client\Dixit_Client.csproj", "{9DB775FD-6752-4330-B9D2-4B6C404BFB24}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D5768BAF-C1C6-48F6-B65B-D52C3E49F2A3} = {D5768BAF-C1C6-48F6-B65B-D52C3E49F2A3}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dixit_Logic", "Dixit_Logic\Dixit_Logic.csproj", "{BD164DD7-6CFE-4B43-B12F-86EE174D75C2}"
 EndProject

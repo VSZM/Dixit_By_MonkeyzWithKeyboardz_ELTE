@@ -1,1 +1,1 @@
-﻿<%@ ServiceHost Language="C#" Debug="true" Service="Dixit_Service.Service1" CodeBehind="DixitService.svc.cs" %>
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="Dixit_Service.DixitService" CodeBehind="DixitService.svc.cs" %>
