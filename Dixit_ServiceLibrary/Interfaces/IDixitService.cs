@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 using Dixit_Logic.Interfaces;
-
+ 
 namespace Dixit_ServiceLibrary.Interfaces
 {
     [ServiceContract(SessionMode = SessionMode.Required, CallbackContract = typeof(IDixitServiceCallback))]
