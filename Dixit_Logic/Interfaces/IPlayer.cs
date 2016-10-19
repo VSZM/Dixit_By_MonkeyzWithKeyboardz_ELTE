@@ -10,7 +10,7 @@ namespace Dixit_Logic.Interfaces
     /// It is a game player interface. It contains the most necessary properties 
     /// and methods declaration what a player needs during a dixt game.
     /// </summary>
-    interface IPlayer
+    public interface IPlayer
     {
         /// <summary>
         /// This deck contain the player own cards.
