@@ -50,8 +50,7 @@ namespace Dixit_Client
             _mainWindow = new MainWindow();
             _mainWindow.DataContext = _viewModel;
             _mainWindow.Show();
-            if (_loginWindow != null)
-                _loginWindow.Close();
+            _loginWindow.Close();
         }
     }
 }
