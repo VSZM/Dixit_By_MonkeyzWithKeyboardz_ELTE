@@ -28,7 +28,7 @@ namespace Dixit_Service
             throw new NotImplementedException();
         }
 
-        public IDixitGame[] ListGames()
+        public List<IDixitGame> ListGames()
         {
             throw new NotImplementedException();
         }

@@ -24,7 +24,7 @@ namespace Dixit_ServiceLibrary.Interfaces
         /// </summary>
         /// <returns>Jatek lista.</returns>
         [OperationContract(IsInitiating = false, IsTerminating = false)]
-        IDixitGame[] ListGames();
+        List<IDixitGame> ListGames();
         /// <summary>
         /// Jatek letrehozasa.
         /// </summary>
