@@ -10,7 +10,7 @@ namespace Dixit_Logic.Interfaces
     /// <summary>
     /// This interface loads the images for the cards.
     /// </summary>
-    public interface IImageAccess
+    public interface ICardAccess
     {
         /// <summary>
         /// Get the ids of images in a list.

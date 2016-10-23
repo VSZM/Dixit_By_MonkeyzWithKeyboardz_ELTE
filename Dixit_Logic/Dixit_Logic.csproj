@@ -44,7 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\ICard.cs" />
-    <Compile Include="Interfaces\IImageAccess.cs" />
+    <Compile Include="Interfaces\ICardAccess.cs" />
     <Compile Include="Interfaces\IDeck.cs" />
     <Compile Include="Interfaces\IDixitGame.cs" />
     <Compile Include="Interfaces\IPlayer.cs" />
