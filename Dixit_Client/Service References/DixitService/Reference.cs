@@ -17,7 +17,7 @@ namespace Dixit_Client.DixitService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="CreateGameResult", Namespace="http://schemas.datacontract.org/2004/07/Dixit_ServiceLibrary.Interfaces")]
     [System.SerializableAttribute()]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(object[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<object>))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Dixit_Client.DixitService.JoinGameResult))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Dixit_Client.DixitService.SelectCardResult))]
     public partial class CreateGameResult : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -232,14 +232,14 @@ namespace Dixit_Client.DixitService {
         System.Threading.Tasks.Task LogoutAsync();
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDixitService/ListGames", ReplyAction="http://tempuri.org/IDixitService/ListGamesResponse")]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(object[]))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<object>))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Dixit_Client.DixitService.CreateGameResult))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Dixit_Client.DixitService.JoinGameResult))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Dixit_Client.DixitService.SelectCardResult))]
-        object[] ListGames();
+        System.Collections.Generic.List<object> ListGames();
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDixitService/ListGames", ReplyAction="http://tempuri.org/IDixitService/ListGamesResponse")]
-        System.Threading.Tasks.Task<object[]> ListGamesAsync();
+        System.Threading.Tasks.Task<System.Collections.Generic.List<object>> ListGamesAsync();
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDixitService/CreateGame", ReplyAction="http://tempuri.org/IDixitService/CreateGameResponse")]
         Dixit_Client.DixitService.CreateGameResult CreateGame(string name);
@@ -248,7 +248,7 @@ namespace Dixit_Client.DixitService {
         System.Threading.Tasks.Task<Dixit_Client.DixitService.CreateGameResult> CreateGameAsync(string name);
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDixitService/JoinGame", ReplyAction="http://tempuri.org/IDixitService/JoinGameResponse")]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(object[]))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<object>))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Dixit_Client.DixitService.CreateGameResult))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Dixit_Client.DixitService.JoinGameResult))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Dixit_Client.DixitService.SelectCardResult))]
@@ -258,7 +258,7 @@ namespace Dixit_Client.DixitService {
         System.Threading.Tasks.Task<Dixit_Client.DixitService.JoinGameResult> JoinGameAsync(object game);
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDixitService/LeaveGame", ReplyAction="http://tempuri.org/IDixitService/LeaveGameResponse")]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(object[]))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<object>))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Dixit_Client.DixitService.CreateGameResult))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Dixit_Client.DixitService.JoinGameResult))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Dixit_Client.DixitService.SelectCardResult))]
@@ -268,7 +268,7 @@ namespace Dixit_Client.DixitService {
         System.Threading.Tasks.Task LeaveGameAsync(object game);
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDixitService/SelectCardWithStory", ReplyAction="http://tempuri.org/IDixitService/SelectCardWithStoryResponse")]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(object[]))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<object>))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Dixit_Client.DixitService.CreateGameResult))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Dixit_Client.DixitService.JoinGameResult))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Dixit_Client.DixitService.SelectCardResult))]
@@ -278,7 +278,7 @@ namespace Dixit_Client.DixitService {
         System.Threading.Tasks.Task<Dixit_Client.DixitService.SelectCardResult> SelectCardWithStoryAsync(object game, object card, string story);
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDixitService/SelectCard", ReplyAction="http://tempuri.org/IDixitService/SelectCardResponse")]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(object[]))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<object>))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Dixit_Client.DixitService.CreateGameResult))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Dixit_Client.DixitService.JoinGameResult))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Dixit_Client.DixitService.SelectCardResult))]
@@ -292,21 +292,21 @@ namespace Dixit_Client.DixitService {
     public interface IDixitServiceCallback {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDixitService/GameStart")]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(object[]))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<object>))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Dixit_Client.DixitService.CreateGameResult))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Dixit_Client.DixitService.JoinGameResult))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Dixit_Client.DixitService.SelectCardResult))]
         void GameStart(object state);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDixitService/GameStateChanged")]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(object[]))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<object>))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Dixit_Client.DixitService.CreateGameResult))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Dixit_Client.DixitService.JoinGameResult))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Dixit_Client.DixitService.SelectCardResult))]
         void GameStateChanged(object state);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDixitService/GameEnd")]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(object[]))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<object>))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Dixit_Client.DixitService.CreateGameResult))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Dixit_Client.DixitService.JoinGameResult))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Dixit_Client.DixitService.SelectCardResult))]
@@ -357,11 +357,11 @@ namespace Dixit_Client.DixitService {
             return base.Channel.LogoutAsync();
         }
         
-        public object[] ListGames() {
+        public System.Collections.Generic.List<object> ListGames() {
             return base.Channel.ListGames();
         }
         
-        public System.Threading.Tasks.Task<object[]> ListGamesAsync() {
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<object>> ListGamesAsync() {
             return base.Channel.ListGamesAsync();
         }
         
