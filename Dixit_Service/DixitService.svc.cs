@@ -7,9 +7,11 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
 using Dixit_Logic.Interfaces;
+using System.Reflection;
 
 namespace Dixit_Service
 {
+    [ServiceKnownType("RegisterKnownTypes", typeof(DixitService))]
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class DixitService : IDixitService
     {
@@ -51,6 +53,11 @@ namespace Dixit_Service
         public SelectCardResult SelectCardWithStory(IDixitGame game, ICard card, string story)
         {
             throw new NotImplementedException();
+        }
+
+        public static IEnumerable<Type> RegisterKnownTypes(ICustomAttributeProvider provider)
+        {
+            return Dixit_Logic.KnownTypesProvider.GetKnownTypes();
         }
     }
 }

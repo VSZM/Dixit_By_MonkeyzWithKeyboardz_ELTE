@@ -44,6 +44,7 @@
     <Compile Include="Interfaces\IDixitGame.cs" />
     <Compile Include="Interfaces\IGameState.cs" />
     <Compile Include="Interfaces\IPlayer.cs" />
+    <Compile Include="KnownTypesProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
