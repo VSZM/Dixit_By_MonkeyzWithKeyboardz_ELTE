@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dixit_Client", "Dixit_Clien
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dixit_Logic", "Dixit_Logic\Dixit_Logic.csproj", "{BD164DD7-6CFE-4B43-B12F-86EE174D75C2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dixit_Data", "Dixit_Data\Dixit_Data.csproj", "{AEFE4B12-E97F-465B-9256-54FB906B97B8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{BD164DD7-6CFE-4B43-B12F-86EE174D75C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD164DD7-6CFE-4B43-B12F-86EE174D75C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD164DD7-6CFE-4B43-B12F-86EE174D75C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEFE4B12-E97F-465B-9256-54FB906B97B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEFE4B12-E97F-465B-9256-54FB906B97B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEFE4B12-E97F-465B-9256-54FB906B97B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEFE4B12-E97F-465B-9256-54FB906B97B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
