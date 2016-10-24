@@ -24,22 +24,22 @@ namespace Dixit_Logic.Interfaces
         /// This add a new player (by name) to the ActualGameState.
         /// </summary>
         /// <param name="name">The name of the player.</param>
-        /// <returns>The new player identifier</returns>
-        int AddPlayer(String name);
+        /// <returns>The new player</returns>
+        IPlayer AddPlayer(String name);
 
         /// <summary>
         /// This method put a card from the player's cards to the BoardDeck(in ActualGameState).
         /// </summary>
-        /// <param name="player">The player's id who put the card</param>
-        /// <param name="card">The card's id what will put.</param>
-        void PutCard(int player, int card);
+        /// <param name="player">The player who put the card</param>
+        /// <param name="card">The card what will be put by "player".</param>
+        void PutCard(IPlayer player, ICard card);
 
         /// <summary>
         /// This will add a new guess to what was the original card in the actual turn. The guess will store under the given player.
         /// </summary>
-        /// <param name="player">The player's id who add the guess</param>
-        /// <param name="card">The id of the card is guessed</param>
-        void NewGuess(int player, int card);
+        /// <param name="player">The player who add the guess</param>
+        /// <param name="card">The card is guessed by "player"</param>
+        void NewGuess(IPlayer player, ICard card);
 
         /// <summary>
         /// This evaluates the points of actual turn and adds these to the appropriate players's point (in ActualGameState).         
