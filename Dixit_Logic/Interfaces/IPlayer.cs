@@ -13,36 +13,9 @@ namespace Dixit_Logic.Interfaces
     public interface IPlayer
     {
         /// <summary>
-        /// This deck contain the player own cards.
-        /// </summary>
-        IDeck Cards
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// The current point value, what a player gained.
-        /// </summary>
-        int Points
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
         /// It is a unique identifier for player.
         /// </summary>
         int Id
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// It is the player's guess what is the originally selected card in the current turn.
-        /// </summary>
-        ICard Guess
         {
             get;
             set;
