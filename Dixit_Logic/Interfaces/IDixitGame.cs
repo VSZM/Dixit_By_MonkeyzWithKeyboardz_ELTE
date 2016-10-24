@@ -9,7 +9,7 @@ namespace Dixit_Logic.Interfaces
     /// <summary>
     /// This is a game's round interface. It cointain what need to a round of dixit game.
     /// </summary>
-    interface IDixitGame
+    public interface IDixitGame
     {
         /// <summary>
         /// This holds the actual game state what is changed by actions during the game.

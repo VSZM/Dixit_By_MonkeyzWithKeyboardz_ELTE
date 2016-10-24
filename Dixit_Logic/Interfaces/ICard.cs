@@ -9,7 +9,7 @@ namespace Dixit_Logic.Interfaces
     /// <summary>
     /// This is a general game card inteface.
     /// </summary>
-    interface ICard
+    public interface ICard
     {
         /// <summary>
         /// It is a unique identifier for card.

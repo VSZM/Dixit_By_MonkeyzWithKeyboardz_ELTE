@@ -9,7 +9,7 @@ namespace Dixit_Logic.Interfaces
     /// <summary>
     /// It describe a state of game. So, it keep every necessary information about a game's moment.
     /// </summary>
-    interface IGameState
+    public interface IGameState
     {
         /// <summary>
         /// It contain all players who playe in the actual game. 
