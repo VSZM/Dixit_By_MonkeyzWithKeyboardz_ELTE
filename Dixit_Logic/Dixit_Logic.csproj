@@ -38,17 +38,20 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\ICard.cs" />
-    <Compile Include="Interfaces\ICardAccess.cs" />
     <Compile Include="Interfaces\IDeck.cs" />
     <Compile Include="Interfaces\IDixitGame.cs" />
     <Compile Include="Interfaces\IGameState.cs" />
     <Compile Include="Interfaces\IPlayer.cs" />
+    <Compile Include="KnownTypesProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Images">

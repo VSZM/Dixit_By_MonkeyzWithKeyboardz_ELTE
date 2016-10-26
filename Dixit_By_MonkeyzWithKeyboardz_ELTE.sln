@@ -1,15 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dixit_Service", "Dixit_Service\Dixit_Service.csproj", "{89E30F5D-4906-4A9F-BD10-129776F34B89}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dixit_Client", "Dixit_Client\Dixit_Client.csproj", "{9DB775FD-6752-4330-B9D2-4B6C404BFB24}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1FBB6E84-E9B3-484A-A374-58165CD73279} = {1FBB6E84-E9B3-484A-A374-58165CD73279}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dixit_Logic", "Dixit_Logic\Dixit_Logic.csproj", "{BD164DD7-6CFE-4B43-B12F-86EE174D75C2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dixit_Data", "Dixit_Data\Dixit_Data.csproj", "{AEFE4B12-E97F-465B-9256-54FB906B97B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dixit_ServiceLibrary", "Dixit_ServiceLibrary\Dixit_ServiceLibrary.csproj", "{A34BE0E1-5539-431E-8330-D8FB6B543EF6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dixit_Service", "Dixit_Service\Dixit_Service.csproj", "{1FBB6E84-E9B3-484A-A374-58165CD73279}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +22,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{89E30F5D-4906-4A9F-BD10-129776F34B89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{89E30F5D-4906-4A9F-BD10-129776F34B89}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{89E30F5D-4906-4A9F-BD10-129776F34B89}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{89E30F5D-4906-4A9F-BD10-129776F34B89}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9DB775FD-6752-4330-B9D2-4B6C404BFB24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9DB775FD-6752-4330-B9D2-4B6C404BFB24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DB775FD-6752-4330-B9D2-4B6C404BFB24}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +34,14 @@ Global
 		{AEFE4B12-E97F-465B-9256-54FB906B97B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AEFE4B12-E97F-465B-9256-54FB906B97B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AEFE4B12-E97F-465B-9256-54FB906B97B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A34BE0E1-5539-431E-8330-D8FB6B543EF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A34BE0E1-5539-431E-8330-D8FB6B543EF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A34BE0E1-5539-431E-8330-D8FB6B543EF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A34BE0E1-5539-431E-8330-D8FB6B543EF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FBB6E84-E9B3-484A-A374-58165CD73279}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FBB6E84-E9B3-484A-A374-58165CD73279}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FBB6E84-E9B3-484A-A374-58165CD73279}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FBB6E84-E9B3-484A-A374-58165CD73279}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
