@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="d1700fba-7bcc-4cd0-8705-8eca612bc413" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:60773/DixitService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="DixitService.wsdl" MetadataType="Wsdl" ID="01108d57-232b-46d2-94c0-6172d5f50ffc" SourceId="1" SourceUrl="http://localhost:60773/DixitService.svc?wsdl" />
+    <MetadataFile FileName="DixitService.xsd" MetadataType="Schema" ID="4f11c0a9-e6f7-413a-a5ca-36315fcec584" SourceId="1" SourceUrl="http://localhost:60773/DixitService.svc?xsd=xsd0" />
+    <MetadataFile FileName="DixitService1.xsd" MetadataType="Schema" ID="6d399daa-4b7b-4fb2-8aa7-bab15d6b173f" SourceId="1" SourceUrl="http://localhost:60773/DixitService.svc?xsd=xsd2" />
+    <MetadataFile FileName="DixitService2.xsd" MetadataType="Schema" ID="f8b1f38f-766d-4560-84b1-250b42c600c0" SourceId="1" SourceUrl="http://localhost:60773/DixitService.svc?xsd=xsd3" />
+    <MetadataFile FileName="DixitService.disco" MetadataType="Disco" ID="76a29a60-7671-4f25-88fc-2779b4c0d325" SourceId="1" SourceUrl="http://localhost:60773/DixitService.svc?disco" />
+    <MetadataFile FileName="DixitService3.xsd" MetadataType="Schema" ID="862a2234-2a6b-4771-9b06-5181b1a5726a" SourceId="1" SourceUrl="http://localhost:60773/DixitService.svc?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

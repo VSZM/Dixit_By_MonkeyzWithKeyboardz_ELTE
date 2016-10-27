@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Drawing;
 
-namespace Dixit_Logic.Interfaces
+namespace Dixit_Data.Interfaces
 {
     /// <summary>
     /// This interface loads the images for the cards.

@@ -1,12 +1,12 @@
-﻿using Dixit_Service.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
-
-namespace Dixit_Service
+using Dixit_Logic.Interfaces;
+ 
+namespace Dixit_ServiceLibrary.Interfaces
 {
     [ServiceContract(SessionMode = SessionMode.Required, CallbackContract = typeof(IDixitServiceCallback))]
     public interface IDixitService
@@ -24,7 +24,7 @@ namespace Dixit_Service
         /// </summary>
         /// <returns>Jatek lista.</returns>
         [OperationContract(IsInitiating = false, IsTerminating = false)]
-        Game[] ListGames();
+        List<IDixitGame> ListGames();
         /// <summary>
         /// Jatek letrehozasa.
         /// </summary>
@@ -38,13 +38,13 @@ namespace Dixit_Service
         /// <param name="game"></param>
         /// <returns></returns>
         [OperationContract(IsInitiating = false, IsTerminating = false)]
-        JoinGameResult JoinGame(Game game);
+        JoinGameResult JoinGame(IDixitGame game);
         /// <summary>
         /// Jatek elhagyasa.
         /// </summary>
         /// <param name="game">Az elhagyando jatek.</param>
         [OperationContract(IsInitiating = false, IsTerminating = false)]
-        void LeaveGame(Game game);
+        void LeaveGame(IDixitGame game);
         #endregion game operations
 
         #region in-game operations
@@ -56,7 +56,7 @@ namespace Dixit_Service
         /// <param name="story">A kartyahoz tartozo tortenet.</param>
         /// <returns></returns>
         [OperationContract(IsInitiating = false, IsTerminating = false)]
-        SelectCardResult SelectCardWithStory(Game game, Card card, string story);
+        SelectCardResult SelectCardWithStory(IDixitGame game, ICard card, string story);
         /// <summary>
         /// A jatekos sajat kartyai kozul valo valasztashoz, valamint a tortenethez legjobban hasonlito kartya valasztasahoz.
         /// </summary>
@@ -64,13 +64,13 @@ namespace Dixit_Service
         /// <param name="card">A valasztando kartya.</param>
         /// <returns></returns>
         [OperationContract(IsInitiating = false, IsTerminating = false)]
-        SelectCardResult SelectCard(Game game, Card card);
+        SelectCardResult SelectCard(IDixitGame game, ICard card);
         #endregion in-game operations
 
     }
     public class CreateGameResult
     {
-        public Game Game;
+        public IDixitGame Game;
         public bool Success;
         public string ErrorMessage;
     }
