@@ -1,4 +1,5 @@
-﻿using Dixit_ServiceLibrary.Interfaces;
+﻿using Dixit_Logic.Interfaces;
+using Dixit_ServiceLibrary.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

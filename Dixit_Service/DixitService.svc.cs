@@ -15,42 +15,147 @@ namespace Dixit_Service
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Single)]
     public class DixitService : IDixitService
     {
-        private Dictionary<string, UserInfo> Users = new Dictionary<string, UserInfo>();
-        //private Dictionary<string, IDixitGame> Games = new Dictionary<string, IDixitGame>();
-        private IDixitGame Game;
+        private HashSet<UserInfo> Users = new HashSet<UserInfo>();
+        private HashSet<GameInfo> Games = new HashSet<GameInfo>();
 
         #region Login methods
         public void Login()
         {
-            var ui = new UserInfo();
-            ui.Username = OperationContext.Current.ServiceSecurityContext.PrimaryIdentity.Name;
-            ui.Callback = OperationContext.Current.GetCallbackChannel<IDixitServiceCallback>();
-            Users.Add(ui.Username, ui);
+            var ui = GetUserInfo();
         }
         public void Logout()
         {
-            RemoveUser(OperationContext.Current.ServiceSecurityContext.PrimaryIdentity.Name);
+            var ui = GetUserInfo();
+            RemoveUser(ui.Username);
         }
         private void RemoveUser(string username)
         {
             if (string.IsNullOrWhiteSpace(username)) { return; }
-
-            if (Users.ContainsKey(username))
+            Users.RemoveWhere(x => x.Username == username);
+            foreach (var game in Games)
             {
-                Users.Remove(username);
+                game.Users.RemoveWhere(x => x.Username == username);
             }
+        }
+        private UserInfo GetUserInfo()
+        {
+            UserInfo ui = null;
+            var username = OperationContext.Current.ServiceSecurityContext.PrimaryIdentity.Name;
+            if (!Users.Any(x => x.Username == username))
+            {
+                ui = new UserInfo();
+                ui.Username = username;
+                ui.Callback = OperationContext.Current.GetCallbackChannel<IDixitServiceCallback>();
+                Users.Add(ui);
+            }
+            return ui;
         }
         #endregion
         public CreateGameResult CreateGame(string name)
         {
             var r = new CreateGameResult();
-            //r.Games = 
+            if (!Games.Any(x => x.GameName == name))
+            {
+                var gi = new GameInfo();
+                gi.GameName = name;
+                gi.Game = (null as IDixitGame); //TODO
+                Games.Add(gi);
+                InitGame(gi);
+                r.Success = true;
+            }
+            else
+            {
+                r.Success = false;
+                r.ErrorMessage = "Game already exists.";
+            }
             return r;
         }
-        public JoinGameResult JoinGame(IDixitGame game)
+        private void InitGame(GameInfo gameinfo)
         {
-            throw new NotImplementedException();
+            gameinfo.Game.GameEnd += CurrentGame_GameEnd;
+            gameinfo.Game.PuttingPhaseEnd += CurrentGame_PuttingPhaseEnd;
+            gameinfo.Game.GuessPhaseEnd += CurrentGame_GuessPhaseEnd;
         }
+        public JoinGameResult JoinGame(string name)
+        {
+            var r = new JoinGameResult();
+            try
+            {
+                var ui = GetUserInfo();
+                var gi = GetGameInfo(name);
+                if (gi != null)
+                {
+                    var game = gi.Game;
+                    gi.Users.Add(ui);
+                    var player = gi.Game.AddPlayer(ui.Username);
+                    gi.Players[ui] = player;
+                }
+            }
+            catch (Exception e)
+            {
+                r.Success = false;
+                r.ErrorMessage = e.ToString();
+            }
+            return r;
+        }
+        private GameInfo GetGameInfo(string gamename)
+        {
+            if (string.IsNullOrEmpty(gamename)) { return null; }
+            var gi = Games.FirstOrDefault(x => x.GameName == gamename);
+            return gi;
+        }
+        private GameInfo GetGameInfo(UserInfo userinfo)
+        {
+            if (userinfo == null) { return null; }
+            var gi = Games.FirstOrDefault(x => x.Users.Contains(userinfo));
+            return gi;
+        }
+        private GameInfo GetGameInfo(IDixitGame game)
+        {
+            if (game == null) { return null; }
+            var gi = Games.FirstOrDefault(x => x.Game == game);
+            return gi;
+        }
+        private void CurrentGame_PuttingPhaseEnd(object sender, EventArgs e)
+        {
+            var game = sender as IDixitGame;
+            if (game != null)
+            {
+                var gameinfo = GetGameInfo(game);
+                if (gameinfo != null)
+                {
+                }
+            }
+        }
+        private void CurrentGame_GuessPhaseEnd(object sender, EventArgs e)
+        {
+            var game = sender as IDixitGame;
+            if (game != null)
+            {
+                var gameinfo = GetGameInfo(game);
+                if (gameinfo != null)
+                {
+                }
+            }
+        }
+        private void CurrentGame_GameEnd(object sender, EventArgs e)
+        {
+            var game = sender as IDixitGame;
+            if (game != null)
+            {
+                var gameinfo = GetGameInfo(game);
+                if (gameinfo != null)
+                {
+                    var state = game.ActualGameState;
+                    foreach (var user in gameinfo.Users)
+                    {
+                        var callback = user.Callback;
+                        callback.GameEnd(state);
+                    }
+                }
+            }
+        }
+
         public void LeaveGame(IDixitGame game)
         {
             throw new NotImplementedException();
@@ -59,7 +164,6 @@ namespace Dixit_Service
         {
             throw new NotImplementedException();
         }
-
         public SelectCardResult SelectCard(IDixitGame game, ICard card)
         {
             throw new NotImplementedException();

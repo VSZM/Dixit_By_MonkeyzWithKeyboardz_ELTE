@@ -102,6 +102,7 @@
     <Compile Include="DixitService.svc.cs">
       <DependentUpon>DixitService.svc</DependentUpon>
     </Compile>
+    <Compile Include="GameInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserInfo.cs" />
   </ItemGroup>

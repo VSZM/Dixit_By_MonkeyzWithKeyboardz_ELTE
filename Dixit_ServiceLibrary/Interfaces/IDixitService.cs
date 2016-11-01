@@ -38,7 +38,7 @@ namespace Dixit_ServiceLibrary.Interfaces
         /// <param name="game"></param>
         /// <returns></returns>
         [OperationContract(IsInitiating = false, IsTerminating = false)]
-        JoinGameResult JoinGame(IDixitGame game);
+        JoinGameResult JoinGame(string gamename);
         /// <summary>
         /// Jatek elhagyasa.
         /// </summary>
@@ -76,12 +76,12 @@ namespace Dixit_ServiceLibrary.Interfaces
     }
     public class JoinGameResult
     {
-        public bool Success;
+        public bool Success = true;
         public string ErrorMessage;
     }
     public class SelectCardResult
     {
-        public bool Success;
+        public bool Success = true;
         public string ErrorMessage;
     }
 }
