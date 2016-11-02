@@ -8,16 +8,16 @@ using Dixit_Logic.Interfaces;
 namespace Dixit_Logic.Classes
 {
     /// <summary>
-    /// The deck class firstly represents the main deck and the board deck(cards on the board). 
-    /// A Deck object consists of cards and it provides the basic operations what we want to 
-    /// do with a deck (e.g get a card from a deck, shuffle cards in a deck).
+    /// This class represnt a bit general card deck (as board deck). A Deck object consists of cards
+    /// and provides the basic operations what we want to do with a deck (e.g add 
+    /// cards to a deck, shuffle cards in a deck).
     /// </summary>
     class Deck : IDeck
     {
         /// <summary>
         /// It stores the list of cards what the deck contain.
         /// </summary>
-        private List<ICard> _cards;
+        protected List<ICard> _cards;
 
         /// <summary>
         /// Construct an empty deck
@@ -71,18 +71,6 @@ namespace Dixit_Logic.Classes
         public void EvacuateDeck()
         {
             _cards.Clear();
-        }
-
-        /// <summary>
-        /// It gives back the first card from the deck 
-        /// and ereases that from the deck.
-        /// </summary>
-        /// <returns>The first card from the deck</returns>
-        public ICard DrawCard()
-        {
-            ICard card = _cards.First();
-            _cards.Remove(card);
-            return card;
         }
 
         /// <summary>
