@@ -18,20 +18,14 @@ namespace Dixit_Logic.Interfaces
         int Id
         {
             get;
-            set;
         }
 
         /// <summary>
-        /// It put a card(by the param) from the player own cards. This card will erase from the player's cards.
+        /// The name of the player
         /// </summary>
-        /// <param name="chosenCard">The card what the player will put.</param>
-        /// <returns>It return with his chosenCard param.</returns>
-        ICard PutCard(ICard chosenCard);
-
-        /// <summary>
-        /// Add a new card to the player hand (to his owen cards).
-        /// </summary>
-        /// <param name="newCard">The new card what will add to the player own cards</param>
-        void GetCard(ICard newCard);
+        string Name
+        {
+            get;
+        }
     }
 }
