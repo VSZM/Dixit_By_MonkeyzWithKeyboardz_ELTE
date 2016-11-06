@@ -1,44 +1,50 @@
 ﻿using Dixit_Data.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Images;
+using System.Drawing;
+using Dixit_Data.Properties;
+using System.Resources;
+using System.Globalization;
+using System.Collections;
 
 namespace Dixit_Data
 {
     /// <summary>
-    /// This class gives the ids of the images 
-    /// and gives an image by its id.
+    /// Loads images for cards.
     /// </summary>
     class CardAccess : ICardAccess
     {
         /// <summary>
-        /// Get the ids of images in a list.
+        /// Gets ids in a list.
         /// </summary>
-        /// <returns>ids of images</returns>
-        List<int> ICardAccess.GetIDList()
+        /// <returns></returns>
+        public List<int> GetIDList()
         {
-            List<int> ids = new List<int>();
-
-            for(int i = 1; i < 3; ++i)
+            List<int> tempList = new List<int>();
+            ResourceManager rm = Properties.Resources.ResourceManager;
+            ResourceSet resourceSet = rm.GetResourceSet(CultureInfo.CurrentUICulture, true, true);
+            foreach (DictionaryEntry entry in resourceSet)
             {
-                ids.Add(i);
+                string resourceKey = entry.Key.ToString();
+                int idName = Int32.Parse(resourceKey.Substring(1, resourceKey.Length - 1));
+                tempList.Add(idName);
             }
 
-            return ids;
+            return tempList;
         }
 
         /// <summary>
-        /// Get the image by its id.
+        /// Gets an imaage by its id.
         /// </summary>
-        /// <param name="id">id of an image</param>
-        /// <returns>image</returns>
-        Bitmap ICardAccess.GetImageById(int id)
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Bitmap GetImageById(int id)
         {
-            return Images.ImagesDll.GetImageById(id);
+            string newName = "_" + id.ToString();
+            return (Bitmap)Resources.ResourceManager.GetObject(newName);
         }
     }
 }
