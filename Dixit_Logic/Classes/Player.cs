@@ -64,7 +64,7 @@ namespace Dixit_Logic.Classes
 
         /// <summary>
         /// Compare a Player object with another object to determine they are equal or not.
-        /// Compare two Palyer objects basd on their names and identifieres.
+        /// Compare two Palyer objects basd on identifieres.
         /// </summary>
         /// <param name="obj">Another object</param>
         /// <returns>If the player equals with obj than return true otherwise return flase</returns>
@@ -77,17 +77,17 @@ namespace Dixit_Logic.Classes
             }
 
             Player p = (Player)obj;
-            return (_id == p._id) && (_name == p._name);
+            return (_id == p._id);
         }
 
         /// <summary>
-        /// Make a hash code basd on the identifier and name has code.
+        /// Make a hash code basd on the identifier
         /// </summary>
         /// <returns>A hash code</returns>
         // override object.GetHashCode
         public override int GetHashCode()
         {
-            return _id.GetHashCode() ^ _name.GetHashCode();
+            return _id.GetHashCode();
         }
     }
 }

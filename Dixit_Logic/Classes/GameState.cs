@@ -16,7 +16,7 @@ namespace Dixit_Logic.Classes
         /// <summary>
         /// Store the player who start the actual turn.
         /// </summary>
-        private IPlayer _actPlayer;
+        private IPlayer _storyTeller;
 
         /// <summary>
         /// Store the deck which contains the cards what the players put on the table.
@@ -26,7 +26,7 @@ namespace Dixit_Logic.Classes
         /// <summary>
         /// Store a text what describes the association of turn's starter card.
         /// </summary>
-        private string _cardAssocText;
+        private string _storyText;
 
         /// <summary>
         /// Store a dictionary associate a palyer with his/her guess.
@@ -58,9 +58,9 @@ namespace Dixit_Logic.Classes
         /// </summary>
         public GameState()
         {
-            _actPlayer = null;
+            _storyTeller = null;
             //_boardDeck = new IDeck();
-            _cardAssocText = "";
+            _storyText = "";
             _guesses = new Dictionary<IPlayer, ICard>();
             _hands = new Dictionary<IPlayer, IDeck>();
             //_mainDeck = new IDeck();
@@ -75,12 +75,12 @@ namespace Dixit_Logic.Classes
         {
             get
             {
-                return _actPlayer;
+                return _storyTeller;
             }
 
             internal set
             {
-                _actPlayer = value;
+                _storyTeller = value;
             }
         }
 
@@ -107,12 +107,12 @@ namespace Dixit_Logic.Classes
         {
             get
             {
-                return _cardAssocText;
+                return _storyText;
             }
 
             internal set
             {
-                _cardAssocText = value;
+                _storyText = value;
             }
         }
 
