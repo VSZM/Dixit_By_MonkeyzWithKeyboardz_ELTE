@@ -248,14 +248,10 @@ namespace Dixit_Client.DixitService1 {
         System.Threading.Tasks.Task<Dixit_Client.DixitService1.CreateGameResult> CreateGameAsync(string name);
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDixitService/JoinGame", ReplyAction="http://tempuri.org/IDixitService/JoinGameResponse")]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<object>))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Dixit_Client.DixitService1.CreateGameResult))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Dixit_Client.DixitService1.JoinGameResult))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Dixit_Client.DixitService1.SelectCardResult))]
-        Dixit_Client.DixitService1.JoinGameResult JoinGame(object game);
+        Dixit_Client.DixitService1.JoinGameResult JoinGame(string gamename);
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDixitService/JoinGame", ReplyAction="http://tempuri.org/IDixitService/JoinGameResponse")]
-        System.Threading.Tasks.Task<Dixit_Client.DixitService1.JoinGameResult> JoinGameAsync(object game);
+        System.Threading.Tasks.Task<Dixit_Client.DixitService1.JoinGameResult> JoinGameAsync(string gamename);
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDixitService/LeaveGame", ReplyAction="http://tempuri.org/IDixitService/LeaveGameResponse")]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<object>))]
@@ -373,12 +369,12 @@ namespace Dixit_Client.DixitService1 {
             return base.Channel.CreateGameAsync(name);
         }
         
-        public Dixit_Client.DixitService1.JoinGameResult JoinGame(object game) {
-            return base.Channel.JoinGame(game);
+        public Dixit_Client.DixitService1.JoinGameResult JoinGame(string gamename) {
+            return base.Channel.JoinGame(gamename);
         }
         
-        public System.Threading.Tasks.Task<Dixit_Client.DixitService1.JoinGameResult> JoinGameAsync(object game) {
-            return base.Channel.JoinGameAsync(game);
+        public System.Threading.Tasks.Task<Dixit_Client.DixitService1.JoinGameResult> JoinGameAsync(string gamename) {
+            return base.Channel.JoinGameAsync(gamename);
         }
         
         public void LeaveGame(object game) {

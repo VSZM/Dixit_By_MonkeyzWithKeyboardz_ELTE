@@ -174,7 +174,11 @@ namespace Dixit_Service
         }
         public static IEnumerable<Type> RegisterKnownTypes(ICustomAttributeProvider provider)
         {
-            return Dixit_Logic.KnownTypesProvider.GetKnownTypes();
+            return Dixit_Logic.KnownTypesProvider.GetKnownTypes().Union(GetKnownTypes());
+        }
+        private static IEnumerable<Type> GetKnownTypes()
+        {
+            yield break;
         }
     }
 }

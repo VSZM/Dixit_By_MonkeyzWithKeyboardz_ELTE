@@ -44,6 +44,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.IdentityModel" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
@@ -76,6 +77,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Extensions\Extensions.cs" />
+    <Compile Include="Model\DixitServiceCallback.cs" />
+    <Compile Include="Model\Model.cs" />
     <Compile Include="Service References\DixitService1\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
