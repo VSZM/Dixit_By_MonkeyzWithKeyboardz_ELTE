@@ -29,7 +29,7 @@ namespace Dixit_Data
             foreach (DictionaryEntry entry in resourceSet)
             {
                 string resourceKey = entry.Key.ToString();
-                int idName = Int32.Parse(resourceKey.Substring(1, resourceKey.Length - 1));
+                int idName = Int32.Parse(resourceKey);
                 tempList.Add(idName);
             }
 
