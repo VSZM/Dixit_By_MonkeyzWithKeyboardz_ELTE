@@ -12,30 +12,27 @@ namespace Dixit_Logic.Interfaces
     public interface IGameState
     {
         /// <summary>
-        /// It contain all players who playe in the actual game. 
+        /// It contains all players who playe in the actual game. 
         /// </summary>
         IList<IPlayer> Players
         {
             get;
-            set;
         }
 
         /// <summary>
-        /// This dictionary associate a palyer with own deck.
+        /// This dictionary associate a palyer with his/her own deck.
         /// </summary>
         Dictionary<IPlayer, IDeck> Hands
         {
             get;
-            set;
         }
 
         /// <summary>
-        /// This dictionary associate a palyer with own game's point value.
+        /// This dictionary associate a palyer with his/her own game-point value.
         /// </summary>
         Dictionary<IPlayer, int> Points
         {
             get;
-            set;
         }
 
         /// <summary>
@@ -45,7 +42,6 @@ namespace Dixit_Logic.Interfaces
         Dictionary<IPlayer, ICard> Guesses
         {
             get;
-            set;
         }
 
         /// <summary>
@@ -54,7 +50,6 @@ namespace Dixit_Logic.Interfaces
         IPlayer ActualPlayer
         {
             get;
-            set;
         }
 
         /// <summary>
@@ -63,7 +58,6 @@ namespace Dixit_Logic.Interfaces
         String CardAssociationText
         {
             get;
-            set;
         }
 
         /// <summary>
@@ -72,7 +66,6 @@ namespace Dixit_Logic.Interfaces
         IDeck MainDeck
         {
             get;
-            set;
         }
 
         /// <summary>
@@ -81,7 +74,6 @@ namespace Dixit_Logic.Interfaces
         IDeck BoardDeck
         {
             get;
-            set;
         }
     }
 }

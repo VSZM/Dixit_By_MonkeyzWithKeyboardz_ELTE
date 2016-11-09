@@ -17,7 +17,6 @@ namespace Dixit_Logic.Interfaces
         IGameState ActualGameState
         {
             get;
-            set;
         }
 
         /// <summary>
@@ -25,17 +24,18 @@ namespace Dixit_Logic.Interfaces
         /// </summary>
         /// <param name="name">The name of the player.</param>
         /// <returns>The new player</returns>
-        IPlayer AddPlayer(String name);
+        IPlayer AddPlayer(string name);
 
         /// <summary>
-        /// This method put a card from the player's cards to the BoardDeck(in ActualGameState).
+        /// This method put a card from the player's hands to the board deck(in ActualGameState).
         /// </summary>
         /// <param name="player">The player who put the card</param>
         /// <param name="card">The card what will be put by "player".</param>
         void PutCard(IPlayer player, ICard card);
 
         /// <summary>
-        /// This will add a new guess to what was the original card in the actual turn. The guess will store under the given player.
+        /// This will add a new guess to what was the original card in the actual turn.
+        /// The guess will be assigned to the given player (in ActualGameState). 
         /// </summary>
         /// <param name="player">The player who add the guess</param>
         /// <param name="card">The card is guessed by "player"</param>
