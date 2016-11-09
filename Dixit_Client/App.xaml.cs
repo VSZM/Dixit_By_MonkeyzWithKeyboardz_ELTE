@@ -37,8 +37,8 @@ namespace Dixit_Client
         public App()
         {
             _loginViewModel = new LoginViewModel();
-            _loginViewModel.LoginFailed += new EventHandler(ViewModel_LoginFailed);
-            _loginViewModel.LoginSuccess += new EventHandler(ViewModel_LoginSuccess);
+            _loginViewModel.Failed += new EventHandler(ViewModel_LoginFailed);
+            _loginViewModel.Success += new EventHandler(ViewModel_LoginSuccess);
         }
 
         private void ViewModel_LoginFailed(object sender, EventArgs e)
