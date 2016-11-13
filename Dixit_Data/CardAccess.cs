@@ -15,7 +15,7 @@ namespace Dixit_Data
     /// <summary>
     /// Loads images for cards.
     /// </summary>
-    class CardAccess : ICardAccess
+    public class CardAccess : ICardAccess
     {
         /// <summary>
         /// Gets ids in a list.
