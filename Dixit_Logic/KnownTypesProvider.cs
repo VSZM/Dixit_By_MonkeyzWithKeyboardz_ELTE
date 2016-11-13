@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Dixit_Logic.Classes;
 
 namespace Dixit_Logic
 {
@@ -11,7 +12,7 @@ namespace Dixit_Logic
     {
         public static IEnumerable<Type> GetKnownTypes()
         {
-            yield break;
+            return new Type[] { typeof(Player), typeof(GameState), typeof(DixitGame) };
         }
     }
 }
