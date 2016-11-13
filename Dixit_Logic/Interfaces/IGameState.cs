@@ -28,6 +28,14 @@ namespace Dixit_Logic.Interfaces
         }
 
         /// <summary>
+        /// It indicate that the game is started or not
+        /// </summary>
+        bool GameIsRuning
+        {
+            get;
+        }
+
+        /// <summary>
         /// This dictionary associate a palyer with his/her own game-point value.
         /// </summary>
         Dictionary<IPlayer, int> Points
