@@ -11,7 +11,7 @@ namespace Dixit_Logic.Classes
     /// This class represent a dixit game. It contains the actual game state and 
     /// the operations which are modify the game state.
     /// </summary>
-    class DixitGame : IDixitGame
+    public class DixitGame : IDixitGame
     {
         /// <summary>
         /// Minimum number of player who can playe in a dixt game.

@@ -13,7 +13,7 @@ namespace Dixit_Logic.Classes
     /// This class describes a state of game. Every property have internal set method
     /// so only the logic can modify the game state.
     /// </summary>
-    class GameState : IGameState
+    public class GameState : IGameState
     {
         /// <summary>
         /// Store the player who start the actual turn.
