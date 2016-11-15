@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 
 using Dixit_Data;
+using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace Dixit_Client.ViewModel
 {
@@ -22,8 +24,12 @@ namespace Dixit_Client.ViewModel
             {
                 return Binding.DoNothing;
             }
-            
-            return ca.GetImageById((int)value);
+
+            return System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+                ca.GetImageById((int)value).GetHbitmap(),
+                IntPtr.Zero,
+                Int32Rect.Empty,
+                BitmapSizeOptions.FromEmptyOptions());
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
