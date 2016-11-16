@@ -44,6 +44,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
@@ -82,6 +83,8 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\DixitClientViewModel.cs" />
+    <Compile Include="ViewModel\LoginViewModel.cs" />
+    <Compile Include="ViewModel\PictureConverter.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
@@ -145,6 +148,10 @@
     <Folder Include="Mockup\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Dixit_Data\Dixit_Data.csproj">
+      <Project>{aefe4b12-e97f-465b-9256-54fb906b97b8}</Project>
+      <Name>Dixit_Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dixit_Logic\Dixit_Logic.csproj">
       <Project>{bd164dd7-6cfe-4b43-b12f-86ee174d75c2}</Project>
       <Name>Dixit_Logic</Name>
