@@ -37,5 +37,11 @@ namespace Dixit_Client.ViewModel
         /// </summary>
         public String ClueSentence { get; private set; }
 
+        public int asd { get; set; }
+
+        public DixitClientViewModel()
+        {
+            asd = 1;
+        }
     }
 }

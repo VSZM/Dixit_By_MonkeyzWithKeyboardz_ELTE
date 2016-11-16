@@ -4,9 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Dixit_Client"
+        xmlns:vm="clr-namespace:Dixit_Client.ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <vm:PictureConverter x:Key="PictureConverter" />
+    </Window.Resources>
     <Grid>
-        
+        <Image Source="{Binding Path=asd, Converter={StaticResource PictureConverter}}"></Image>
     </Grid>
 </Window>

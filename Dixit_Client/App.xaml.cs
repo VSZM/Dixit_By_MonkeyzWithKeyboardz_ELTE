@@ -29,9 +29,14 @@ namespace Dixit_Client
         {
             base.OnStartup(e);
 
-            _loginWindow = new LoginWindow();
-            _loginWindow.DataContext = _loginViewModel;
-            _loginWindow.Show();
+            //_loginWindow = new LoginWindow();
+            //_loginWindow.DataContext = _loginViewModel;
+            //_loginWindow.Show();
+
+            _mainWindow = new MainWindow();
+            _gameViewModel = new DixitClientViewModel();
+            _mainWindow.DataContext = _gameViewModel;
+            _mainWindow.Show();
         }
 
         public App()
