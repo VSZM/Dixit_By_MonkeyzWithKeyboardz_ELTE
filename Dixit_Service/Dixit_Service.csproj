@@ -104,8 +104,24 @@
       <DependentUpon>DixitService.svc</DependentUpon>
     </Compile>
     <Compile Include="GameInfo.cs" />
+    <Compile Include="Library\DataContracts\Card.cs" />
+    <Compile Include="Library\DataContracts\Deck.cs" />
+    <Compile Include="Library\DataContracts\GameState.cs" />
+    <Compile Include="Library\DataContracts\JoinGameResult.cs" />
+    <Compile Include="Library\DataContracts\Player.cs" />
+    <Compile Include="Library\Interfaces\IDixitService.cs" />
+    <Compile Include="Library\Interfaces\IDixitServiceCallback.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dixit.Common\Dixit.Common.csproj">
@@ -116,19 +132,6 @@
       <Project>{bd164dd7-6cfe-4b43-b12f-86ee174d75c2}</Project>
       <Name>Dixit_Logic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Dixit_ServiceLibrary\Dixit_ServiceLibrary.csproj">
-      <Project>{a34be0e1-5539-431e-8330-d8fb6b543ef6}</Project>
-      <Name>Dixit_ServiceLibrary</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="packages.config" />
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

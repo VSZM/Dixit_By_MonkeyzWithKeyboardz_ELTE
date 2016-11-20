@@ -38,8 +38,8 @@
     <Reference Include="Images">
       <HintPath>..\..\Images\Images\bin\Debug\Images.dll</HintPath>
     </Reference>
-    <Reference Include="SimpleInjector, Version=3.2.2.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
-      <HintPath>..\packages\SimpleInjector.3.2.2\lib\net45\SimpleInjector.dll</HintPath>
+    <Reference Include="SimpleInjector, Version=3.2.7.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.3.2.7\lib\net45\SimpleInjector.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -80,6 +80,11 @@
     </Compile>
     <Compile Include="Model\DixitServiceCallback.cs" />
     <Compile Include="Model\Model.cs" />
+    <Compile Include="Service References\DixitService1\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\DixitClientViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\PictureConverter.cs" />
@@ -116,6 +121,25 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Service References\DixitService1\DixitService.wsdl" />
+    <None Include="Service References\DixitService1\DixitService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\DixitService1\DixitService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\DixitService1\DixitService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\DixitService1\DixitService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\DixitService1\DixitService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\DixitService1\Dixit_Client.DixitService1.JoinGameResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -139,6 +163,24 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\DixitService1\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\DixitService1\DixitService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\DixitService1\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\DixitService1\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\DixitService1\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
