@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="18ba100d-0f80-4800-a9ff-db973372f040" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="b8163296-6e9e-4782-bb88-0a902dd4f8ee" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -24,13 +24,13 @@
     <MetadataSource Address="http://localhost:61203/DixitService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="DixitService.disco" MetadataType="Disco" ID="129b31f6-3764-4174-b4e0-6bcc75a38c61" SourceId="1" SourceUrl="http://localhost:61203/DixitService.svc?disco" />
-    <MetadataFile FileName="DixitService.xsd" MetadataType="Schema" ID="9cd302e9-2898-4aa9-82d5-995ad936f404" SourceId="1" SourceUrl="http://localhost:61203/DixitService.svc?xsd=xsd1" />
-    <MetadataFile FileName="DixitService1.xsd" MetadataType="Schema" ID="17093b9f-591e-4452-8f0d-ed41555c5cee" SourceId="1" SourceUrl="http://localhost:61203/DixitService.svc?xsd=xsd4" />
-    <MetadataFile FileName="DixitService2.xsd" MetadataType="Schema" ID="bbcaf832-07f1-4b83-bcb8-e878e84bced0" SourceId="1" SourceUrl="http://localhost:61203/DixitService.svc?xsd=xsd0" />
-    <MetadataFile FileName="DixitService.wsdl" MetadataType="Wsdl" ID="5b7feed5-22cd-4d91-8c0b-ddd2abfd2b6a" SourceId="1" SourceUrl="http://localhost:61203/DixitService.svc?wsdl" />
-    <MetadataFile FileName="DixitService3.xsd" MetadataType="Schema" ID="f4f9d87d-d39c-421d-b43d-ea212b0e4c7f" SourceId="1" SourceUrl="http://localhost:61203/DixitService.svc?xsd=xsd2" />
-    <MetadataFile FileName="DixitService4.xsd" MetadataType="Schema" ID="5e3e8bf3-6390-438c-9bba-e56865b856c9" SourceId="1" SourceUrl="http://localhost:61203/DixitService.svc?xsd=xsd3" />
+    <MetadataFile FileName="DixitService.disco" MetadataType="Disco" ID="0e5b2210-191e-4c6f-8ce9-372bacf9d919" SourceId="1" SourceUrl="http://localhost:61203/DixitService.svc?disco" />
+    <MetadataFile FileName="DixitService.xsd" MetadataType="Schema" ID="2986372a-2e3c-45b8-8965-9a781fb85c9d" SourceId="1" SourceUrl="http://localhost:61203/DixitService.svc?xsd=xsd1" />
+    <MetadataFile FileName="DixitService1.xsd" MetadataType="Schema" ID="c67eea40-c2b1-47f4-be16-a52951ef3507" SourceId="1" SourceUrl="http://localhost:61203/DixitService.svc?xsd=xsd4" />
+    <MetadataFile FileName="DixitService2.xsd" MetadataType="Schema" ID="e152e7e3-d53b-4590-b70f-ca3652d11bd1" SourceId="1" SourceUrl="http://localhost:61203/DixitService.svc?xsd=xsd0" />
+    <MetadataFile FileName="DixitService.wsdl" MetadataType="Wsdl" ID="59dd8cbd-3a36-4481-98f9-1830d9e8c22e" SourceId="1" SourceUrl="http://localhost:61203/DixitService.svc?wsdl" />
+    <MetadataFile FileName="DixitService3.xsd" MetadataType="Schema" ID="bd3667d7-189b-4826-bd13-95562bc019d6" SourceId="1" SourceUrl="http://localhost:61203/DixitService.svc?xsd=xsd2" />
+    <MetadataFile FileName="DixitService4.xsd" MetadataType="Schema" ID="bda3ae1e-0924-495c-b01b-6304cd47cbba" SourceId="1" SourceUrl="http://localhost:61203/DixitService.svc?xsd=xsd3" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

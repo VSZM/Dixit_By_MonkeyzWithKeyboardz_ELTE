@@ -22,7 +22,7 @@ namespace Dixit_Service
         private IDixitGame CurrentGame { get { return GameInfo?.Game; } }
 
         #region login methods
-        public void Login()
+        public void Login(string username)
         {
             GetUserInfo();
         }
@@ -42,6 +42,7 @@ namespace Dixit_Service
         {
             UserInfo ui = null;
             var username = OperationContext.Current.ServiceSecurityContext.PrimaryIdentity.Name;
+            //var username = System.Threading.Thread.CurrentPrincipal.Identity.Name;
             if (!Users.Any(x => x.Username == username))
             {
                 ui = new UserInfo();

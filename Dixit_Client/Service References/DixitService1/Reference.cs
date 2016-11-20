@@ -403,10 +403,10 @@ namespace Dixit_Client.DixitService1 {
     public interface IDixitService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDixitService/Login", ReplyAction="http://tempuri.org/IDixitService/LoginResponse")]
-        void Login();
+        void Login(string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDixitService/Login", ReplyAction="http://tempuri.org/IDixitService/LoginResponse")]
-        System.Threading.Tasks.Task LoginAsync();
+        System.Threading.Tasks.Task LoginAsync(string username);
         
         [System.ServiceModel.OperationContractAttribute(IsTerminating=true, IsInitiating=false, Action="http://tempuri.org/IDixitService/Logout", ReplyAction="http://tempuri.org/IDixitService/LogoutResponse")]
         void Logout();
@@ -498,12 +498,12 @@ namespace Dixit_Client.DixitService1 {
                 base(callbackInstance, binding, remoteAddress) {
         }
         
-        public void Login() {
-            base.Channel.Login();
+        public void Login(string username) {
+            base.Channel.Login(username);
         }
         
-        public System.Threading.Tasks.Task LoginAsync() {
-            return base.Channel.LoginAsync();
+        public System.Threading.Tasks.Task LoginAsync(string username) {
+            return base.Channel.LoginAsync(username);
         }
         
         public void Logout() {

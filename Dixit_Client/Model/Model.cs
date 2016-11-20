@@ -37,8 +37,9 @@ namespace Dixit_Client.Model
                 serviceclient.ClientCredentials.ServiceCertificate.Authentication.CertificateValidationMode = System.ServiceModel.Security.X509CertificateValidationMode.None;
                 serviceclient.ClientCredentials.UserName.UserName = username;
                 serviceclient.ClientCredentials.UserName.Password = "";
+                //serviceclient.ClientCredentials.Cli
 
-                serviceclient.Login();
+                serviceclient.Login(username);
 
                 isloggedin = true;
                 LoginSuccessEvent?.Invoke(this, EventArgs.Empty);
@@ -46,7 +47,7 @@ namespace Dixit_Client.Model
             catch(Exception e)
             {
                 isloggedin = false;
-                LoginFailedEvent.Invoke(this, e);
+                LoginFailedEvent?.Invoke(this, e);
             }
         }
         public void Logout()

@@ -15,7 +15,7 @@ namespace Dixit_ServiceLibrary.Interfaces
     {
         #region login operations
         [OperationContract(IsInitiating = true, IsTerminating = false)]
-        void Login();
+        void Login(string username);
         [OperationContract(IsInitiating = false, IsTerminating = true)]
         void Logout();
         #endregion login operations

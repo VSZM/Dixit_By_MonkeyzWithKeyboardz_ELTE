@@ -9,6 +9,7 @@ namespace Dixit_Service
 {
     public class UserInfo
     {
+        public string Id;
         public string Username;
         public IDixitServiceCallback Callback;
     }
