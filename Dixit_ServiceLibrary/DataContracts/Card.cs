@@ -10,6 +10,7 @@ namespace Dixit_Service.DataContracts
     [DataContract]
     public class Card : ICard
     {
+        [DataMember]
         public int Id { get; set; }
 
         public Card() { }

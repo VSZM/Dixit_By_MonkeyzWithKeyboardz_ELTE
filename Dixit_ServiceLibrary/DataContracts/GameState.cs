@@ -10,17 +10,27 @@ using System.Threading.Tasks;
 namespace Dixit_ServiceLibrary.DataContracts
 {
     [DataContract]
+    [KnownType("GetKnownTypes")]
     public class GameState
     {
+        [DataMember]
         public bool GameIsRunning { get; internal set; }
+        [DataMember]
         public Player ActualPlayer { get; internal set; }
+        [DataMember]
         public string CardAssociationText { get; internal set; }
+        [DataMember]
         public Deck MainDeck { get; internal set; }
+        [DataMember]
         public Deck BoardDeck { get; internal set; }
 
+        [DataMember]
         public List<Player> Players { get; internal set; }
+        [DataMember]
         public Dictionary<Player, Deck> Hands { get; internal set; }
+        [DataMember]
         public Dictionary<Player, int> Points { get; internal set; }
+        [DataMember]
         public Dictionary<Player, Card> Guesses { get; internal set; }
 
         public GameState() { }
@@ -43,6 +53,19 @@ namespace Dixit_ServiceLibrary.DataContracts
         public GameState ToPlayerState(IPlayer player)
         {
             return this;
+        }
+
+        static Type[] GetKnownTypes()
+        {
+            return new Type[] {
+                typeof(Player),
+                typeof(Deck),
+                typeof(Card),
+                typeof(List<Player>),
+                typeof(Dictionary<Player, Deck>),
+                typeof(Dictionary<Player, int>),
+                typeof(Dictionary<Player, Card>),
+            };
         }
     }
 }

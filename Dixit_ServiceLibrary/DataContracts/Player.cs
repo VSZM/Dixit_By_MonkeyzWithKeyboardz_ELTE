@@ -11,7 +11,9 @@ namespace Dixit_ServiceLibrary.DataContracts
     [DataContract]
     public class Player
     {
+        [DataMember]
         public int Id { get; internal set; }
+        [DataMember]
         public string Name { get; internal set; }
 
         public Player() { }

@@ -13,17 +13,44 @@ namespace Dixit_Client.Model
         public EventHandler GameStartEvent;
         public EventHandler GameStateChangedEvent;
 
+        public void GameEnd(GameState state)
+        {
+            throw new NotImplementedException();
+        }
+
         public void GameEnd(object state)
         {
-            GameEndEvent.Raise(this);
+            GameEndEvent?.Invoke(this, EventArgs.Empty);
         }
+
+        public void GameStart(GameState state)
+        {
+            throw new NotImplementedException();
+        }
+
         public void GameStart(object state)
         {
-            GameStartEvent.Raise(this);
+            GameStartEvent?.Invoke(this, EventArgs.Empty);
         }
+
+        public void GameStateChanged(GameState state)
+        {
+            throw new NotImplementedException();
+        }
+
         public void GameStateChanged(object state)
         {
-            GameStateChangedEvent.Raise(this);
+            GameStateChangedEvent?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void GuessPhaseEnd()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void PuttingPhaseEnd()
+        {
+            throw new NotImplementedException();
         }
     }
 }

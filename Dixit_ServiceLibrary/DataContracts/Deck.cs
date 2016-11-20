@@ -10,8 +10,10 @@ using System.Threading.Tasks;
 namespace Dixit_ServiceLibrary.DataContracts
 {
     [DataContract]
+    [KnownType("GetKnownTypes")]
     public class Deck
     {
+        [DataMember]
         public List<Card> Cards { get; internal set; } = new List<Card>();
 
         public Deck() { }
@@ -22,6 +24,10 @@ namespace Dixit_ServiceLibrary.DataContracts
             {
                 Cards.Add(new Card(icard));
             }       
+        }
+        static Type[] GetKnownTypes()
+        {
+            return new Type[] { typeof(List<Card>) };
         }
     }
 }

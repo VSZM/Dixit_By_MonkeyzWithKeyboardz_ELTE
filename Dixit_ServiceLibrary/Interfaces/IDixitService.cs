@@ -64,7 +64,6 @@ namespace Dixit_ServiceLibrary.Interfaces
         [OperationContract(IsInitiating = false, IsTerminating = false)]
         void PutCard(Card card);
         #endregion in-game operations
-
     }
 
 }

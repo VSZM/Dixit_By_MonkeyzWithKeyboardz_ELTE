@@ -147,7 +147,6 @@ namespace Dixit_Service
             var player = GetPlayer();
             CurrentGame.NewGuess(player, GetCard(card));
             GameStateChanged();
-
         }
         private void CurrentGame_GuessPhaseEnd(object sender, EventArgs e)
         {
