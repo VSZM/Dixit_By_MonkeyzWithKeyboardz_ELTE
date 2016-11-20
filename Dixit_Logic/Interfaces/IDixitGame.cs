@@ -80,5 +80,7 @@ namespace Dixit_Logic.Interfaces
         /// This event is triggered at the start of a trun when all cards are consumed from the MainDeck and players have no more cards too .
         /// </summary>
         event EventHandler GameEnd;
+
+        IEnumerable<ICard> GetAllCards();
     }
 }

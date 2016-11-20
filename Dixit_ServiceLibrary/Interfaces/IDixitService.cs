@@ -29,6 +29,11 @@ namespace Dixit_ServiceLibrary.Interfaces
         [OperationContract(IsInitiating = false, IsTerminating = false)]
         JoinGameResult JoinGame();
         /// <summary>
+        /// Jatek elinditasa.
+        /// </summary>
+        [OperationContract(IsInitiating = false, IsTerminating = false)]
+        void StartGame();
+        /// <summary>
         /// Jatek elhagyasa.
         /// </summary>
         [OperationContract(IsInitiating = false, IsTerminating = false)]
@@ -37,20 +42,27 @@ namespace Dixit_ServiceLibrary.Interfaces
 
         #region in-game operations
         /// <summary>
+        /// A kartyahoz tarsitott tortenet megadas.
+        /// </summary>
+        /// <param name="card">A tortenet szoveg.</param>
+        /// <returns></returns>
+        [OperationContract(IsInitiating = false, IsTerminating = false)]
+        void AddAssociationText(string story);
+        /// <summary>
         /// A tortenet es a kezdokartya meghatarozasahoz.
         /// </summary>
         /// <param name="card">A valasztando kartya.</param>
         /// <param name="story">A kartyahoz tartozo tortenet.</param>
         /// <returns></returns>
         [OperationContract(IsInitiating = false, IsTerminating = false)]
-        SelectCardResult SelectCardWithStory(Card card, string story);
+        void NewGuess(Card card);
         /// <summary>
         /// A jatekos sajat kartyai kozul valo valasztashoz, valamint a tortenethez legjobban hasonlito kartya valasztasahoz.
         /// </summary>
         /// <param name="card">A valasztando kartya.</param>
         /// <returns></returns>
         [OperationContract(IsInitiating = false, IsTerminating = false)]
-        SelectCardResult SelectCard(Card card);
+        void PutCard(Card card);
         #endregion in-game operations
 
     }

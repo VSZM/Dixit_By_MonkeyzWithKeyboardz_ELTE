@@ -51,8 +51,24 @@ namespace Dixit_Service
             }
             return ui;
         }
+        private IPlayer GetPlayer()
+        {
+            var ui = GetUserInfo();
+            return GetPlayer(ui);
+        }
+        private IPlayer GetPlayer(UserInfo ui)
+        {
+            if (ui == null) { return null; }
+            IPlayer player = null;
+            if (GameInfo.Players.TryGetValue(ui, out player))
+            {
+                return player;
+            }
+            return null;
+        }
         #endregion login methods
 
+        #region game methods
         public JoinGameResult JoinGame()
         {
             var ui = GetUserInfo();
@@ -65,11 +81,14 @@ namespace Dixit_Service
             }
             else
             {
-                //if (CurrentGame.MaxPlayerCount > CurrentGame.PlayerCount) //TODO
+                if (CurrentGame.ActualGameState.GameIsRuning)
                 {
-                    GameInfo.AddPlayer(ui);
-                    r.Success = true;
+                    r.Success = false;
+                    r.ErrorMessage = "Game is running";
+                    return r;
                 }
+                GameInfo.AddPlayer(ui);
+                r.Success = true;
             }
             return r;
         }
@@ -78,33 +97,22 @@ namespace Dixit_Service
             var r = Injector.Container.GetInstance<IDixitGame>();
             GameInfo = new GameInfo();
             GameInfo.Game = r;
+            GameInfo.Cards = r.GetAllCards().ToDictionary(c => Card.Get(c.Id), c => c);
             r.GameEnd += CurrentGame_GameEnd;
             r.PuttingPhaseEnd += CurrentGame_PuttingPhaseEnd;
             r.GuessPhaseEnd += CurrentGame_GuessPhaseEnd;
         }
-        private void CurrentGame_GuessPhaseEnd(object sender, EventArgs e)
+        public void StartGame()
         {
-            var ui = GetUserInfo();
-            foreach (var player in GameInfo.Players.Keys)
+            if (CurrentGame == null) { return; }
+            if (CurrentGame.StartGame())
             {
-
-            }
-        }
-        private void CurrentGame_PuttingPhaseEnd(object sender, EventArgs e)
-        {
-            var ui = GetUserInfo();
-            foreach (var player in GameInfo.Players.Keys)
-            {
-
-            }
-
-        }
-        private void CurrentGame_GameEnd(object sender, EventArgs e)
-        {
-            var state = new GameState();
-            foreach (var player in GameInfo.Players.Keys)
-            {
-                player.Callback.GameEnd(state);
+                var gamestate = GetGameState();
+                foreach (var ui in GameInfo.Players.Keys)
+                {
+                    var playerstate = gamestate.ToPlayerState(GetPlayer(ui));
+                    ui.Callback.GameStart(playerstate);
+                }
             }
         }
         public void LeaveGame()
@@ -112,21 +120,86 @@ namespace Dixit_Service
             if (CurrentGame == null) { return; }
             var ui = GetUserInfo();
             var player = GameInfo.Players[ui];
-            //CurrentGame.RemovePlayer(player); //TODO
+            CurrentGame.RemovePlayer(player);
         }
-        public SelectCardResult SelectCard(Card card)
-        {
-            var r = new SelectCardResult();
-            if (CurrentGame == null) { return r; }
-            //GameInfo.Game.PutCard(
-            return r;
-        }
-        public SelectCardResult SelectCardWithStory(Card card, string story)
-        {
-            var r = new SelectCardResult();
-            if (CurrentGame == null) { return r; }
+        #endregion game methods
 
-            return r;
+        #region in-game methods
+        public void AddAssociationText(string story)
+        {
+            if (CurrentGame == null) { return; }
+            //var player = GetPlayer();
+            CurrentGame.AddAssociationText(story);
+            var gamestate = CurrentGame.ActualGameState;
+            GameStateChanged();
+        }
+        public void PutCard(Card card)
+        {
+            if (CurrentGame == null) { return; }
+            var player = GetPlayer();
+            CurrentGame.PutCard(player, GetCard(card));
+            var gamestate = CurrentGame.ActualGameState;
+            GameStateChanged();
+        }
+        public void NewGuess(Card card)
+        {
+            if (CurrentGame == null) { return; }
+            var player = GetPlayer();
+            CurrentGame.NewGuess(player, GetCard(card));
+            GameStateChanged();
+
+        }
+        private void CurrentGame_GuessPhaseEnd(object sender, EventArgs e)
+        {
+            foreach (var ui in GameInfo.Players.Keys)
+            {
+                ui.Callback.GuessPhaseEnd();
+            }
+        }
+        private void CurrentGame_PuttingPhaseEnd(object sender, EventArgs e)
+        {
+            foreach (var ui in GameInfo.Players.Keys)
+            {
+                ui.Callback.PuttingPhaseEnd();
+            }
+        }
+        private void CurrentGame_GameEnd(object sender, EventArgs e)
+        {
+            var gamestate = GetGameState();
+            foreach (var ui in GameInfo.Players.Keys)
+            {
+                var playerstate = gamestate.ToPlayerState(GetPlayer(ui));
+                ui.Callback.GameEnd(playerstate);
+            }
+        }
+        #endregion in-game methods
+        private void GameStateChanged()
+        {
+            var gamestate = GetGameState();
+            foreach (var ui in GameInfo.Players.Keys)
+            {
+                var playerstate = gamestate.ToPlayerState(GetPlayer(ui));
+                ui.Callback.GameStateChanged(playerstate);
+            }
+        }
+        private ICard GetCard(int id)
+        {
+            ICard card = null;
+            if (GameInfo.Cards.TryGetValue(Card.Get(id), out card))
+            {
+                return card;
+            }
+            return null;
+        }
+        private ICard GetCard(Card card)
+        {
+            return GetCard(card.Id);
+        }
+        private GameState GetGameState()
+        {
+            if (CurrentGame == null) { return null; }
+            var state = new GameState(CurrentGame.ActualGameState);
+            return state;
         }
     }
 }

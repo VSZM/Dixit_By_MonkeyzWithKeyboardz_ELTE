@@ -178,5 +178,10 @@ namespace Dixit_Logic.Classes
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<ICard> GetAllCards()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

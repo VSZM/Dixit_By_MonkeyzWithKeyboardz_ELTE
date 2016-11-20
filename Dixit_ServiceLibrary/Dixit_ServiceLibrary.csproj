@@ -65,7 +65,6 @@
     <Compile Include="DataContracts\Card.cs" />
     <Compile Include="DataContracts\GameState.cs" />
     <Compile Include="DataContracts\JoinGameResult.cs" />
-    <Compile Include="DataContracts\SelectCardResult.cs" />
     <Compile Include="Interfaces\IDixitService.cs" />
     <Compile Include="Interfaces\IDixitServiceCallback.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

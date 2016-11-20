@@ -27,5 +27,15 @@ namespace Dixit_ServiceLibrary.Interfaces
         /// </summary>
         [OperationContract(IsOneWay = true)]
         void GameEnd(GameState state);
+        /// <summary>
+        /// Jelzes a klienseknek, hogy a kartya valasztasi fazis vegetert.
+        /// </summary>
+        [OperationContract(IsOneWay = true)]
+        void PuttingPhaseEnd();
+        /// <summary>
+        /// Jelzes a klienseknek, hogy a tippelesi fazis vegetert.
+        /// </summary>
+        [OperationContract(IsOneWay = true)]
+        void GuessPhaseEnd();
     }
 }
