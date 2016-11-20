@@ -64,7 +64,9 @@
   <ItemGroup>
     <Compile Include="DataContracts\Card.cs" />
     <Compile Include="DataContracts\GameState.cs" />
+    <Compile Include="DataContracts\Deck.cs" />
     <Compile Include="DataContracts\JoinGameResult.cs" />
+    <Compile Include="DataContracts\Player.cs" />
     <Compile Include="Interfaces\IDixitService.cs" />
     <Compile Include="Interfaces\IDixitServiceCallback.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
