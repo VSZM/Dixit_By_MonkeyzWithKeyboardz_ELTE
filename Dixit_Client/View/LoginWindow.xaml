@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Dixit_Client.View"
         mc:Ignorable="d"
-        Title="LoginWindow" Height="300" Width="300">
+        Title="LoginWindow" Height="768" Width="1024">
     <Grid>
-        
+        <Label x:Name="title_lbl" Content="DIXIT" Width="200" Margin="409,80,407,588" HorizontalContentAlignment="Center" FontSize="48" HorizontalAlignment="Center" Height="70"/>
     </Grid>
 </Window>

@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 
 namespace Dixit_Logic.Classes
 {
+    public enum PhaseStatus { AssociationTelling = 0, Putting = 1, Guessing = 2, RoundEnd = 3 };
+
     /// <summary>
     /// This class describes a state of game. Every property have internal set method
     /// so only the logic can modify the game state.
     /// </summary>
-    class GameState : IGameState
+    public class GameState : IGameState
     {
         /// <summary>
         /// Store the player who start the actual turn.
@@ -49,15 +51,25 @@ namespace Dixit_Logic.Classes
         private IList<IPlayer> _players;
 
         /// <summary>
+        /// Store a logical value wheter the game is started or not.
+        /// </summary>
+        private bool _gameIsRuning;
+
+        /// <summary>
         /// Store a dictionary what associate a palyer with his/her own game-point value.
         /// </summary>
         private Dictionary<IPlayer, int> _points;
 
         /// <summary>
+        /// Store a status about the phase of the current round.
+        /// </summary>
+        private PhaseStatus _roundStatus;
+
+        /// <summary>
         /// Construct a default game state.
         /// </summary>
         public GameState()
-        {
+        {          
             _storyTeller = null;
             //_boardDeck = new IDeck();
             _storyText = "";
@@ -65,7 +77,9 @@ namespace Dixit_Logic.Classes
             _hands = new Dictionary<IPlayer, IDeck>();
             //_mainDeck = new IDeck();
             _players = new List<IPlayer>();
+            _gameIsRuning = false;
             _points = new Dictionary<IPlayer, int>();
+            _roundStatus = PhaseStatus.AssociationTelling; // set to the game's round starting status
         }
 
         /// <summary>
@@ -181,6 +195,22 @@ namespace Dixit_Logic.Classes
         }
 
         /// <summary>
+        /// It indicate that the game is started or not
+        /// </summary>
+        public bool GameIsRuning
+        {
+            get
+            {
+                return _gameIsRuning;
+            }
+
+            internal set
+            {
+                _gameIsRuning = value;
+            }
+        }
+
+        /// <summary>
         /// This dictionary associate a palyer with his/her own game-point value.
         /// </summary>
         public Dictionary<IPlayer, int> Points
@@ -193,6 +223,23 @@ namespace Dixit_Logic.Classes
             internal set
             {
                 _points = value;
+            }
+        }
+
+        /// <summary>
+        /// It indicate the actual round status. A round always start 
+        /// with the "AssociationTelling" phase.
+        /// </summary>
+        public PhaseStatus RoundStatus
+        {
+            get
+            {
+                return _roundStatus;
+            }
+
+            internal set
+            {
+                _roundStatus = value;
             }
         }
     }

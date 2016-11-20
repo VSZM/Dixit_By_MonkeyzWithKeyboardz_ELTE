@@ -11,7 +11,7 @@ namespace Dixit_Logic.Classes
     /// This class represent a game player. A Player object has a unique identifier 
     /// and a name. This attributes cannot be changed after the object is constructed.
     /// </summary>
-    class Player : IPlayer
+    public class Player : IPlayer
     {
         /// <summary>
         /// The identifier counter. This garant that every player
