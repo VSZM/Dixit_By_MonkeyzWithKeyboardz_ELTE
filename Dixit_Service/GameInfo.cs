@@ -8,9 +8,22 @@ namespace Dixit_Service
 {
     public class GameInfo
     {
-        public string GameName;
         public IDixitGame Game;
-        public HashSet<UserInfo> Users = new HashSet<UserInfo>();
         public Dictionary<UserInfo, IPlayer> Players = new Dictionary<UserInfo, IPlayer>();
+
+        public void AddPlayer(UserInfo ui)
+        {
+            if (ui == null) { return; }
+
+            var player = Game.AddPlayer(ui.Username);
+            if (player != null)
+            {
+                Players[ui] = player;
+            }
+        }
+        public void RemovePlayer(UserInfo ui)
+        {
+
+        }
     }
 }

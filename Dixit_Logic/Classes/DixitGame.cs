@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dixit_Logic.Interfaces;
+using Dixit.Common;
 
 namespace Dixit_Logic.Classes
 {
@@ -13,6 +14,11 @@ namespace Dixit_Logic.Classes
     /// </summary>
     class DixitGame : IDixitGame
     {
+        static DixitGame()
+        {
+            Injector.Container.Register<IDixitGame, DixitGame>();
+        }
+
         /// <summary>
         ///  Store the actual game state what is changed by actions during the game.
         /// </summary>

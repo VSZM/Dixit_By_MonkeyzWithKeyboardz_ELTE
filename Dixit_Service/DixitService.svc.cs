@@ -8,34 +8,35 @@ using System.ServiceModel.Web;
 using System.Text;
 using Dixit_Logic.Interfaces;
 using System.Reflection;
+using Dixit_Service.DataContracts;
+using Dixit.Common;
+using Dixit_ServiceLibrary.DataContracts;
 
 namespace Dixit_Service
 {
-    [ServiceKnownType("RegisterKnownTypes", typeof(DixitService))]
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Single)]
     public class DixitService : IDixitService
     {
         private HashSet<UserInfo> Users = new HashSet<UserInfo>();
-        private HashSet<GameInfo> Games = new HashSet<GameInfo>();
+        private GameInfo GameInfo;
+        private IDixitGame CurrentGame { get { return GameInfo?.Game; } }
 
-        #region Login methods
+        #region login methods
         public void Login()
         {
-            var ui = GetUserInfo();
+            GetUserInfo();
         }
         public void Logout()
         {
             var ui = GetUserInfo();
-            RemoveUser(ui.Username);
+            RemoveUser(ui);
         }
-        private void RemoveUser(string username)
+        private void RemoveUser(UserInfo ui)
         {
-            if (string.IsNullOrWhiteSpace(username)) { return; }
-            Users.RemoveWhere(x => x.Username == username);
-            foreach (var game in Games)
-            {
-                game.Users.RemoveWhere(x => x.Username == username);
-            }
+            if (ui == null) { return; }
+
+            Users.Remove(ui);
+            if (GameInfo != null) { GameInfo.RemovePlayer(ui); }
         }
         private UserInfo GetUserInfo()
         {
@@ -50,135 +51,82 @@ namespace Dixit_Service
             }
             return ui;
         }
-        #endregion
-        public CreateGameResult CreateGame(string name)
+        #endregion login methods
+
+        public JoinGameResult JoinGame()
         {
-            var r = new CreateGameResult();
-            if (!Games.Any(x => x.GameName == name))
+            var ui = GetUserInfo();
+            var r = new JoinGameResult();
+            if (GameInfo == null)
             {
-                var gi = new GameInfo();
-                gi.GameName = name;
-                gi.Game = (null as IDixitGame); //TODO
-                Games.Add(gi);
-                InitGame(gi);
+                CreateGame();
+                GameInfo.AddPlayer(ui);
                 r.Success = true;
             }
             else
             {
-                r.Success = false;
-                r.ErrorMessage = "Game already exists.";
+                //if (CurrentGame.MaxPlayerCount > CurrentGame.PlayerCount) //TODO
+                {
+                    GameInfo.AddPlayer(ui);
+                    r.Success = true;
+                }
             }
             return r;
         }
-        private void InitGame(GameInfo gameinfo)
+        private void CreateGame()
         {
-            gameinfo.Game.GameEnd += CurrentGame_GameEnd;
-            gameinfo.Game.PuttingPhaseEnd += CurrentGame_PuttingPhaseEnd;
-            gameinfo.Game.GuessPhaseEnd += CurrentGame_GuessPhaseEnd;
-        }
-        public JoinGameResult JoinGame(string name)
-        {
-            var r = new JoinGameResult();
-            try
-            {
-                var ui = GetUserInfo();
-                var gi = GetGameInfo(name);
-                if (gi != null)
-                {
-                    var game = gi.Game;
-                    gi.Users.Add(ui);
-                    var player = gi.Game.AddPlayer(ui.Username);
-                    gi.Players[ui] = player;
-                }
-            }
-            catch (Exception e)
-            {
-                r.Success = false;
-                r.ErrorMessage = e.ToString();
-            }
-            return r;
-        }
-        private GameInfo GetGameInfo(string gamename)
-        {
-            if (string.IsNullOrEmpty(gamename)) { return null; }
-            var gi = Games.FirstOrDefault(x => x.GameName == gamename);
-            return gi;
-        }
-        private GameInfo GetGameInfo(UserInfo userinfo)
-        {
-            if (userinfo == null) { return null; }
-            var gi = Games.FirstOrDefault(x => x.Users.Contains(userinfo));
-            return gi;
-        }
-        private GameInfo GetGameInfo(IDixitGame game)
-        {
-            if (game == null) { return null; }
-            var gi = Games.FirstOrDefault(x => x.Game == game);
-            return gi;
-        }
-        private void CurrentGame_PuttingPhaseEnd(object sender, EventArgs e)
-        {
-            var game = sender as IDixitGame;
-            if (game != null)
-            {
-                var gameinfo = GetGameInfo(game);
-                if (gameinfo != null)
-                {
-                }
-            }
+            var r = Injector.Container.GetInstance<IDixitGame>();
+            GameInfo = new GameInfo();
+            GameInfo.Game = r;
+            r.GameEnd += CurrentGame_GameEnd;
+            r.PuttingPhaseEnd += CurrentGame_PuttingPhaseEnd;
+            r.GuessPhaseEnd += CurrentGame_GuessPhaseEnd;
         }
         private void CurrentGame_GuessPhaseEnd(object sender, EventArgs e)
         {
-            var game = sender as IDixitGame;
-            if (game != null)
+            var ui = GetUserInfo();
+            foreach (var player in GameInfo.Players.Keys)
             {
-                var gameinfo = GetGameInfo(game);
-                if (gameinfo != null)
-                {
-                }
+
             }
+        }
+        private void CurrentGame_PuttingPhaseEnd(object sender, EventArgs e)
+        {
+            var ui = GetUserInfo();
+            foreach (var player in GameInfo.Players.Keys)
+            {
+
+            }
+
         }
         private void CurrentGame_GameEnd(object sender, EventArgs e)
         {
-            var game = sender as IDixitGame;
-            if (game != null)
+            var state = new GameState();
+            foreach (var player in GameInfo.Players.Keys)
             {
-                var gameinfo = GetGameInfo(game);
-                if (gameinfo != null)
-                {
-                    var state = game.ActualGameState;
-                    foreach (var user in gameinfo.Users)
-                    {
-                        var callback = user.Callback;
-                        callback.GameEnd(state);
-                    }
-                }
+                player.Callback.GameEnd(state);
             }
         }
+        public void LeaveGame()
+        {
+            if (CurrentGame == null) { return; }
+            var ui = GetUserInfo();
+            var player = GameInfo.Players[ui];
+            //CurrentGame.RemovePlayer(player); //TODO
+        }
+        public SelectCardResult SelectCard(Card card)
+        {
+            var r = new SelectCardResult();
+            if (CurrentGame == null) { return r; }
+            GameInfo.Game.PutCard(
+            return r;
+        }
+        public SelectCardResult SelectCardWithStory(Card card, string story)
+        {
+            var r = new SelectCardResult();
+            if (CurrentGame == null) { return r; }
 
-        public void LeaveGame(IDixitGame game)
-        {
-            throw new NotImplementedException();
-        }
-        public List<IDixitGame> ListGames()
-        {
-            throw new NotImplementedException();
-        }
-        public SelectCardResult SelectCard(IDixitGame game, ICard card)
-        {
-            throw new NotImplementedException();
-        }
-        public SelectCardResult SelectCardWithStory(IDixitGame game, ICard card, string story)
-        {
-            throw new NotImplementedException();
-        }
-        public static IEnumerable<Type> RegisterKnownTypes(ICustomAttributeProvider provider)
-        {
-            return Dixit_Logic.KnownTypesProvider.GetKnownTypes().Union(GetKnownTypes());
-        }
-        private static IEnumerable<Type> GetKnownTypes()
-        {
-            yield break;
+            return r;
         }
     }
 }

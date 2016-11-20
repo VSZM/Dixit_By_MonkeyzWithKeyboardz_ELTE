@@ -107,6 +107,10 @@
     <Compile Include="UserInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Dixit.Common\Dixit.Common.csproj">
+      <Project>{6cf5a4e8-2201-46fe-b33a-dffc845ae14a}</Project>
+      <Name>Dixit.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dixit_Logic\Dixit_Logic.csproj">
       <Project>{bd164dd7-6cfe-4b43-b12f-86ee174d75c2}</Project>
       <Name>Dixit_Logic</Name>
@@ -125,6 +129,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
