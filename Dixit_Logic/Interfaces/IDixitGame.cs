@@ -17,7 +17,6 @@ namespace Dixit_Logic.Interfaces
         IGameState ActualGameState
         {
             get;
-            set;
         }
 
         /// <summary>
@@ -25,17 +24,38 @@ namespace Dixit_Logic.Interfaces
         /// </summary>
         /// <param name="name">The name of the player.</param>
         /// <returns>The new player</returns>
-        IPlayer AddPlayer(String name);
+        IPlayer AddPlayer(string name);
 
         /// <summary>
-        /// This method put a card from the player's cards to the BoardDeck(in ActualGameState).
+        /// This method remove a player from the gameState player list
+        /// </summary>
+        /// <param name="player">The player what we want to remove</param>
+        /// <returns> rerturn true if player is successfully removed; otherwise, false.</returns>
+        bool RemovePlayer(IPlayer player);
+
+        /// <summary>
+        /// Start a new game.
+        /// </summary>
+        /// <returns>true if the method could start the game, otherwise false</returns>
+        bool StartGame();
+
+        /// <summary>
+        /// This method add a new association text.
+        /// </summary>
+        /// <param name="storyText">An association text string</param>
+        /// <returns>true if the method could add storyText to the game state, otherwise false</returns>
+        bool AddAssociationText(string storyText);
+
+        /// <summary>
+        /// This method put a card from the player's hands to the board deck(in ActualGameState).
         /// </summary>
         /// <param name="player">The player who put the card</param>
         /// <param name="card">The card what will be put by "player".</param>
         void PutCard(IPlayer player, ICard card);
 
         /// <summary>
-        /// This will add a new guess to what was the original card in the actual turn. The guess will store under the given player.
+        /// This will add a new guess to what was the original card in the actual turn.
+        /// The guess will be assigned to the given player (in ActualGameState). 
         /// </summary>
         /// <param name="player">The player who add the guess</param>
         /// <param name="card">The card is guessed by "player"</param>

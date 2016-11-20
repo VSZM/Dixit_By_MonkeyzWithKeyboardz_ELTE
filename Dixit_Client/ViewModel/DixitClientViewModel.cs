@@ -16,19 +16,6 @@ namespace Dixit_Client.ViewModel
     class DixitClientViewModel : ViewModelBase
     {
         /// <summary>
-        /// Event to fire when login failed
-        /// </summary>
-        /// TODO: use EventHandler that contains the reason of the failure
-        public event EventHandler LoginFailed;
-
-        /// <summary>
-        /// Event to fire when login was successful
-        /// </summary>
-        /// TODO: use EventHandler that contains the initial gamestate
-        public event EventHandler LoginSuccess;
-
-
-        /// <summary>
         /// Cards held in the player's hand
         /// </summary>
         public ObservableCollection<ICard> CardsInHand { get; private set; }
