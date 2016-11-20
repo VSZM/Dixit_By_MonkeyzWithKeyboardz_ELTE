@@ -118,7 +118,7 @@ namespace Dixit_Service
         {
             var r = new SelectCardResult();
             if (CurrentGame == null) { return r; }
-            GameInfo.Game.PutCard(
+            //GameInfo.Game.PutCard(
             return r;
         }
         public SelectCardResult SelectCardWithStory(Card card, string story)
