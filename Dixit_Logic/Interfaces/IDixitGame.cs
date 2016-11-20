@@ -27,6 +27,26 @@ namespace Dixit_Logic.Interfaces
         IPlayer AddPlayer(string name);
 
         /// <summary>
+        /// This method remove a player from the gameState player list
+        /// </summary>
+        /// <param name="player">The player what we want to remove</param>
+        /// <returns> rerturn true if player is successfully removed; otherwise, false.</returns>
+        bool RemovePlayer(IPlayer player);
+
+        /// <summary>
+        /// Start a new game.
+        /// </summary>
+        /// <returns>true if the method could start the game, otherwise false</returns>
+        bool StartGame();
+
+        /// <summary>
+        /// This method add a new association text.
+        /// </summary>
+        /// <param name="storyText">An association text string</param>
+        /// <returns>true if the method could add storyText to the game state, otherwise false</returns>
+        bool AddAssociationText(string storyText);
+
+        /// <summary>
         /// This method put a card from the player's hands to the board deck(in ActualGameState).
         /// </summary>
         /// <param name="player">The player who put the card</param>

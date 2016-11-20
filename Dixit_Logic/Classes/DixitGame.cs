@@ -12,12 +12,22 @@ namespace Dixit_Logic.Classes
     /// This class represent a dixit game. It contains the actual game state and 
     /// the operations which are modify the game state.
     /// </summary>
-    class DixitGame : IDixitGame
+    public class DixitGame : IDixitGame
     {
         static DixitGame()
         {
             Injector.Container.Register<IDixitGame, DixitGame>();
         }
+
+        /// <summary>
+        /// Minimum number of player who can playe in a dixt game.
+        /// </summary>
+        private const int _minPlayerNumber = 3;
+
+        /// <summary>
+        /// Maximum number of player who can playe in a dixt game.
+        /// </summary>
+        private const int _maxPlayerNumber = 8;
 
         /// <summary>
         ///  Store the actual game state what is changed by actions during the game.
@@ -59,16 +69,66 @@ namespace Dixit_Logic.Classes
         public event EventHandler PuttingPhaseEnd;
 
         /// <summary>
-        /// This add a new player (by name) to the _actGameState.
+        /// If game is not started than this add a new player (by name) to the _actGameState.
         /// </summary>
         /// <param name="name">The name of the player.</param>
-        /// <returns>The new player</returns>
+        /// <returns>The new player or if game is started than return null</returns>
         public IPlayer AddPlayer(string name)
         {
-            Player newPlayer = new Player(name);
-            _actGameState.Players.Add(newPlayer);
+            if(!_actGameState.GameIsRuning)
+            {
+                Player newPlayer = new Player(name);
+                _actGameState.Players.Add(newPlayer);
 
-            return newPlayer;
+                return newPlayer;
+            }
+            else
+            {
+                return null;
+            }
+                
+        }
+
+        /// <summary>
+        /// If game is not started than this method remove a player from the gameState player list
+        /// </summary>
+        /// <param name="player">The player what we want to remove</param>
+        /// <returns>
+        /// If game is started: return false. 
+        /// 
+        /// If game is not started: rerturn true if player is successfully removed;
+        /// otherwise, false. This method also returns false if player was not found.</returns>
+        public bool RemovePlayer(IPlayer player)
+        {
+            if (!_actGameState.GameIsRuning)
+            {
+                return _actGameState.Players.Remove(player);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// If enough player connected to the game than this method
+        /// start the game by set the GameIsRuning property of game state to true.
+        /// </summary>
+        /// <returns>true if the method could start the game, otherwise false</returns>
+        public bool StartGame()
+        {
+            int playerCount = _actGameState.Players.Count;
+
+            if (playerCount >= _minPlayerNumber && playerCount <= _maxPlayerNumber)
+            {
+                _actGameState.GameIsRuning = true;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
         }
 
         /// <summary>
@@ -77,6 +137,25 @@ namespace Dixit_Logic.Classes
         public void EvaluatePoints()
         {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// If game is runing than this method add a new association text to the game state
+        /// </summary>
+        /// <param name="storyText">An association text string</param>
+        /// <returns>True if game's round status is in AssociationTelling phase and game
+        /// is runing. Otherwise return false.  </returns>
+        public bool AddAssociationText(string storyText)
+        {
+            if(_actGameState.GameIsRuning && _actGameState.RoundStatus == PhaseStatus.AssociationTelling)
+            {
+                _actGameState.CardAssociationText = storyText;
+                return true;
+            }
+            else
+            {
+                return false;
+            }            
         }
 
         /// <summary>
