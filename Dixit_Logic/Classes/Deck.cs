@@ -8,9 +8,9 @@ using Dixit_Logic.Interfaces;
 namespace Dixit_Logic.Classes
 {
     /// <summary>
-    /// This class represnt a bit general card deck (as board deck). A Deck object consists of cards
-    /// and provides the basic operations what we want to do with a deck (e.g add 
-    /// cards to a deck, shuffle cards in a deck).
+    /// This class represnt a bit general card deck (as board deck). A Deck object consists of 
+    /// cards and provides the basic operations what we want to do with a deck (e.g add cards 
+    /// to a deck, shuffle cards in a deck).
     /// </summary>
     class Deck : IDeck
     {
