@@ -34,11 +34,7 @@ namespace Dixit_Logic.Classes
         public Deck(IList<ICard> cards)
         {
             _cards = new List<ICard>();
-
-            foreach (ICard card in cards)
-            {
-                _cards.Add(card);
-            }
+            _cards.AddRange(cards);          
         }
 
         /// <summary>
@@ -59,10 +55,7 @@ namespace Dixit_Logic.Classes
         /// <param name="cards">An IList implementation what contains card(ICard)s</param>
         public void AddCards(IList<ICard> cards)
         {
-            foreach (ICard card in cards)
-            {
-                _cards.Add(card);
-            }
+            _cards.AddRange(cards);
         }
 
         /// <summary>

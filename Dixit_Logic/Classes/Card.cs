@@ -21,19 +21,12 @@ namespace Dixit_Logic.Classes
         private int _id;
 
         /// <summary>
-        /// The image of the card
-        /// </summary>
-        Bitmap _image;
-
-        /// <summary>
-        /// Construct a card with the given id and image
+        /// Construct a card with the given id 
         /// </summary>
         /// <param name="id">card indentifier</param>
-        /// <param name="image">card image</param>
-        public Card(int id, Bitmap image)
+        public Card(int id)
         {
             _id = id;
-            _image = image;
         }
 
         /// <summary>
@@ -46,17 +39,6 @@ namespace Dixit_Logic.Classes
                 return _id;
             }
             
-        }
-
-        /// <summary>
-        /// Return with the card image what stores in _image
-        /// </summary>
-        public Bitmap Image
-        {
-            get
-            {
-                return _image;
-            }
         }
 
         /// <summary>
@@ -80,7 +62,7 @@ namespace Dixit_Logic.Classes
 
 
         /// <summary>
-        /// The new hash code generted form the card id has codes.
+        /// The new hash code generted form the card id hash codes.
         /// </summary>
         /// <returns>hash code int</returns>
         // override object.GetHashCode

@@ -43,24 +43,25 @@ namespace Dixit_Logic.Classes
         public Hand(IList<ICard> cards)
         {
             _cards = new List<ICard>();
-
-            foreach (ICard card in cards)
-            {
-                _cards.Add(card);
-            }
+            _cards.AddRange(cards);
         }
 
         /// <summary>
-        /// That is the only way to put cards in the hand after the Hand 
-        /// object is constructed.
+        /// That is put cards in the hand 
         /// </summary>
         /// <param name="cards">An IList implementation what contains card(ICard)s</param>
         public void AddCards(IList<ICard> cards)
         {
-            foreach (ICard card in cards)
-            {
-                _cards.Add(card);
-            }
+             _cards.AddRange(cards);            
+        }
+
+        /// <summary>
+        /// That is put only one card to the hand.
+        /// </summary>
+        /// <param name="card">the added card</param>
+        public void AddCard(ICard card)
+        {
+            _cards.Add(card);
         }
 
         /// <summary>
