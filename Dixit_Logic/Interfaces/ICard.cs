@@ -17,7 +17,6 @@ namespace Dixit_Logic.Interfaces
         int Id
         {
             get;
-            set;
         }
     }
 }
