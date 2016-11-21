@@ -12,7 +12,7 @@ namespace Dixit_Logic
     {
         public static IEnumerable<Type> GetKnownTypes()
         {
-            return new Type[] { typeof(Player), typeof(GameState), typeof(DixitGame) };
+            return new Type[] { typeof(Player), typeof(GameState), typeof(DixitGame), typeof(Card), typeof(Deck), typeof(Hand), typeof(MainDeck) };
         }
     }
 }
