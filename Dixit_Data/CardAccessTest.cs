@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -60,10 +61,9 @@ namespace Dixit_Data
 
         List<string> GetNamesWithoutExtensionFromFile()
         {
-            string path = AppDomain.CurrentDomain.BaseDirectory;
-            string pathOfResources = (path.Substring(0, path.Length - 9)) + "Resources\\";
+            string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"..\..\Resources\");
 
-            string[] files = Directory.GetFiles(pathOfResources);
+            string[] files = Directory.GetFiles(path);
             List<string> names = new List<string>();
 
             for (int i = 0; i < files.Length; ++i)
