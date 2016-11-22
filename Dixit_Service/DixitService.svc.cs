@@ -24,7 +24,7 @@ namespace Dixit_Service
         #region login methods
         public void Login(string username)
         {
-            GetUserInfo();
+            CreateUserInfo(username);
         }
         public void Logout()
         {
@@ -38,19 +38,24 @@ namespace Dixit_Service
             Users.Remove(ui);
             if (GameInfo != null) { GameInfo.RemovePlayer(ui); }
         }
-        private UserInfo GetUserInfo()
+        private void CreateUserInfo(string username)
         {
-            UserInfo ui = null;
-            var username = OperationContext.Current.ServiceSecurityContext.PrimaryIdentity.Name;
-            //var username = System.Threading.Thread.CurrentPrincipal.Identity.Name;
-            if (!Users.Any(x => x.Username == username))
+            var callback = OperationContext.Current.GetCallbackChannel<IDixitServiceCallback>();
+            var ui = Users.FirstOrDefault(x => x.Callback == callback);
+            if (ui == null)
             {
                 ui = new UserInfo();
                 ui.Username = username;
-                ui.Callback = OperationContext.Current.GetCallbackChannel<IDixitServiceCallback>();
+                ui.Callback = callback;
                 Users.Add(ui);
             }
-            return ui;
+        }
+        private UserInfo GetUserInfo()
+        {
+            //UserInfo ui = null;
+            //var username = OperationContext.Current.ServiceSecurityContext.PrimaryIdentity.Name;
+            var callback = OperationContext.Current.GetCallbackChannel<IDixitServiceCallback>();
+            return Users.FirstOrDefault(x => x.Callback == callback);
         }
         private IPlayer GetPlayer()
         {
