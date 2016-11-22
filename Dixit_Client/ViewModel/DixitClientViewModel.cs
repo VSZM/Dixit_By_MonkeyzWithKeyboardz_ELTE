@@ -5,7 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Dixit_Client.Model;
 using Dixit_Logic.Interfaces;
+using Dixit_Data.Interfaces;
 
 namespace Dixit_Client.ViewModel
 {
@@ -29,7 +31,7 @@ namespace Dixit_Client.ViewModel
         /// <summary>
         /// Players' info
         /// </summary>
-        public ObservableCollection<IPlayer> Players { get; private set; }
+        public ObservableCollection<ClientPlayer> Players { get; private set; }
 
 
         /// <summary>
