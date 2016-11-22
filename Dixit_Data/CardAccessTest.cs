@@ -61,7 +61,7 @@ namespace Dixit_Data
 
         List<string> GetNamesWithoutExtensionFromFile()
         {
-            string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"..\..\Resources\");
+            string path = @"..\..\Resources\";
 
             string[] files = Directory.GetFiles(path);
             List<string> names = new List<string>();
