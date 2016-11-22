@@ -46,8 +46,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Card.cs" />
+    <Compile Include="Classes\Deck.cs" />
     <Compile Include="Classes\DixitGame.cs" />
     <Compile Include="Classes\GameState.cs" />
+    <Compile Include="Classes\Hand.cs" />
+    <Compile Include="Classes\MainDeck.cs" />
     <Compile Include="Classes\Player.cs" />
     <Compile Include="Interfaces\ICard.cs" />
     <Compile Include="Interfaces\IDeck.cs" />

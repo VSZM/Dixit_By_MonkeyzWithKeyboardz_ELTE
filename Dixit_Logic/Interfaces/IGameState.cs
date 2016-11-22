@@ -77,6 +77,14 @@ namespace Dixit_Logic.Interfaces
         }
 
         /// <summary>
+        /// It contain the whole cards in a game
+        /// </summary>
+        IReadOnlyList<ICard> BaseCards
+        {
+            get;
+        }
+
+        /// <summary>
         /// This are the cards what the players put on the table.
         /// </summary>
         IDeck BoardDeck

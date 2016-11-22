@@ -26,14 +26,6 @@ namespace Dixit_Logic.Interfaces
         void AddCards(IList<ICard> cards);
 
         /// <summary>
-        /// Get a specific card from the deck. This card is erased from the deck.
-        /// If the given card is not included than it will return with null.
-        /// </summary>
-        /// <param name="card">A specific card what contain the deck</param>
-        /// <returns>The object of drawn card</returns>
-        ICard GetCard(ICard card);
-
-        /// <summary>
         /// It erase all cards from the deck. It make an empty deck from your extant deck.
         /// </summary>
         void EvacuateDeck();

@@ -46,6 +46,11 @@ namespace Dixit_Logic.Classes
         private IDeck _mainDeck;
 
         /// <summary>
+        /// Store all cards in a game. It will not be modified during the game.
+        /// </summary>
+        private IReadOnlyList<ICard> _baseCards;
+
+        /// <summary>
         /// Store all players who playe in the actual game. 
         /// </summary>
         private IList<IPlayer> _players;
@@ -76,6 +81,7 @@ namespace Dixit_Logic.Classes
             _guesses = new Dictionary<IPlayer, ICard>();
             _hands = new Dictionary<IPlayer, IDeck>();
             //_mainDeck = new IDeck();
+            _baseCards = new List<ICard>().AsReadOnly();
             _players = new List<IPlayer>();
             _gameIsRuning = false;
             _points = new Dictionary<IPlayer, int>();
@@ -175,6 +181,22 @@ namespace Dixit_Logic.Classes
             internal set
             {
                 _mainDeck = value;
+            }
+        }
+
+        /// <summary>
+        /// It contain the whole cards in a game
+        /// </summary>
+        public IReadOnlyList<ICard> BaseCards
+        {
+            get
+            {
+                return _baseCards;
+            }
+
+            internal set
+            {
+                _baseCards = value;
             }
         }
 
