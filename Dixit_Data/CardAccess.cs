@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
-//using Dixit_Data.Properties;
+using Dixit_Data.Properties;
 using System.Resources;
 using System.Globalization;
 using System.Collections;
@@ -24,7 +24,7 @@ namespace Dixit_Data
         public List<int> GetIDList()
         {
             List<int> tempList = new List<int>();
-            ResourceManager rm = null;// Properties.Resources.ResourceManager;
+            ResourceManager rm = Properties.Resources.ResourceManager;
             ResourceSet resourceSet = rm.GetResourceSet(CultureInfo.CurrentUICulture, true, true);
             foreach (DictionaryEntry entry in resourceSet)
             {
@@ -43,9 +43,7 @@ namespace Dixit_Data
         /// <returns></returns>
         public Bitmap GetImageById(int id)
         {
-            string newName = "_" + id.ToString();
-            //return (Bitmap)Resources.ResourceManager.GetObject(newName);
-            return null;
+            return (Bitmap)Resources.ResourceManager.GetObject(id.ToString());
         }
     }
 }

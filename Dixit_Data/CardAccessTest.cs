@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -46,15 +47,23 @@ namespace Dixit_Data
             Bitmap imageByFunction = ca.GetImageById(1);
 
             // Assert
-            Assert.AreEqual(image, imageByFunction);
+            Assert.IsNotNull(image);
+            Assert.IsNotNull(imageByFunction);
+            Assert.AreEqual(image.Size, imageByFunction.Size);
+            for (int x = 0; x < image.Width; x++)
+            {
+                for (int y = 0; y < image.Height; y++)
+                {
+                    Assert.AreEqual(image.GetPixel(x,y), imageByFunction.GetPixel(x, y));
+                }
+            }
         }
 
         List<string> GetNamesWithoutExtensionFromFile()
         {
-            string path = AppDomain.CurrentDomain.BaseDirectory;
-            string pathOfResources = (path.Substring(0, path.Length - 9)) + "Resources\\";
+            string path = @"..\..\Resources\";
 
-            string[] files = Directory.GetFiles(pathOfResources);
+            string[] files = Directory.GetFiles(path);
             List<string> names = new List<string>();
 
             for (int i = 0; i < files.Length; ++i)
