@@ -77,8 +77,7 @@ namespace Dixit_Logic.Classes
             _hands = new Dictionary<IPlayer, IDeck>();
             //_mainDeck = new IDeck();
             _baseCards = new List<ICard>().AsReadOnly();
-            _players = new List<IPlayer>();
-            _gameIsRuning = false;
+            _players = new List<IPlayer>();            
             _points = new Dictionary<IPlayer, int>();
             _roundStatus = PhaseStatus.BeforeStart; // set to the game's round starting status
         }
