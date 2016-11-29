@@ -106,23 +106,24 @@ namespace Dixit_Logic.Classes
 
         /// <summary>
         /// If enough player connected to the game than this method
-        /// start the game by set the GameIsRuning property of game state to true.
+        /// start the game by set the RoundStatus property of game state
+        /// to AssociationTelling(first phase of a round).
         /// </summary>
         /// <returns>true if the method could start the game, otherwise false</returns>
         public bool StartGame()
         {
-            int playerCount = _actGameState.Players.Count;
+            if(!_actGameState.GameIsRuning)
+            {
+                int playerCount = _actGameState.Players.Count;
 
-            if (playerCount >= _minPlayerNumber && playerCount <= _maxPlayerNumber)
-            {
-                _actGameState.GameIsRuning = true;
-                return true;
+                if (playerCount >= _minPlayerNumber && playerCount <= _maxPlayerNumber)
+                {
+                    _actGameState.RoundStatus = PhaseStatus.AssociationTelling;// ha még nem indított már el valaki korábban
+                    return true;
+                }
             }
-            else
-            {
-                return false;
-            }
-            
+                                    
+            return false;            
         }
 
         /// <summary>
@@ -134,16 +135,20 @@ namespace Dixit_Logic.Classes
         }
 
         /// <summary>
-        /// If game is runing than this method add a new association text to the game state
+        /// If game is runing than this method add a new association text to the 
+        /// game state and set story teller (ActualPlayer) to the player who guess this text(in param).
         /// </summary>
         /// <param name="storyText">An association text string</param>
+        /// <param name="player">The player who guess the text</param>
         /// <returns>True if game's round status is in AssociationTelling phase and game
         /// is runing. Otherwise return false.  </returns>
-        public bool AddAssociationText(string storyText)
+        public bool AddAssociationText(string storyText, IPlayer player)
         {
-            if(_actGameState.GameIsRuning && _actGameState.RoundStatus == PhaseStatus.AssociationTelling)
+            if(_actGameState.RoundStatus == PhaseStatus.AssociationTelling)
             {
                 _actGameState.CardAssociationText = storyText;
+                _actGameState.ActualPlayer = player;
+                _actGameState.RoundStatus = PhaseStatus.Putting;
                 return true;
             }
             else
@@ -170,7 +175,27 @@ namespace Dixit_Logic.Classes
         /// <param name="card">The card what will be put by "player".</param>
         public void PutCard(IPlayer player, ICard card)
         {
-            throw new NotImplementedException();
+            if(_actGameState.RoundStatus == PhaseStatus.Putting)
+            {
+                IDeck playerHand;
+
+                if(player != null && _actGameState.Hands.TryGetValue(player, out playerHand))
+                {
+                    ICard selectedCard = ((Hand)playerHand).GetCard(card);
+                    if (selectedCard != null)
+                    {
+                        _actGameState.BoardDeck.AddCard(selectedCard);
+
+                        if(_actGameState.BoardDeck.Cards.Count == _actGameState.Players.Count)
+                        {
+                            _actGameState.RoundStatus = PhaseStatus.Guessing;
+
+                            //if all players put a card in a turn than it raise the putting phase end event.
+                            PuttingPhaseEnd(this, new EventArgs());
+                        }
+                    }
+                }
+            }
         }
     }
 }

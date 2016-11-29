@@ -12,7 +12,7 @@ namespace Dixit_Logic.Classes
     /// cards and provides the basic operations what we want to do with a deck (e.g add cards 
     /// to a deck, shuffle cards in a deck).
     /// </summary>
-    class Deck : IDeck
+    public class Deck : IDeck
     {
         /// <summary>
         /// It stores the list of cards what the deck contain.
@@ -49,13 +49,21 @@ namespace Dixit_Logic.Classes
         }
 
         /// <summary>
-        /// That is the only way to put cards in the deck after the Deck 
-        /// object is constructed.
+        ///  That is put cards in the deck 
         /// </summary>
         /// <param name="cards">An IList implementation what contains card(ICard)s</param>
         public void AddCards(IList<ICard> cards)
         {
             _cards.AddRange(cards);
+        }
+
+        /// <summary>
+        /// That is put only one card to the deck.
+        /// </summary>
+        /// <param name="card">the added card</param>
+        public void AddCard(ICard card)
+        {
+            _cards.Add(card);
         }
 
         /// <summary>

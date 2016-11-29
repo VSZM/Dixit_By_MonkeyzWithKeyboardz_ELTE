@@ -26,6 +26,12 @@ namespace Dixit_Logic.Interfaces
         void AddCards(IList<ICard> cards);
 
         /// <summary>
+        /// It add one card to the deck
+        /// </summary>
+        /// <param name="card">the added card</param>
+        void AddCard(ICard card);
+
+        /// <summary>
         /// It erase all cards from the deck. It make an empty deck from your extant deck.
         /// </summary>
         void EvacuateDeck();
