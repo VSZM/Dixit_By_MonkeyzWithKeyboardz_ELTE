@@ -5,8 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Dixit_Client.View"
         mc:Ignorable="d"
+<<<<<<< HEAD
         Title="LoginWindow" Height="768" Width="1024">
     <Grid>
         <Label x:Name="title_lbl" Content="DIXIT" Width="200" Margin="409,80,407,588" HorizontalContentAlignment="Center" FontSize="48" HorizontalAlignment="Center" Height="70"/>
+=======
+        Title="Bejelentkező felület" Height="768" Width="1024">
+    <Grid>
+        <!-- Label for greeting the player-->
+        <Label x:Name="title_lbl" Content="Üdvözlünk a Dixit játékban!" Width="600" Margin="20,20,20,480" HorizontalContentAlignment="Center" FontSize="48" HorizontalAlignment="Center" Height="70"/>
+        <!-- Label for player name text-->
+        <Label x:Name="enter_name_lbl" Content="Írd be a neved:" Width="350" Margin="333,200,333,471" HorizontalContentAlignment="Center" FontSize="40" HorizontalAlignment="Center"/>
+        <!-- List of players logged in-->
+        <ListView Margin="300,530,300,40" ItemsSource="{Binding Path=Players}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Path=Name}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <!-- Button for begin playing-->
+        <Button x:Name="play_button" Content="Játék" FontSize="42" Margin="388,400,388,237"/>
+        <!-- Textbox for getting player name-->
+        <TextBox x:Name="user_name_textbox" Margin="250,300,250,350" FontSize="30" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="60"/>
+>>>>>>> 2f6e55d... Add view windows
     </Grid>
 </Window>
