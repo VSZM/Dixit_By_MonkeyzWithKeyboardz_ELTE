@@ -118,7 +118,12 @@ namespace Dixit_Logic.Classes
 
                 if (playerCount >= _minPlayerNumber && playerCount <= _maxPlayerNumber)
                 {
-                    _actGameState.RoundStatus = PhaseStatus.AssociationTelling;// ha még nem indított már el valaki korábban
+                    Random random = new Random();                   
+                    int actPlayerIndex = random.Next(_actGameState.Players.Count);
+
+                    _actGameState.ActualPlayer = _actGameState.Players[actPlayerIndex];
+                    _actGameState.RoundStatus = PhaseStatus.AssociationTelling;        
+                                
                     return true;
                 }
             }
@@ -144,10 +149,9 @@ namespace Dixit_Logic.Classes
         /// is runing. Otherwise return false.  </returns>
         public bool AddAssociationText(string storyText, IPlayer player)
         {
-            if(_actGameState.RoundStatus == PhaseStatus.AssociationTelling)
+            if(_actGameState.ActualPlayer.Equals(player) && _actGameState.RoundStatus == PhaseStatus.AssociationTelling)
             {
-                _actGameState.CardAssociationText = storyText;
-                _actGameState.ActualPlayer = player;
+                _actGameState.CardAssociationText = storyText;                
                 _actGameState.RoundStatus = PhaseStatus.Putting;
                 return true;
             }
