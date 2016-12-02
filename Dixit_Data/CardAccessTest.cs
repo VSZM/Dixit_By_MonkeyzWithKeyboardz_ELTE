@@ -5,9 +5,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,26 +18,6 @@ namespace Dixit_Data
     [TestClass]
     public class CardAccessTest
     {
-        [TestMethod]
-        public void TestGetIDList()
-        {
-            // Arrange
-            CardAccess ca = new CardAccess();
-            List<string> names = GetNamesWithoutExtensionFromFile();
-            List<int> idsFromNames = new List<int>();
-
-            for (int i = 0; i < names.Count; ++i)
-            {
-                idsFromNames.Add(Int32.Parse(names[i]));
-            }
-
-            // Act
-            List<int> ids = ca.GetIDList();
-
-            // Assert
-            CollectionAssert.AreEqual(ids, idsFromNames);
-        }
-
         [TestMethod]
         public void TestGetImageById()
         {
@@ -59,19 +41,5 @@ namespace Dixit_Data
             }
         }
 
-        List<string> GetNamesWithoutExtensionFromFile()
-        {
-            string path = @"..\..\Resources\";
-
-            string[] files = Directory.GetFiles(path);
-            List<string> names = new List<string>();
-
-            for (int i = 0; i < files.Length; ++i)
-            {
-                names.Add(Path.GetFileNameWithoutExtension(files[i]));
-            }
-
-            return names;
-        }
     }
 }
