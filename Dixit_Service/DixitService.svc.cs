@@ -140,8 +140,8 @@ namespace Dixit_Service
         public void AddAssociationText(string story)
         {
             if (CurrentGame == null) { return; }
-            //var player = GetPlayer();
-            CurrentGame.AddAssociationText(story);
+            var player = GetPlayer();
+            CurrentGame.AddAssociationText(story, player);
             var gamestate = CurrentGame.ActualGameState;
             GameStateChanged();
         }
