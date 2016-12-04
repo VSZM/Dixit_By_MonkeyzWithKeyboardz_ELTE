@@ -38,13 +38,14 @@
     <Reference Include="Images">
       <HintPath>..\..\Images\Images\bin\Debug\Images.dll</HintPath>
     </Reference>
-    <Reference Include="SimpleInjector, Version=3.2.2.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
-      <HintPath>..\packages\SimpleInjector.3.2.2\lib\net45\SimpleInjector.dll</HintPath>
+    <Reference Include="SimpleInjector, Version=3.2.7.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.3.2.7\lib\net45\SimpleInjector.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
@@ -81,6 +82,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Model\DixitServiceCallback.cs" />
+    <Compile Include="Model\Model.cs" />
     <Compile Include="Service References\DixitService1\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -139,13 +142,10 @@
     <None Include="Service References\DixitService1\DixitService3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\DixitService1\Dixit_Client.DixitService1.CreateGameResult.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
+    <None Include="Service References\DixitService1\DixitService4.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Service References\DixitService1\Dixit_Client.DixitService1.JoinGameResult.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\DixitService1\Dixit_Client.DixitService1.SelectCardResult.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
   </ItemGroup>
@@ -156,6 +156,10 @@
     <Folder Include="Mockup\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Dixit.Common\Dixit.Common.csproj">
+      <Project>{6cf5a4e8-2201-46fe-b33a-dffc845ae14a}</Project>
+      <Name>Dixit.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dixit_Data\Dixit_Data.csproj">
       <Project>{aefe4b12-e97f-465b-9256-54fb906b97b8}</Project>
       <Name>Dixit_Data</Name>
