@@ -37,7 +37,6 @@ namespace Dixit_Client.Model
                 serviceclient.ClientCredentials.ServiceCertificate.Authentication.CertificateValidationMode = System.ServiceModel.Security.X509CertificateValidationMode.None;
                 serviceclient.ClientCredentials.UserName.UserName = username;
                 serviceclient.ClientCredentials.UserName.Password = "";
-                //serviceclient.ClientCredentials.Cli
 
                 serviceclient.Login(username);
 

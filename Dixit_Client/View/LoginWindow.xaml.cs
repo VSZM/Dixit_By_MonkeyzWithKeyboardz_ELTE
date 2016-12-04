@@ -22,8 +22,6 @@ namespace Dixit_Client.View
         public LoginWindow()
         {
             InitializeComponent();
-            var model = new Dixit_Client.Model.Model();
-            model.Login("Asda");
         }
     }
 }

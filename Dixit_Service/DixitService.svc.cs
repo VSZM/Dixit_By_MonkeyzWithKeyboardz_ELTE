@@ -21,6 +21,11 @@ namespace Dixit_Service
         private GameInfo GameInfo;
         private IDixitGame CurrentGame { get { return GameInfo?.Game; } }
 
+        static DixitService()
+        {
+            Injector.Container.Register<IDixitGame, Dixit_Logic.Classes.DixitGame>();
+        }
+
         #region login methods
         public void Login(string username)
         {
@@ -103,7 +108,8 @@ namespace Dixit_Service
             var r = Injector.Container.GetInstance<IDixitGame>();
             GameInfo = new GameInfo();
             GameInfo.Game = r;
-            GameInfo.Cards = r.GetAllCards().ToDictionary(c => Card.Get(c.Id), c => c);
+            var state = r.ActualGameState;
+            GameInfo.Cards = state.BaseCards.ToDictionary(c => Card.Get(c.Id), c => c);
             r.GameEnd += CurrentGame_GameEnd;
             r.PuttingPhaseEnd += CurrentGame_PuttingPhaseEnd;
             r.GuessPhaseEnd += CurrentGame_GuessPhaseEnd;

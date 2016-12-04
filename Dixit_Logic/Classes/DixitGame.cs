@@ -14,11 +14,6 @@ namespace Dixit_Logic.Classes
     /// </summary>
     public class DixitGame : IDixitGame
     {
-        static DixitGame()
-        {
-            Injector.Container.Register<IDixitGame, DixitGame>();
-        }
-
         /// <summary>
         /// Minimum number of player who can playe in a dixt game.
         /// </summary>
@@ -175,11 +170,6 @@ namespace Dixit_Logic.Classes
         /// <param name="player">The player who put the card</param>
         /// <param name="card">The card what will be put by "player".</param>
         public void PutCard(IPlayer player, ICard card)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<ICard> GetAllCards()
         {
             throw new NotImplementedException();
         }
