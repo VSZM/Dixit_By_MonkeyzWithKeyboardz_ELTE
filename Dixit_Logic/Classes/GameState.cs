@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Dixit_Logic.Classes
 {
-    public enum PhaseStatus { AssociationTelling = 0, Putting = 1, Guessing = 2, RoundEnd = 3 };
+    public enum PhaseStatus { BeforeStart = 0, AssociationTelling = 1, Putting = 2, Guessing = 3, RoundEnd = 4, GameOver = 5 };
 
     /// <summary>
     /// This class describes a state of game. Every property have internal set method
@@ -56,11 +56,6 @@ namespace Dixit_Logic.Classes
         private IList<IPlayer> _players;
 
         /// <summary>
-        /// Store a logical value wheter the game is started or not.
-        /// </summary>
-        private bool _gameIsRuning;
-
-        /// <summary>
         /// Store a dictionary what associate a palyer with his/her own game-point value.
         /// </summary>
         private Dictionary<IPlayer, int> _points;
@@ -82,10 +77,9 @@ namespace Dixit_Logic.Classes
             _hands = new Dictionary<IPlayer, IDeck>();
             //_mainDeck = new IDeck();
             _baseCards = new List<ICard>().AsReadOnly();
-            _players = new List<IPlayer>();
-            _gameIsRuning = false;
+            _players = new List<IPlayer>();            
             _points = new Dictionary<IPlayer, int>();
-            _roundStatus = PhaseStatus.AssociationTelling; // set to the game's round starting status
+            _roundStatus = PhaseStatus.BeforeStart; // set to the game's round starting status
         }
 
         /// <summary>
@@ -223,12 +217,7 @@ namespace Dixit_Logic.Classes
         {
             get
             {
-                return _gameIsRuning;
-            }
-
-            internal set
-            {
-                _gameIsRuning = value;
+                return (RoundStatus != PhaseStatus.BeforeStart);
             }
         }
 

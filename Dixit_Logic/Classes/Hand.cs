@@ -10,7 +10,7 @@ namespace Dixit_Logic.Classes
     /// <summary>
     /// This class represnts the card deck what a player hold in his/her hands.
     /// </summary>
-    class Hand : IDeck
+    public class Hand : IDeck
     {
         /// <summary>
         /// It stores the list of cards what the hand contain.

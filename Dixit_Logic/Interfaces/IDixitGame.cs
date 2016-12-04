@@ -43,8 +43,9 @@ namespace Dixit_Logic.Interfaces
         /// This method add a new association text.
         /// </summary>
         /// <param name="storyText">An association text string</param>
+        /// <param name="player">The player who guess the text</param>
         /// <returns>true if the method could add storyText to the game state, otherwise false</returns>
-        bool AddAssociationText(string storyText);
+        bool AddAssociationText(string storyText, IPlayer player);
 
         /// <summary>
         /// This method put a card from the player's hands to the board deck(in ActualGameState).
