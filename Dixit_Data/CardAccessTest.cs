@@ -5,8 +5,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,26 +18,6 @@ namespace Dixit_Data
     [TestClass]
     public class CardAccessTest
     {
-        [TestMethod]
-        public void TestGetIDList()
-        {
-            // Arrange
-            CardAccess ca = new CardAccess();
-            List<string> names = GetNamesWithoutExtensionFromFile();
-            List<int> idsFromNames = new List<int>();
-
-            for (int i = 0; i < names.Count; ++i)
-            {
-                idsFromNames.Add(Int32.Parse(names[i]));
-            }
-
-            // Act
-            List<int> ids = ca.GetIDList();
-
-            // Assert
-            CollectionAssert.AreEqual(ids, idsFromNames);
-        }
-
         [TestMethod]
         public void TestGetImageById()
         {
@@ -46,23 +29,17 @@ namespace Dixit_Data
             Bitmap imageByFunction = ca.GetImageById(1);
 
             // Assert
-            Assert.AreEqual(image, imageByFunction);
-        }
-
-        List<string> GetNamesWithoutExtensionFromFile()
-        {
-            string path = AppDomain.CurrentDomain.BaseDirectory;
-            string pathOfResources = (path.Substring(0, path.Length - 9)) + "Resources\\";
-
-            string[] files = Directory.GetFiles(pathOfResources);
-            List<string> names = new List<string>();
-
-            for (int i = 0; i < files.Length; ++i)
+            Assert.IsNotNull(image);
+            Assert.IsNotNull(imageByFunction);
+            Assert.AreEqual(image.Size, imageByFunction.Size);
+            for (int x = 0; x < image.Width; x++)
             {
-                names.Add(Path.GetFileNameWithoutExtension(files[i]));
+                for (int y = 0; y < image.Height; y++)
+                {
+                    Assert.AreEqual(image.GetPixel(x,y), imageByFunction.GetPixel(x, y));
+                }
             }
-
-            return names;
         }
+
     }
 }

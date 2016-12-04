@@ -43,8 +43,7 @@ namespace Dixit_Data
         /// <returns></returns>
         public Bitmap GetImageById(int id)
         {
-            string newName = "_" + id.ToString();
-            return (Bitmap)Resources.ResourceManager.GetObject(newName);
+            return (Bitmap)Resources.ResourceManager.GetObject(id.ToString());
         }
     }
 }
