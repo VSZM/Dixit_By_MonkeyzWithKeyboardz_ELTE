@@ -21,38 +21,33 @@ namespace Dixit_Client
         // window to login the game
         private LoginWindow _loginWindow;
         // viewmodel instance that maintains the interaction between view and game logic
-        private DixitClientViewModel _gameViewModel;
-        // viewmodel instance to handle gamestart
-        private LoginViewModel _loginViewModel;
+        private DixitClientViewModel _viewModel;
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
             _loginWindow = new LoginWindow();
-            _loginWindow.DataContext = _loginViewModel;
+            _loginWindow.DataContext = _viewModel;
             _loginWindow.Show();
         }
 
         public App()
         {
-            _loginViewModel = new LoginViewModel();
-            _loginViewModel.Failed += new EventHandler(ViewModel_LoginFailed);
-            _loginViewModel.Success += new EventHandler(ViewModel_LoginSuccess);
+            _viewModel = new DixitClientViewModel();
+            _viewModel.Failed += new EventHandler<String>(ViewModel_LoginFailed);
+            _viewModel.Success += new EventHandler(ViewModel_LoginSuccess);
         }
 
-        private void ViewModel_LoginFailed(object sender, EventArgs e)
+        private void ViewModel_LoginFailed(object sender, String e)
         {
-            // TODO: add proper reason why it failed through EventArgs.
-            MessageBox.Show("Login failed!.", "Worksheet Manager", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("Login failed!.", e, MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         private void ViewModel_LoginSuccess(object sender, EventArgs e)
         {
-            //TODO: get initial gamestate from eventargs and initialise viewmodel
             _mainWindow = new MainWindow();
-            _gameViewModel = new DixitClientViewModel();
-            _mainWindow.DataContext = _gameViewModel;
+            _mainWindow.DataContext = _viewModel;
             _mainWindow.Show();
             _loginWindow.Close();
         }
