@@ -22,7 +22,9 @@
             </ListView.ItemTemplate>
         </ListView>
         <!-- Button for begin playing-->
-        <Button x:Name="play_button" Content="Játék" FontSize="42" Margin="388,400,388,237"/>
+        <Button x:Name="play_button" Content="Játék kezdés" FontSize="38" Margin="388,463,388,216"/>
+        <!-- Button for join or start play-->
+        <Button x:Name="host_button" Content="Létrehozás/Csatlakozás" FontSize="38" Margin="250,380,250,291" RenderTransformOrigin="0.534,-0.032"/>
         <!-- Textbox for getting player name-->
         <TextBox x:Name="user_name_textbox" Margin="250,300,250,350" FontSize="30" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="60"/>
     </Grid>
