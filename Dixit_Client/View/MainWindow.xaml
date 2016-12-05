@@ -12,7 +12,7 @@
     </Window.Resources>
     <Grid>
         <!-- Getting the cards put on the table-->
-        <ItemsControl ItemsSource="{Binding CardsOnTable}" Width="700"  Height="450" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,10,10,10">
+        <ItemsControl ItemsSource="{Binding CardsOnTable}" Width="700"  Height="495" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,10,10,0">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <UniformGrid Rows="2" Columns="4" />
@@ -20,24 +20,25 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Image Source="{Binding Path=Id, Converter={StaticResource PictureConverter}}"  />
+                    <Image Width="250" Height="210" Margin="0,0,5,5" Source="{Binding Path=Id, Converter={StaticResource PictureConverter}}"  />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
         <!-- Getting the cards in a player's hand-->
-        <ItemsControl ItemsSource="{Binding CardsInHand}" Width="700"  Height="250" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,10,10,10">
+        <ItemsControl ItemsSource="{Binding CardsInHand}" Width="570" Height="170" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,85,10">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <UniformGrid Rows="2" Columns="3" />
+                    <UniformGrid Rows="1" Columns="6" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Image Source="{Binding Path=Id, Converter={StaticResource PictureConverter}}"  />
+                    <Image Width="91" Height="160" Margin="0,0,10,0" Source="{Binding Path=Id, Converter={StaticResource PictureConverter}}"  />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <ItemsControl ItemsSource="{Binding Players}" Width="259"  Height="717" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,757,10">
+        <!-- Getting available players-->
+        <ItemsControl ItemsSource="{Binding Players}" Width="259"  Height="717" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,747,10">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <UniformGrid Rows="4" Columns="2" />
