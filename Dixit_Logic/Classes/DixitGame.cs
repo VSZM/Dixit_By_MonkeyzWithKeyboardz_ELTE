@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dixit_Logic.Interfaces;
+using Dixit.Common;
 
 namespace Dixit_Logic.Classes
 {

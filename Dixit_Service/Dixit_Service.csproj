@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Dixit_Service</RootNamespace>
     <AssemblyName>Dixit_Service</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <UseIISExpress>true</UseIISExpress>
@@ -22,6 +22,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -70,13 +71,17 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="SimpleInjector, Version=3.2.7.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.3.2.7\lib\net45\SimpleInjector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.IdentityModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.EnterpriseServices" />
@@ -98,17 +103,16 @@
     <Compile Include="DixitService.svc.cs">
       <DependentUpon>DixitService.svc</DependentUpon>
     </Compile>
+    <Compile Include="GameInfo.cs" />
+    <Compile Include="Library\DataContracts\Card.cs" />
+    <Compile Include="Library\DataContracts\Deck.cs" />
+    <Compile Include="Library\DataContracts\GameState.cs" />
+    <Compile Include="Library\DataContracts\JoinGameResult.cs" />
+    <Compile Include="Library\DataContracts\Player.cs" />
+    <Compile Include="Library\Interfaces\IDixitService.cs" />
+    <Compile Include="Library\Interfaces\IDixitServiceCallback.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Dixit_Logic\Dixit_Logic.csproj">
-      <Project>{bd164dd7-6cfe-4b43-b12f-86ee174d75c2}</Project>
-      <Name>Dixit_Logic</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Dixit_ServiceLibrary\Dixit_ServiceLibrary.csproj">
-      <Project>{a34be0e1-5539-431e-8330-d8fb6b543ef6}</Project>
-      <Name>Dixit_ServiceLibrary</Name>
-    </ProjectReference>
+    <Compile Include="UserInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -118,6 +122,16 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dixit.Common\Dixit.Common.csproj">
+      <Project>{6cf5a4e8-2201-46fe-b33a-dffc845ae14a}</Project>
+      <Name>Dixit.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dixit_Logic\Dixit_Logic.csproj">
+      <Project>{bd164dd7-6cfe-4b43-b12f-86ee174d75c2}</Project>
+      <Name>Dixit_Logic</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

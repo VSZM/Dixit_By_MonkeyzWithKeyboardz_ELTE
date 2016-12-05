@@ -12,7 +12,7 @@ namespace Dixit_Service
     {
         public override void Validate(string userName, string password)
         {
-            if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(userName))
                 throw new SecurityTokenException("Username and password cannot be empty.");
             //m:161009:TODO
         }
