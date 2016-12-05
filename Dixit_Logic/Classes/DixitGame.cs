@@ -48,9 +48,14 @@ namespace Dixit_Logic.Classes
         }
 
         /// <summary>     
-        /// This event is triggered at the start of a trun when all cards are consumed from the MainDeck and players have no more cards too .
+        /// This event is triggered when all cards are consumed from the MainDeck and players have no more cards too .
         /// </summary>
         public event EventHandler GameEnd;
+
+        /// <summary>
+        /// This event is triggered when the DixtGame prepared for a new round.
+        /// </summary>
+        public event EventHandler NewRound;
 
         /// <summary>        
         /// This event is triggered when all players make a guess in a turn.
@@ -122,8 +127,30 @@ namespace Dixit_Logic.Classes
                     int actPlayerIndex = random.Next(_actGameState.Players.Count);
 
                     _actGameState.ActualPlayer = _actGameState.Players[actPlayerIndex];
-                    _actGameState.RoundStatus = PhaseStatus.AssociationTelling;        
-                                
+                    _actGameState.RoundStatus = PhaseStatus.AssociationTelling;
+
+                    MainDeck mainDeck = (MainDeck)_actGameState.MainDeck;
+                    mainDeck.Shuffle(); // it shuffles main deck before the game is stated
+
+                    foreach (var player in _actGameState.Players)
+                    {
+                        _actGameState.Points.Add(player, 0);
+
+                        //deal out six cards to each player
+                        Hand hand = new Hand();
+                        for (int i = 0; i < 5; i++)
+                        {
+                            Card drawnCard = (Card)mainDeck.DrawCard();
+                            drawnCard.Owner = (Player) player;
+                            hand.AddCard(drawnCard);
+                        }
+
+                        _actGameState.Hands.Add(player, hand);
+                    }                    
+                    
+                    //if it prepares the first round than it raises the new round event
+                    NewRound(this, new EventArgs());
+
                     return true;
                 }
             }
@@ -132,11 +159,99 @@ namespace Dixit_Logic.Classes
         }
 
         /// <summary>
-        /// This evaluates the points of actual turn and adds these to the appropriate players's point (in _actGameState).         
+        /// This evaluates the points of actual turn and adds these to the appropriate 
+        /// players's point (in _actGameState). Than it prepares the next round if the 
+        /// game have more otherwise raise the GameEnd event.
         /// </summary>
         public void EvaluatePoints()
         {
-            throw new NotImplementedException();
+            if (_actGameState.RoundStatus == PhaseStatus.RoundEnd)
+            {
+                Card originalCard = null;
+                foreach (var boardCard in _actGameState.BoardDeck.Cards)
+                {
+                    if (((Card)boardCard).Owner.Equals(_actGameState.ActualPlayer))
+                    {
+                        originalCard = (Card)boardCard;
+                    }
+                }
+                if (originalCard != null)
+                {
+                    
+                    int goodGuess = 0;
+                    foreach (var guessedCard in _actGameState.Guesses)
+                    {
+                        Player guessedCardOwner = ((Card)guessedCard.Value).Owner;
+
+                        if (originalCard.Equals(guessedCard.Value))
+                        {                           
+                            _actGameState.Points[guessedCard.Key] = _actGameState.Points[guessedCard.Key] + 3;
+                            goodGuess++;
+                        }
+                        else
+                        {                             
+                            _actGameState.Points[guessedCardOwner] = _actGameState.Points[guessedCardOwner] + 1;
+                        }
+                    }
+                    
+                    
+
+                    //This section cheks whether all players has figured out the original card
+                    if (goodGuess != (_actGameState.Players.Count - 1))
+                    {                        
+                        _actGameState.Points[_actGameState.ActualPlayer] = _actGameState.Points[_actGameState.ActualPlayer] + 3;
+                    }
+                }
+
+
+                //This section prepares the next round if the game have more otherwise raise the GameEnd event
+                _actGameState.BoardDeck.EvacuateDeck();
+                _actGameState.Guesses.Clear();
+                _actGameState.CardAssociationText = "";
+
+
+                if (_actGameState.MainDeck.Cards.Count < _actGameState.Players.Count)
+                {
+                    if (_actGameState.Hands.First().Value.Cards.Count <= 0)
+                    {
+                        _actGameState.RoundStatus = PhaseStatus.GameOver;
+                        //if all cards are consumed from the MainDeck and players have no more cards too than it raises the game end event.
+                        GameEnd(this, new EventArgs());
+                    }
+                    
+                }
+                else
+                {
+                    MainDeck mainDeck = (MainDeck)_actGameState.MainDeck;
+
+                    //draw a card to each player
+                    foreach (var playerHand in _actGameState.Hands)
+                    {
+                        Hand hand = (Hand) playerHand.Value;
+                        Card drawnCard = (Card) mainDeck.DrawCard();
+                        drawnCard.Owner = (Player) playerHand.Key;
+                        hand.AddCard(drawnCard);
+                    }
+                }
+
+                int actPlayerIndex = _actGameState.Players.IndexOf(_actGameState.ActualPlayer);
+
+                if(actPlayerIndex >= (_actGameState.Players.Count -1))
+                {
+                    actPlayerIndex = 0;
+                }
+                else
+                {
+                    actPlayerIndex++;
+                }
+
+                _actGameState.ActualPlayer = _actGameState.Players.ElementAt(actPlayerIndex);
+                _actGameState.RoundStatus = PhaseStatus.AssociationTelling;
+
+                //if it prepares the new round than it raises the new round event
+                NewRound(this, new EventArgs());
+
+            }
         }
 
         /// <summary>
@@ -169,7 +284,34 @@ namespace Dixit_Logic.Classes
         /// <param name="card">The card is guessed by "player"</param>
         public void NewGuess(IPlayer player, ICard card)
         {
-            throw new NotImplementedException();
+            if (player != null && !player.Equals(_actGameState.ActualPlayer) 
+                && _actGameState.RoundStatus == PhaseStatus.Guessing 
+                && _actGameState.BoardDeck.Cards.Contains(card))
+            {
+                bool playerAlreadyGuess = false;
+
+                foreach (var guess in _actGameState.Guesses)
+                {
+                    if (guess.Key.Equals(player))
+                    {
+                        playerAlreadyGuess = true;
+                        break;
+                    }
+
+                }
+
+                if (!playerAlreadyGuess)
+                {
+                    _actGameState.Guesses.Add(player, card);
+                    if (_actGameState.Guesses.Count == (_actGameState.Players.Count - 1))
+                    {
+                        _actGameState.RoundStatus = PhaseStatus.RoundEnd;
+                                                
+                        //if all players guessed a card in a turn than it raise the guess phase end event.
+                        GuessPhaseEnd(this, new EventArgs());
+                    }                    
+                }               
+            }
         }
 
         /// <summary>
@@ -179,26 +321,44 @@ namespace Dixit_Logic.Classes
         /// <param name="card">The card what will be put by "player".</param>
         public void PutCard(IPlayer player, ICard card)
         {
-            if(_actGameState.RoundStatus == PhaseStatus.Putting)
-            {
-                IDeck playerHand;
+            if(player != null && _actGameState.RoundStatus == PhaseStatus.Putting)
+            {                
+                bool playerAlreadyPut = false;
 
-                if(player != null && _actGameState.Hands.TryGetValue(player, out playerHand))
+                foreach (var boardCard in _actGameState.BoardDeck.Cards)
                 {
-                    ICard selectedCard = ((Hand)playerHand).GetCard(card);
-                    if (selectedCard != null)
+                    if (((Card)boardCard).Owner.Equals(player))
                     {
-                        _actGameState.BoardDeck.AddCard(selectedCard);
+                        playerAlreadyPut = true;
+                        break;
+                    }
+                    
+                }
 
-                        if(_actGameState.BoardDeck.Cards.Count == _actGameState.Players.Count)
+                if (!playerAlreadyPut)
+                {
+                    IDeck playerHand;
+
+                    if (_actGameState.Hands.TryGetValue(player, out playerHand))
+                    {
+                        ICard selectedCard = ((Hand)playerHand).GetCard(card);
+                        if (selectedCard != null)
                         {
-                            _actGameState.RoundStatus = PhaseStatus.Guessing;
+                            _actGameState.BoardDeck.AddCard(selectedCard);
 
-                            //if all players put a card in a turn than it raise the putting phase end event.
-                            PuttingPhaseEnd(this, new EventArgs());
+                            if (_actGameState.BoardDeck.Cards.Count == _actGameState.Players.Count)
+                            {
+                                //shuffle the board deck
+                                ((Deck)_actGameState.BoardDeck).Shuffle();
+
+                                _actGameState.RoundStatus = PhaseStatus.Guessing;
+
+                                //if all players put a card in a turn than it raise the putting phase end event.
+                                PuttingPhaseEnd(this, new EventArgs());
+                            }
                         }
                     }
-                }
+                }                
             }
         }
     }

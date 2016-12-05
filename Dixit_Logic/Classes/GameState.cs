@@ -71,15 +71,27 @@ namespace Dixit_Logic.Classes
         public GameState()
         {          
             _storyTeller = null;
-            //_boardDeck = new IDeck();
+            _boardDeck = new Deck();
             _storyText = "";
             _guesses = new Dictionary<IPlayer, ICard>();
-            _hands = new Dictionary<IPlayer, IDeck>();
-            //_mainDeck = new IDeck();
-            _baseCards = new List<ICard>().AsReadOnly();
+            _hands = new Dictionary<IPlayer, IDeck>();        
             _players = new List<IPlayer>();            
             _points = new Dictionary<IPlayer, int>();
             _roundStatus = PhaseStatus.BeforeStart; // set to the game's round starting status
+
+            
+            List<ICard> baseCardList = new List<ICard>();
+
+            const int numberOfCards = 84;
+            //add cards to main deck
+            for (int i = 1; i < numberOfCards; i++)
+            {
+                Card newCard = new Card(i);
+                baseCardList.Add(newCard);                
+            }
+
+            _mainDeck = new MainDeck(baseCardList);
+            _baseCards = baseCardList.AsReadOnly();
         }
 
         /// <summary>
