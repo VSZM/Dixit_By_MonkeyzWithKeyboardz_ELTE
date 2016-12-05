@@ -21,11 +21,6 @@ namespace Dixit_Service
         private GameInfo GameInfo;
         private IDixitGame CurrentGame { get { return GameInfo?.Game; } }
 
-        static DixitService()
-        {
-            Injector.Container.Register<IDixitGame, Dixit_Logic.Classes.DixitGame>();
-        }
-
         #region login methods
         public void Login(string username)
         {

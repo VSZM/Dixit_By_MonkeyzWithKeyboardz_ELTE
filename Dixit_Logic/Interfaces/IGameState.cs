@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dixit_Logic.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -88,6 +89,11 @@ namespace Dixit_Logic.Interfaces
         /// This are the cards what the players put on the table.
         /// </summary>
         IDeck BoardDeck
+        {
+            get;
+        }
+
+        PhaseStatus RoundStatus
         {
             get;
         }

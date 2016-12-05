@@ -1,18 +1,23 @@
-﻿using SimpleInjector;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Dixit_Data;
+using Dixit_Data.Interfaces;
+using Dixit_Logic.Classes;
+using Dixit_Logic.Interfaces;
+using SimpleInjector;
 
 namespace Dixit.Common
 {
     public static class Injector
     {
-        public static Container Container;
+        public static readonly Container Container;
+
         static Injector()
         {
             Container = new Container();
+
+            Container.Register<IDixitGame, DixitGame>(Lifestyle.Singleton);
+            Container.Register<ICardAccess, CardAccess>(Lifestyle.Singleton);
+
+            Container.Verify();
         }
     }
 }
