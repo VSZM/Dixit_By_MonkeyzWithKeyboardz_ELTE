@@ -49,7 +49,8 @@ namespace Dixit_Logic.Classes
         }
 
         /// <summary>     
-        /// This event is triggered when all cards are consumed from the MainDeck and players have no more cards too .
+        /// This event is triggered when one of the players reach the maximum obtainable point or
+        /// all cards are consumed from the MainDeck and players have no more cards too.
         /// </summary>
         public event EventHandler GameEnd;
 
@@ -204,54 +205,71 @@ namespace Dixit_Logic.Classes
                     }
                 }
 
-
-                //This section prepares the next round if the game have more otherwise raise the GameEnd event
-                _actGameState.BoardDeck.EvacuateDeck();
-                _actGameState.Guesses.Clear();
-                _actGameState.CardAssociationText = "";
-
-
-                if (_actGameState.MainDeck.Cards.Count < _actGameState.Players.Count)
+                //Firstly check that one of the players reach the maximum obtainable point. If yes than game is over.
+                bool isGameOver = false;
+                foreach (var playerPoint in _actGameState.Points)
                 {
-                    if (_actGameState.Hands.First().Value.Cards.Count <= 0)
+                    if(playerPoint.Value >= _actGameState.ObtainablePoint)
                     {
-                        _actGameState.RoundStatus = PhaseStatus.GameOver;
-                        //if all cards are consumed from the MainDeck and players have no more cards too than it raises the game end event.
-                        GameEnd(this, new EventArgs());
-                    }
-                    
-                }
-                else
-                {
-                    MainDeck mainDeck = (MainDeck)_actGameState.MainDeck;
-
-                    //draw a card to each player
-                    foreach (var playerHand in _actGameState.Hands)
-                    {
-                        Hand hand = (Hand) playerHand.Value;
-                        Card drawnCard = (Card) mainDeck.DrawCard();
-                        drawnCard.Owner = (Player) playerHand.Key;
-                        hand.AddCard(drawnCard);
+                        isGameOver = true;
+                        break;
                     }
                 }
 
-                int actPlayerIndex = _actGameState.Players.IndexOf(_actGameState.ActualPlayer);
-
-                if(actPlayerIndex >= (_actGameState.Players.Count -1))
+                if (isGameOver)
                 {
-                    actPlayerIndex = 0;
+                    //if one of the players reach the maximum obtainable point than it raises the game end event.
+                    GameEnd(this, new EventArgs());
                 }
                 else
                 {
-                    actPlayerIndex++;
-                }
+                    //This section prepares the next round if the game have more otherwise raise the GameEnd event
+                    _actGameState.BoardDeck.EvacuateDeck();
+                    _actGameState.Guesses.Clear();
+                    _actGameState.CardAssociationText = "";
 
-                _actGameState.ActualPlayer = _actGameState.Players.ElementAt(actPlayerIndex);
-                _actGameState.RoundStatus = PhaseStatus.AssociationTelling;
 
-                //if it prepares the new round than it raises the new round event
-                NewRound(this, new EventArgs());
+                    if (_actGameState.MainDeck.Cards.Count < _actGameState.Players.Count)
+                    {
+                        if (_actGameState.Hands.First().Value.Cards.Count <= 0)
+                        {
+                            _actGameState.RoundStatus = PhaseStatus.GameOver;
+                            //if all cards are consumed from the MainDeck and players have no more cards too than it raises the game end event.
+                            GameEnd(this, new EventArgs());
+                        }
 
+                    }
+                    else
+                    {
+                        MainDeck mainDeck = (MainDeck)_actGameState.MainDeck;
+
+                        //draw a card to each player
+                        foreach (var playerHand in _actGameState.Hands)
+                        {
+                            Hand hand = (Hand)playerHand.Value;
+                            Card drawnCard = (Card)mainDeck.DrawCard();
+                            drawnCard.Owner = (Player)playerHand.Key;
+                            hand.AddCard(drawnCard);
+                        }
+                    }
+
+                    int actPlayerIndex = _actGameState.Players.IndexOf(_actGameState.ActualPlayer);
+
+                    if (actPlayerIndex >= (_actGameState.Players.Count - 1))
+                    {
+                        actPlayerIndex = 0;
+                    }
+                    else
+                    {
+                        actPlayerIndex++;
+                    }
+
+                    _actGameState.ActualPlayer = _actGameState.Players.ElementAt(actPlayerIndex);
+                    _actGameState.RoundStatus = PhaseStatus.AssociationTelling;
+
+                    //if it prepares the new round than it raises the new round event
+                    NewRound(this, new EventArgs());
+                }                
             }
         }
 

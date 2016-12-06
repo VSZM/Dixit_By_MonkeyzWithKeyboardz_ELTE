@@ -76,6 +76,10 @@
       <Project>{6cf5a4e8-2201-46fe-b33a-dffc845ae14a}</Project>
       <Name>Dixit.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Dixit_Data\Dixit_Data.csproj">
+      <Project>{AEFE4B12-E97F-465B-9256-54FB906B97B8}</Project>
+      <Name>Dixit_Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
