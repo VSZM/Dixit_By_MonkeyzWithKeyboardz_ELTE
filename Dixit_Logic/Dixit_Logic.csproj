@@ -53,6 +53,7 @@
     <Compile Include="Classes\Hand.cs" />
     <Compile Include="Classes\MainDeck.cs" />
     <Compile Include="Classes\Player.cs" />
+    <Compile Include="LogicInjector.cs" />
     <Compile Include="Interfaces\ICard.cs" />
     <Compile Include="Interfaces\IDeck.cs" />
     <Compile Include="Interfaces\IDixitGame.cs" />
@@ -69,12 +70,8 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Dixit.Common\Dixit.Common.csproj">
-      <Project>{6cf5a4e8-2201-46fe-b33a-dffc845ae14a}</Project>
-      <Name>Dixit.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Dixit_Data\Dixit_Data.csproj">
-      <Project>{AEFE4B12-E97F-465B-9256-54FB906B97B8}</Project>
+      <Project>{aefe4b12-e97f-465b-9256-54fb906b97b8}</Project>
       <Name>Dixit_Data</Name>
     </ProjectReference>
   </ItemGroup>

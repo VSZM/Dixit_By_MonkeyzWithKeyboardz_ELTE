@@ -150,7 +150,7 @@ namespace Dixit_Logic.Classes
                     }                    
                     
                     //if it prepares the first round than it raises the new round event
-                    NewRound(this, new EventArgs());
+                    NewRound?.Invoke(this, new EventArgs());
 
                     return true;
                 }
@@ -218,7 +218,7 @@ namespace Dixit_Logic.Classes
                 if (isGameOver)
                 {
                     //if one of the players reach the maximum obtainable point than it raises the game end event.
-                    GameEnd(this, new EventArgs());
+                    GameEnd?.Invoke(this, new EventArgs());
                 }
                 else
                 {
@@ -234,7 +234,7 @@ namespace Dixit_Logic.Classes
                         {
                             _actGameState.RoundStatus = PhaseStatus.GameOver;
                             //if all cards are consumed from the MainDeck and players have no more cards too than it raises the game end event.
-                            GameEnd(this, new EventArgs());
+                            GameEnd?.Invoke(this, new EventArgs());
                         }
 
                     }
@@ -267,7 +267,7 @@ namespace Dixit_Logic.Classes
                     _actGameState.RoundStatus = PhaseStatus.AssociationTelling;
 
                     //if it prepares the new round than it raises the new round event
-                    NewRound(this, new EventArgs());
+                    NewRound?.Invoke(this, new EventArgs());
                 }                
             }
         }
@@ -326,7 +326,7 @@ namespace Dixit_Logic.Classes
                         _actGameState.RoundStatus = PhaseStatus.RoundEnd;
                                                 
                         //if all players guessed a card in a turn than it raise the guess phase end event.
-                        GuessPhaseEnd(this, new EventArgs());
+                        GuessPhaseEnd?.Invoke(this, new EventArgs());
                     }                    
                 }               
             }
@@ -372,7 +372,7 @@ namespace Dixit_Logic.Classes
                                 _actGameState.RoundStatus = PhaseStatus.Guessing;
 
                                 //if all players put a card in a turn than it raise the putting phase end event.
-                                PuttingPhaseEnd(this, new EventArgs());
+                                PuttingPhaseEnd?.Invoke(this, new EventArgs());
                             }
                         }
                     }

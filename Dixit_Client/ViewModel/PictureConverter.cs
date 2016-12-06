@@ -9,7 +9,7 @@ using System.Windows.Data;
 using Dixit_Data;
 using System.Windows;
 using System.Windows.Media.Imaging;
-using Dixit.Common;
+using Dixit.Injectors;
 using Dixit_Data.Interfaces;
 
 namespace Dixit_Client.ViewModel
@@ -19,7 +19,7 @@ namespace Dixit_Client.ViewModel
     /// </summary>
     class PictureConverter : IValueConverter
     {
-        private ICardAccess ca = Injector.Container.GetInstance<ICardAccess>();
+        private ICardAccess ca = DataInjector.Container.GetInstance<ICardAccess>();
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Dixit.Common;
+using Dixit.Injectors;
 using Dixit_Logic.Interfaces;
 using Dixit_Logic.Classes;
 
@@ -15,7 +15,7 @@ namespace Integration_Tests
         [TestInitialize]
         public void SetUp()
         {
-            game = Injector.Container.GetInstance<IDixitGame>();
+            game = LogicInjector.Container.GetInstance<IDixitGame>();
             game.AddPlayer("Brigi");
             game.AddPlayer("Zsófi");
             game.AddPlayer("Gábor");

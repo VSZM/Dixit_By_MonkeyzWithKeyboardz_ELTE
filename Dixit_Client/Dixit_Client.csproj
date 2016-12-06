@@ -153,10 +153,6 @@
     <Folder Include="Mockup\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Dixit.Common\Dixit.Common.csproj">
-      <Project>{6cf5a4e8-2201-46fe-b33a-dffc845ae14a}</Project>
-      <Name>Dixit.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Dixit_Data\Dixit_Data.csproj">
       <Project>{aefe4b12-e97f-465b-9256-54fb906b97b8}</Project>
       <Name>Dixit_Data</Name>
