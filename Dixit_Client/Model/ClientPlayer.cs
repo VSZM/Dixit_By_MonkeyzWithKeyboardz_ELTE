@@ -8,13 +8,17 @@ using Dixit_Logic.Classes;
 
 namespace Dixit_Client.Model
 {
-    public class ClientPlayer : Player
+    public class ClientPlayer
     {
-        public ClientPlayer(string name) : base(name)
+        public ClientPlayer(int id, String name)
         {
+            Id = id;
+            Name = name;
             Score = 0;
         }
-
         public int Score { get; set; }
+
+        public int Id { get; private set; }
+        public String Name { get; }
     }
 }

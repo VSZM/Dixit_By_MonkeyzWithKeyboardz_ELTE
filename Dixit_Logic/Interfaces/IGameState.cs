@@ -96,6 +96,15 @@ namespace Dixit_Logic.Interfaces
         PhaseStatus RoundStatus
         {
             get;
+	}
+
+        /// <summary>
+        /// Dixit game lasts until one of the players reach this point.
+        /// </summary>
+        int ObtainablePoint
+        {
+            get;
+            set;
         }
     }
 }

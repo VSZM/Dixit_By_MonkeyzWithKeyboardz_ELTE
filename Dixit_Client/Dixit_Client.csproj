@@ -64,6 +64,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\ClientPlayer.cs" />
+    <Compile Include="ViewModel\DelagateCommand.cs" />
     <Compile Include="View\PlayerData.xaml.cs">
       <DependentUpon>PlayerData.xaml</DependentUpon>
     </Compile>
@@ -87,7 +88,6 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\DixitClientViewModel.cs" />
-    <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\PictureConverter.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\LoginWindow.xaml.cs">

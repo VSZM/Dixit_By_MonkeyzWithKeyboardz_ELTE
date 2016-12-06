@@ -15,7 +15,7 @@ namespace Dixit_Client.Model
         private bool isloggedin;
 
         public event EventHandler<Exception> LoginFailedEvent;
-        public event EventHandler LoginSuccessEvent;
+        public event EventHandler<String> LoginSuccessEvent;
 
         public event EventHandler<GameStateEventArgs> GameEndEvent;
         public event EventHandler<GameStateEventArgs> GameStartEvent;
@@ -41,7 +41,7 @@ namespace Dixit_Client.Model
                 serviceclient.Login(username);
 
                 isloggedin = true;
-                LoginSuccessEvent?.Invoke(this, EventArgs.Empty);
+                LoginSuccessEvent?.Invoke(this, username);
             }
             catch(Exception e)
             {
