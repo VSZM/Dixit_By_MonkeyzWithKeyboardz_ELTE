@@ -91,5 +91,14 @@ namespace Dixit_Logic.Interfaces
         {
             get;
         }
+
+        /// <summary>
+        /// Dixit game lasts until one of the players reach this point.
+        /// </summary>
+        int ObtainablePoint
+        {
+            get;
+            set;
+        }
     }
 }
