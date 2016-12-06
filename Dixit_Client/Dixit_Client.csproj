@@ -35,11 +35,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Images">
-      <HintPath>..\..\Images\Images\bin\Debug\Images.dll</HintPath>
-    </Reference>
-    <Reference Include="SimpleInjector, Version=3.2.7.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
-      <HintPath>..\packages\SimpleInjector.3.2.7\lib\net45\SimpleInjector.dll</HintPath>
+    <Reference Include="SimpleInjector, Version=3.3.2.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.3.3.2\lib\net45\SimpleInjector.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -156,10 +153,6 @@
     <Folder Include="Mockup\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Dixit.Common\Dixit.Common.csproj">
-      <Project>{6cf5a4e8-2201-46fe-b33a-dffc845ae14a}</Project>
-      <Name>Dixit.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Dixit_Data\Dixit_Data.csproj">
       <Project>{aefe4b12-e97f-465b-9256-54fb906b97b8}</Project>
       <Name>Dixit_Data</Name>

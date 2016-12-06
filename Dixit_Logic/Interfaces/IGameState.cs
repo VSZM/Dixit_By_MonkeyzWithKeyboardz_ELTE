@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dixit_Logic.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -91,6 +92,11 @@ namespace Dixit_Logic.Interfaces
         {
             get;
         }
+
+        PhaseStatus RoundStatus
+        {
+            get;
+	}
 
         /// <summary>
         /// Dixit game lasts until one of the players reach this point.

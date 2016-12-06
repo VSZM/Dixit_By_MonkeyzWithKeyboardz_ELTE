@@ -1,10 +1,12 @@
 ﻿using Dixit_Data;
 using Dixit_Logic.Interfaces;
 using System;
+using Dixit.Injectors;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dixit_Data.Interfaces;
 
 namespace Dixit_Logic.Classes
 {
@@ -19,7 +21,7 @@ namespace Dixit_Logic.Classes
         /// <summary>
         /// Referenc to the data layer
         /// </summary>
-        private CardAccess dataCardAccess;
+        private ICardAccess dataCardAccess;
 
         /// <summary>
         /// Store the player who start the actual turn.
@@ -82,7 +84,7 @@ namespace Dixit_Logic.Classes
         /// </summary>
         public GameState()
         {
-            dataCardAccess = new CardAccess();
+            dataCardAccess = DataInjector.Container.GetInstance<ICardAccess>();
             _storyTeller = null;
             _boardDeck = new Deck();
             _storyText = "";

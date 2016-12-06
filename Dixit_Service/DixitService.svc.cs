@@ -9,8 +9,8 @@ using System.Text;
 using Dixit_Logic.Interfaces;
 using System.Reflection;
 using Dixit_Service.DataContracts;
-using Dixit.Common;
 using Dixit_ServiceLibrary.DataContracts;
+using Dixit.Injectors;
 
 namespace Dixit_Service
 {
@@ -20,11 +20,6 @@ namespace Dixit_Service
         private HashSet<UserInfo> Users = new HashSet<UserInfo>();
         private GameInfo GameInfo;
         private IDixitGame CurrentGame { get { return GameInfo?.Game; } }
-
-        static DixitService()
-        {
-            Injector.Container.Register<IDixitGame, Dixit_Logic.Classes.DixitGame>();
-        }
 
         #region login methods
         public void Login(string username)
@@ -105,7 +100,7 @@ namespace Dixit_Service
         }
         private void CreateGame()
         {
-            var r = Injector.Container.GetInstance<IDixitGame>();
+            var r = LogicInjector.Container.GetInstance<IDixitGame>();
             GameInfo = new GameInfo();
             GameInfo.Game = r;
             var state = r.ActualGameState;
