@@ -21,12 +21,18 @@ namespace Dixit_Logic.Classes
         private int _id;
 
         /// <summary>
+        /// Store the player who own the card
+        /// </summary>
+        private Player _owner;
+
+        /// <summary>
         /// Construct a card with the given id 
         /// </summary>
         /// <param name="id">card indentifier</param>
         public Card(int id)
         {
             _id = id;
+            _owner = null;
         }
 
         /// <summary>
@@ -39,6 +45,22 @@ namespace Dixit_Logic.Classes
                 return _id;
             }
             
+        }
+
+        /// <summary>
+        /// The player who drawed the card
+        /// </summary>
+        public Player Owner
+        {
+            get
+            {
+                return _owner;
+            }
+
+            internal set
+            {
+                _owner = value;
+            }
         }
 
         /// <summary>

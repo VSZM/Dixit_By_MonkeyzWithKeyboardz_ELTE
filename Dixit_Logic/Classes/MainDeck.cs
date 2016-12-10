@@ -10,7 +10,7 @@ namespace Dixit_Logic.Classes
     /// <summary>
     /// This class represents the main deck. The main deck is from which the players draw new cards.
     /// </summary>
-    class MainDeck : Deck
+    public class MainDeck : Deck
     {
         /// <summary>
         /// Construct an empty main deck

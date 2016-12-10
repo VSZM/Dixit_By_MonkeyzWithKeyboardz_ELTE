@@ -1,13 +1,16 @@
-﻿using Dixit_Logic.Interfaces;
+﻿using Dixit_Data;
+using Dixit_Logic.Interfaces;
 using System;
+using Dixit.Injectors;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dixit_Data.Interfaces;
 
 namespace Dixit_Logic.Classes
 {
-    public enum PhaseStatus { AssociationTelling = 0, Putting = 1, Guessing = 2, RoundEnd = 3 };
+    public enum PhaseStatus { BeforeStart = 0, AssociationTelling = 1, Putting = 2, Guessing = 3, RoundEnd = 4, GameOver = 5 };
 
     /// <summary>
     /// This class describes a state of game. Every property have internal set method
@@ -15,6 +18,11 @@ namespace Dixit_Logic.Classes
     /// </summary>
     public class GameState : IGameState
     {
+        /// <summary>
+        /// Referenc to the data layer
+        /// </summary>
+        private ICardAccess dataCardAccess;
+
         /// <summary>
         /// Store the player who start the actual turn.
         /// </summary>
@@ -56,11 +64,6 @@ namespace Dixit_Logic.Classes
         private IList<IPlayer> _players;
 
         /// <summary>
-        /// Store a logical value wheter the game is started or not.
-        /// </summary>
-        private bool _gameIsRuning;
-
-        /// <summary>
         /// Store a dictionary what associate a palyer with his/her own game-point value.
         /// </summary>
         private Dictionary<IPlayer, int> _points;
@@ -71,21 +74,40 @@ namespace Dixit_Logic.Classes
         private PhaseStatus _roundStatus;
 
         /// <summary>
+        /// Store the maximum point value what players can reach. 
+        /// if one of the players reach this point than game is over.
+        /// </summary>
+        private int _obtainablePoint;
+
+        /// <summary>
         /// Construct a default game state.
         /// </summary>
         public GameState()
-        {          
+        {
+            dataCardAccess = DataInjector.Container.GetInstance<ICardAccess>();
             _storyTeller = null;
-            //_boardDeck = new IDeck();
+            _boardDeck = new Deck();
             _storyText = "";
             _guesses = new Dictionary<IPlayer, ICard>();
-            _hands = new Dictionary<IPlayer, IDeck>();
-            //_mainDeck = new IDeck();
-            _baseCards = new List<ICard>().AsReadOnly();
-            _players = new List<IPlayer>();
-            _gameIsRuning = false;
+            _hands = new Dictionary<IPlayer, IDeck>();        
+            _players = new List<IPlayer>();            
             _points = new Dictionary<IPlayer, int>();
-            _roundStatus = PhaseStatus.AssociationTelling; // set to the game's round starting status
+            _roundStatus = PhaseStatus.BeforeStart; // set to the game's round starting status
+            _obtainablePoint = 5;
+
+            
+            List<ICard> baseCardList = new List<ICard>();
+            List<int> idList = dataCardAccess.GetIDList();
+
+            //add cards to main deck
+            foreach (var id in idList)
+            {
+                Card newCard = new Card(id);
+                baseCardList.Add(newCard);
+            }                            
+
+            _mainDeck = new MainDeck(baseCardList);
+            _baseCards = baseCardList.AsReadOnly();
         }
 
         /// <summary>
@@ -223,12 +245,7 @@ namespace Dixit_Logic.Classes
         {
             get
             {
-                return _gameIsRuning;
-            }
-
-            internal set
-            {
-                _gameIsRuning = value;
+                return (RoundStatus != PhaseStatus.BeforeStart);
             }
         }
 
@@ -262,6 +279,22 @@ namespace Dixit_Logic.Classes
             internal set
             {
                 _roundStatus = value;
+            }
+        }
+
+        /// <summary>
+        /// Dixit game lasts until one of the players reach this point.
+        /// </summary>
+        public int ObtainablePoint
+        {
+            get
+            {
+                return _obtainablePoint;
+            }
+
+            set
+            {
+                _obtainablePoint = value;
             }
         }
     }

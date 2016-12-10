@@ -1,12 +1,54 @@
-﻿<Window x:Class="Dixit_Client.View.MainWindow"
+<Window x:Class="Dixit_Client.View.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Dixit_Client.View"
+        xmlns:vm="clr-namespace:Dixit_Client.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Játékfelület" Height="768" Width="1024">
+    <Window.Resources>
+        <vm:PictureConverter x:Key="PictureConverter" />
+    </Window.Resources>
     <Grid>
-        
+        <!-- Getting the cards put on the table-->
+        <ItemsControl ItemsSource="{Binding CardsOnTable}" Width="700"  Height="495" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,10,10,0">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Rows="2" Columns="4" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Image Width="250" Height="210" Margin="0,0,5,5" Source="{Binding Path=Id, Converter={StaticResource PictureConverter}}"  />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <!-- Getting the cards in a player's hand-->
+        <ItemsControl ItemsSource="{Binding CardsInHand}" Width="570" Height="170" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,85,10">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Rows="1" Columns="6" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Image Width="91" Height="160" Margin="0,0,10,0" Source="{Binding Path=Id, Converter={StaticResource PictureConverter}}"  />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <!-- Getting available players-->
+        <ItemsControl ItemsSource="{Binding Players}" Width="259"  Height="717" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,747,10">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Rows="4" Columns="2" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <local:PlayerData Player="{Binding}"  />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
 </Window>

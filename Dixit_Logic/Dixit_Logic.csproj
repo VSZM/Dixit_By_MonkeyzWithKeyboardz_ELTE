@@ -53,24 +53,27 @@
     <Compile Include="Classes\Hand.cs" />
     <Compile Include="Classes\MainDeck.cs" />
     <Compile Include="Classes\Player.cs" />
+    <Compile Include="LogicInjector.cs" />
     <Compile Include="Interfaces\ICard.cs" />
     <Compile Include="Interfaces\IDeck.cs" />
     <Compile Include="Interfaces\IDixitGame.cs" />
     <Compile Include="Interfaces\IGameState.cs" />
     <Compile Include="Interfaces\IPlayer.cs" />
-    <Compile Include="KnownTypesProvider.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Images">
-      <HintPath>..\..\Images\Images\bin\Debug\Images.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="SimpleInjector, Version=3.2.2.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
-      <HintPath>..\packages\SimpleInjector.3.2.2\lib\net45\SimpleInjector.dll</HintPath>
+    <Reference Include="SimpleInjector, Version=3.3.2.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.3.3.2\lib\net45\SimpleInjector.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dixit_Data\Dixit_Data.csproj">
+      <Project>{aefe4b12-e97f-465b-9256-54fb906b97b8}</Project>
+      <Name>Dixit_Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
