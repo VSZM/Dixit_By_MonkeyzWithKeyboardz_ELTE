@@ -27,12 +27,21 @@ namespace Dixit_Logic.Classes
         /// It gives back the first card from the deck 
         /// and ereases that from the deck.
         /// </summary>
-        /// <returns>The first card from the deck</returns>
+        /// <returns>The first card from the deck or
+        /// null if the Maindeck does not contain more cards</returns>
         public ICard DrawCard()
         {
-            ICard card = _cards.First();
-            _cards.Remove(card);
-            return card;
+            if (_cards.Any())
+            {
+                ICard card = _cards.First();
+                _cards.Remove(card);
+                return card;
+            }
+            else
+            {
+                return null;
+            }
+            
         }
     }
 }
