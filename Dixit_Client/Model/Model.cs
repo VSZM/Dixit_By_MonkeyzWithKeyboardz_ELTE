@@ -76,6 +76,11 @@ namespace Dixit_Client.Model
         {
             PuttingPhaseEndEvent?.Invoke(this, EventArgs.Empty);
         }
+
+        public JoinGameResult JoinGame()
+        {
+            return serviceclient.JoinGame();
+        }
     }
 
     public class GameStateEventArgs

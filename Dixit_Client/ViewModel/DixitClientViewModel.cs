@@ -20,7 +20,17 @@ namespace Dixit_Client.ViewModel
     {
         //////////////////////////////////////// common part ////////////////////////////////////////
 
-        private String _userName;
+        private String _username;
+        public String UserName {
+            get {
+                return _username;
+            }
+            set {
+                _username = value;
+                HostJoinGameCommand.RaiseCanExecuteChanged();
+            }
+        }
+        
         /// <summary>
         /// Model instance to get interaction with the game logic.
         /// </summary>
@@ -33,14 +43,14 @@ namespace Dixit_Client.ViewModel
 
         public DixitClientViewModel()
         {
-            _userName = null;
+            //UserName = null;
+            Players = new ObservableCollection<ClientPlayer>();
             model = new Model.Model();
             model.LoginFailedEvent += new EventHandler<Exception>(OnLoginFailed);
             model.LoginSuccessEvent += new EventHandler<String>(OnLoginSuccess);
             model.GameStartEvent += new EventHandler<GameStateEventArgs>(OnGameStart);
             model.GameStateChangedEvent += new EventHandler<GameStateEventArgs>(OnGameStateChanged);
-            HostGameCommand = new DelegateCommand(param => host());
-            JoinGameCommand = new DelegateCommand(param => join());
+            HostJoinGameCommand = new DelegateCommand(_ => !String.IsNullOrEmpty(UserName), param => hostOrJoin());
             StartGameCommand = new DelegateCommand(param => start());
             SelectCardCommand = new DelegateCommand(param => SelectCard((int)param));
         }
@@ -58,7 +68,7 @@ namespace Dixit_Client.ViewModel
         /// Event to fire when login was successful
         /// </summary>
         /// TODO: use EventHandler that contains the initial gamestate
-        public event EventHandler Success;
+        public event EventHandler StartGame;
 
         /// <summary>
         /// EventHandler to handle failed login attempt
@@ -77,51 +87,39 @@ namespace Dixit_Client.ViewModel
         /// <param name="e">Username</param>
         private void OnLoginSuccess(object sender, String e)
         {
-            _userName = e;
-            Success?.Invoke(this, EventArgs.Empty);
+            UserName = e;
         }
 
         /// <summary>
-        /// Command to host a new game
+        /// Command to host or join a game
         /// </summary>
-        public DelegateCommand HostGameCommand { get; private set; }
+        public DelegateCommand HostJoinGameCommand { get; private set; }
 
         /// <summary>
-        /// Command to host a new game
-        /// </summary>
-        public DelegateCommand JoinGameCommand { get; private set; }
-
-        /// <summary>
-        /// Command to host a new game
+        /// Command to start the actual game
         /// </summary>
         public DelegateCommand StartGameCommand { get; private set; }
 
         /// <summary>
-        /// Function to host a game
+        /// Function to host a game or join an existing one
         /// </summary>
-        public void host()
+        private void hostOrJoin()
         {
-            // todo
-        }
-
-        /// <summary>
-        /// Function to join an existing game
-        /// </summary>
-        public void join()
-        {
-            // todo
+            if (String.IsNullOrEmpty(_username)) { return; }
+            model.Login(UserName);
+            var join = model.JoinGame();
+            if (!join.Success) {
+                Failed?.Invoke(this, join.ErrorMessage);
+            }
         }
 
         /// <summary>
         /// Start a game
         /// </summary>
-        public void start()
+        private void start()
         {
-            if (Players.Count < 3) {
-                // todo use EventArgs with string inside it to deliver a reason why it failed
-                // Failed(this, new EventArgs());
-            }
-            // todo
+            //if (Players.Count < 3) { return; }
+            StartGame?.Invoke(this, EventArgs.Empty);
         }
 
 
@@ -176,7 +174,7 @@ namespace Dixit_Client.ViewModel
             }
 
             foreach (var hand in e.State.Hands) {
-                if (hand.Key.Name.Equals(_userName)) {
+                if (hand.Key.Name.Equals(UserName)) {
                     foreach (var card in hand.Value.Cards) {
                         CardsInHand.Add(new Card(card.Id));
                     }
@@ -204,7 +202,7 @@ namespace Dixit_Client.ViewModel
             }
             
             foreach (var hand in e.State.Hands) {
-                if (hand.Key.Name.Equals(_userName)) {
+                if (hand.Key.Name.Equals(UserName)) {
                     foreach (var card in hand.Value.Cards) {
                         CardsInHand.Add(new Card(card.Id));
                     }
