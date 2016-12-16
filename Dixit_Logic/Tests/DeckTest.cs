@@ -45,26 +45,36 @@ namespace Dixit_Logic.Tests
             List<ICard> cardList = new List<ICard>();
 
             for (int i = 0; i < 10; i++)
-            {
-                Card newCard = new Card(i);
-                cardList.Add(newCard);
+            {                
+                cardList.Add(new Card(i));
             }
 
             Deck firstDeck = new Deck(cardList);
-            firstDeck.Shuffle();
-
+     
             bool newOrder = false;
 
-            for (int i = 0; i < cardList.Count; i++)
+            //if the deck doesn't get a new order, than the program try to shuffle the deck once again
+            //becous in some cases after shuffling, the deck can get back the original order
+            for (int j = 0; j < 1; j++)
             {
-                if (firstDeck.Cards[i] != cardList[i])
+                firstDeck.Shuffle();
+
+                for (int i = 0; i < cardList.Count; i++)
                 {
-                    newOrder = true;
+                    if (firstDeck.Cards[i] != cardList[i])
+                    {
+                        newOrder = true;
+                        break;
+                    }
+                }
+                if (newOrder)
+                {
                     break;
                 }
             }
 
             Assert.IsTrue(newOrder);
+            Assert.IsTrue(new HashSet<ICard>(cardList).SetEquals(firstDeck.Cards));
         }
     }
 }

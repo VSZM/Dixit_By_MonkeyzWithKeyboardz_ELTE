@@ -216,11 +216,12 @@ namespace Dixit_Logic.Classes
                             _actGameState.Points[guessedCardOwner] = _actGameState.Points[guessedCardOwner] + 1;
                         }
                     }
-                    
-                    
 
-                    //This section cheks whether all players has figured out the original card
-                    if (goodGuess < (_actGameState.Players.Count - 1))
+
+
+                    //if some players did not figure out the original card and some players figure out
+                    // than the story teller get points                    
+                    if (goodGuess < (_actGameState.Players.Count - 1) && goodGuess > 0)
                     {                        
                         _actGameState.Points[_actGameState.ActualPlayer] = _actGameState.Points[_actGameState.ActualPlayer] + 3;
                     }

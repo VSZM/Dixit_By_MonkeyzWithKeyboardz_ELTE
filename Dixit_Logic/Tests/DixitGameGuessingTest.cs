@@ -18,8 +18,14 @@ namespace Dixit_Logic.Tests
 
         private IDeck nAPlayerHand;
 
-        private ICard nAPlayerPutedCard;
+        private ICard nAPlayerPutCard;
 
+        /// <summary>
+        /// Set up a dixit game with six player and start the game. The Addplayer and StartGame 
+        /// methods are tested in DixtGameBeforeStartTest. Than add an association text which is
+        /// tested in DixitGameAssociationTellingTest. After that, all players put a card by 
+        /// PutCard method wich is tested in DixitGamePuttingTest.
+        /// </summary>
         [TestInitialize]
         public void SetUp()
         {
@@ -47,13 +53,13 @@ namespace Dixit_Logic.Tests
                 testGame.PutCard(player, playerHand.Cards[0]);
             }
 
-            nAPlayerPutedCard = null;
+            nAPlayerPutCard = null;
 
             foreach (var boardCard in testGame.ActualGameState.BoardDeck.Cards)
             {
                 if (((Card)boardCard).Owner.Equals(notActualPlayer))
                 {
-                    nAPlayerPutedCard = boardCard;
+                    nAPlayerPutCard = boardCard;
                     break;
                 }
             }
@@ -103,7 +109,7 @@ namespace Dixit_Logic.Tests
                 }
             }
 
-            testGame.NewGuess(notActualPlayer, nAPlayerPutedCard);
+            testGame.NewGuess(notActualPlayer, nAPlayerPutCard);
             Assert.AreEqual(0, testGame.ActualGameState.Guesses.Count);
 
             testGame.NewGuess(notActualPlayer, correctGuess);

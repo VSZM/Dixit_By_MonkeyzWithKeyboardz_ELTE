@@ -16,6 +16,10 @@ namespace Dixit_Logic.Tests
 
         private IPlayer notActualPlayer;
 
+        /// <summary>
+        /// Set up a dixit game with six player and start the game. The Addplayer and StartGame 
+        /// methods are tested in DixtGameBeforeStartTest.
+        /// </summary>
         [TestInitialize]
         public void SetUp()
         {
@@ -28,8 +32,8 @@ namespace Dixit_Logic.Tests
             testGame.AddPlayer("Matyi");
             testGame.StartGame();
 
-            int actPalyerIndex = testGame.ActualGameState.Players.IndexOf(testGame.ActualGameState.ActualPlayer);
-            int notActPlayerIndex = (actPalyerIndex + 1) % testGame.ActualGameState.Players.Count;
+            int actPlayerIndex = testGame.ActualGameState.Players.IndexOf(testGame.ActualGameState.ActualPlayer);
+            int notActPlayerIndex = (actPlayerIndex + 1) % testGame.ActualGameState.Players.Count;
             notActualPlayer = testGame.ActualGameState.Players[notActPlayerIndex];
         }
 
