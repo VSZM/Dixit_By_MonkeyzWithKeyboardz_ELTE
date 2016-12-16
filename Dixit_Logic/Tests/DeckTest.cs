@@ -55,7 +55,7 @@ namespace Dixit_Logic.Tests
 
             //if the deck doesn't get a new order, than the program try to shuffle the deck once again
             //becous in some cases after shuffling, the deck can get back the original order
-            for (int j = 0; j < 1; j++)
+            for (int j = 0; j < 2; j++)
             {
                 firstDeck.Shuffle();
 
