@@ -38,5 +38,54 @@ namespace Integration_Tests
             }
             Assert.IsTrue(string.IsNullOrEmpty(game.ActualGameState.CardAssociationText));
         }
+
+        /// <summary>
+        /// When none of the players reach the obtainable point than the game continue until
+        /// the main deck has less cards then number of players of the game and players have no more cards too.
+        /// </summary>
+        [TestMethod]
+        public void TestPlayersNotReachTheObtainablePoint()
+        {
+            game.ActualGameState.ObtainablePoint = game.ActualGameState.BaseCards.Count * 20;
+            while (game.ActualGameState.Hands.First().Value.Cards.Count != 0)
+            {
+                Assert.AreNotEqual(PhaseStatus.GameOver, game.ActualGameState.RoundStatus);
+
+                game.AddAssociationText("Something", game.ActualGameState.ActualPlayer);
+                
+                IDeck actPlayerHand;
+                game.ActualGameState.Hands.TryGetValue(game.ActualGameState.ActualPlayer, out actPlayerHand);
+                ICard originalCard = actPlayerHand.Cards.First();
+                game.PutCard(game.ActualGameState.ActualPlayer, originalCard);
+
+                foreach (var player in game.ActualGameState.Players)
+                {                    
+                    if (!player.Equals(game.ActualGameState.ActualPlayer))
+                    {
+                        IDeck playerHand;
+                        game.ActualGameState.Hands.TryGetValue(player, out playerHand);
+                        game.PutCard(player, playerHand.Cards.First());
+                    }
+                    
+                }
+
+                foreach (var player in game.ActualGameState.Players)
+                {
+                    if (!player.Equals(game.ActualGameState.ActualPlayer))
+                    {
+                        game.NewGuess(player, originalCard);
+                    }
+                }
+
+                game.EvaluatePoints();
+            }
+            Assert.AreEqual(PhaseStatus.GameOver, game.ActualGameState.RoundStatus);
+            Assert.IsTrue(game.ActualGameState.BoardDeck.Cards.Count < game.ActualGameState.Players.Count);
+
+            foreach (var playerHand in game.ActualGameState.Hands)
+            {
+                Assert.AreEqual(0, playerHand.Value.Cards.Count);
+            }
+        }
     }
 }

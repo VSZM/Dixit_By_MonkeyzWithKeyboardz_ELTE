@@ -71,7 +71,7 @@ namespace Dixit_Logic.Classes
 
         /// <summary>     
         /// This event is triggered when one of the players reach the maximum obtainable point or
-        /// all cards are consumed from the MainDeck and players have no more cards too.
+        /// the main deck has less cards then number of players of the game and players have no more cards too.
         /// </summary>
         public event EventHandler GameEnd;
 
@@ -241,6 +241,7 @@ namespace Dixit_Logic.Classes
                 if (isGameOver)
                 {
                     //if one of the players reach the maximum obtainable point than it raises the game end event.
+                    _actGameState.RoundStatus = PhaseStatus.GameOver;
                     GameEnd?.Invoke(this, new EventArgs());
                 }
                 else
@@ -251,37 +252,37 @@ namespace Dixit_Logic.Classes
                     _actGameState.CardAssociationText = "";
 
 
-                    if (_actGameState.MainDeck.Cards.Count < _actGameState.Players.Count)
+                    if (_actGameState.MainDeck.Cards.Count < _actGameState.Players.Count
+                        && _actGameState.Hands.First().Value.Cards.Count <= 0)
                     {
-                        if (_actGameState.Hands.First().Value.Cards.Count <= 0)
-                        {
-                            _actGameState.RoundStatus = PhaseStatus.GameOver;
-                            //if all cards are consumed from the MainDeck and players have no more cards too than it raises the game end event.
-                            GameEnd?.Invoke(this, new EventArgs());
-                        }
-
+                        _actGameState.RoundStatus = PhaseStatus.GameOver;
+                        //if all cards are consumed from the MainDeck and players have no more cards too than it raises the game end event.
+                        GameEnd?.Invoke(this, new EventArgs());
                     }
                     else
                     {
-                        MainDeck mainDeck = (MainDeck)_actGameState.MainDeck;
-
-                        //draw a card to each player
-                        foreach (var playerHand in _actGameState.Hands)
+                        if (_actGameState.MainDeck.Cards.Count >= _actGameState.Players.Count)
                         {
-                            Hand hand = (Hand)playerHand.Value;
-                            Card drawnCard = (Card)mainDeck.DrawCard();
-                            drawnCard.Owner = (Player)playerHand.Key;
-                            hand.AddCard(drawnCard);
+                            MainDeck mainDeck = (MainDeck)_actGameState.MainDeck;
+
+                            //draw a card to each player
+                            foreach (var playerHand in _actGameState.Hands)
+                            {
+                                Hand hand = (Hand)playerHand.Value;
+                                Card drawnCard = (Card)mainDeck.DrawCard();
+                                drawnCard.Owner = (Player)playerHand.Key;
+                                hand.AddCard(drawnCard);
+                            }
                         }
-                    }
+                                                
+                        int actPlayerIndex = (_actGameState.Players.IndexOf(_actGameState.ActualPlayer) + 1) % _actGameState.Players.Count;
 
-                    int actPlayerIndex = (_actGameState.Players.IndexOf(_actGameState.ActualPlayer) + 1) % _actGameState.Players.Count;
+                        _actGameState.ActualPlayer = _actGameState.Players.ElementAt(actPlayerIndex);
+                        _actGameState.RoundStatus = PhaseStatus.AssociationTelling;
 
-                    _actGameState.ActualPlayer = _actGameState.Players.ElementAt(actPlayerIndex);
-                    _actGameState.RoundStatus = PhaseStatus.AssociationTelling;
-
-                    //if it prepares the new round than it raises the new round event
-                    NewRound?.Invoke(this, new EventArgs());
+                        //if it prepares the new round than it raises the new round event
+                        NewRound?.Invoke(this, new EventArgs());
+                    }                    
                 }                
             }
         }
