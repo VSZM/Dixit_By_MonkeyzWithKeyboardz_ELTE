@@ -45,5 +45,14 @@ namespace Dixit_Data
         {
             return (Bitmap)Resources.ResourceManager.GetObject(id.ToString());
         }
+
+        /// <summary>
+        /// Gets the back image of card.
+        /// </summary>
+        /// <returns></returns>
+        public Bitmap GetCardBack()
+        {
+            return (Bitmap)Resources.ResourceManager.GetObject("cardback");
+        }
     }
 }
