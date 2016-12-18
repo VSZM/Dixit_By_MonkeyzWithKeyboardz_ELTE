@@ -10,67 +10,18 @@ namespace Dixit_Logic.Classes
     /// <summary>
     /// This class represnts the card deck what a player hold in his/her hands.
     /// </summary>
-    public class Hand : IDeck
+    public class Hand : Deck
     {
-        /// <summary>
-        /// It stores the list of cards what the hand contain.
-        /// </summary>
-        private List<ICard> _cards;
-
-        /// <summary>
-        /// Return with the cards what stores in _cards
-        /// </summary>
-        public IList<ICard> Cards
-        {
-            get
-            {
-                return _cards;
-            }
-        }
-
         /// <summary>
         /// Construct an empty hand
         /// </summary>
-        public Hand()
-        {
-            _cards = new List<ICard>();
-        }
+        public Hand() : base() {}
 
         /// <summary>
         /// Construct a hand from the given cards.
         /// </summary>
         /// <param name="cards">An IList implementation what contains card(ICard)s</param>
-        public Hand(IList<ICard> cards)
-        {
-            _cards = new List<ICard>();
-            _cards.AddRange(cards);
-        }
-
-        /// <summary>
-        /// That is put cards in the hand 
-        /// </summary>
-        /// <param name="cards">An IList implementation what contains card(ICard)s</param>
-        public void AddCards(IList<ICard> cards)
-        {
-             _cards.AddRange(cards);            
-        }
-
-        /// <summary>
-        /// That is put only one card to the hand.
-        /// </summary>
-        /// <param name="card">the added card</param>
-        public void AddCard(ICard card)
-        {
-            _cards.Add(card);
-        }
-
-        /// <summary>
-        /// Remove all cards from the hand.
-        /// </summary>
-        public void EvacuateDeck()
-        {
-            _cards.Clear();
-        }
+        public Hand(IList<ICard> cards) : base(cards) {}
 
         /// <summary>
         /// It will removes a specific card from the hand and returns with this card.
