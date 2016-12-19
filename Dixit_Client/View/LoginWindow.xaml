@@ -22,10 +22,10 @@
             </ListView.ItemTemplate>
         </ListView>
         <!-- Button for begin playing-->
-        <Button x:Name="play_button" Content="Játék kezdés" FontSize="38" Margin="388,463,388,216"/>
+        <Button x:Name="play_button" Content="Játék kezdés" Command="{Binding StartGameCommand}" FontSize="38" Margin="388,463,388,216"/>
         <!-- Button for join or start play-->
-        <Button x:Name="host_button" Content="Létrehozás/Csatlakozás" FontSize="38" Margin="250,380,250,291" RenderTransformOrigin="0.534,-0.032"/>
+        <Button x:Name="host_button" Content="Létrehozás/Csatlakozás" Command="{Binding HostJoinGameCommand}" CommandParameter="{Binding UserName}" FontSize="38" Margin="250,380,250,291" RenderTransformOrigin="0.534,-0.032"/>
         <!-- Textbox for getting player name-->
-        <TextBox x:Name="user_name_textbox" Margin="250,300,250,350" FontSize="30" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="60"/>
+        <TextBox x:Name="user_name_textbox" Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" Margin="250,300,250,350" FontSize="30" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Height="60"/>
     </Grid>
 </Window>

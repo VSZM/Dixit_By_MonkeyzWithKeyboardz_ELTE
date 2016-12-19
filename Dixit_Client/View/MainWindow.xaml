@@ -6,10 +6,15 @@
         xmlns:local="clr-namespace:Dixit_Client.View"
         xmlns:vm="clr-namespace:Dixit_Client.ViewModel"
         mc:Ignorable="d"
-        Title="Játékfelület" Height="768" Width="1024">
+        Title="Játékfelület" Height="768" Width="1024"
+        Name="GameWindow">
     <Window.Resources>
         <vm:PictureConverter x:Key="PictureConverter" />
+        <Style TargetType="Button" x:Key="ImageButton" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        </Style>
     </Window.Resources>
+
     <Grid>
         <!-- Getting the cards put on the table-->
         <ItemsControl ItemsSource="{Binding CardsOnTable}" Width="700"  Height="495" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,10,10,0">
@@ -33,7 +38,11 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Image Width="91" Height="160" Margin="0,0,10,0" Source="{Binding Path=Id, Converter={StaticResource PictureConverter}}"  />
+                    <Button Command="{Binding Path=DataContext.PutCardCommand, ElementName=GameWindow}" CommandParameter="{Binding}" Width="91" Height="160" Margin="0,0,10,0" Style="{StaticResource ImageButton}">
+                        <Button.Background>
+                            <ImageBrush ImageSource="{Binding Path=Id, Converter={StaticResource PictureConverter}}" />
+                        </Button.Background>
+                    </Button>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

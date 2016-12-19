@@ -63,10 +63,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\ClientCard.cs" />
     <Compile Include="Model\ClientPlayer.cs" />
     <Compile Include="ViewModel\DelagateCommand.cs" />
     <Compile Include="View\PlayerData.xaml.cs">
       <DependentUpon>PlayerData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CardData.xaml.cs">
+      <DependentUpon>CardData.xaml</DependentUpon>
     </Compile>
     <Page Include="View\LoginWindow.xaml">
       <SubType>Designer</SubType>
@@ -100,6 +104,10 @@
     <Page Include="View\PlayerData.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\CardData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

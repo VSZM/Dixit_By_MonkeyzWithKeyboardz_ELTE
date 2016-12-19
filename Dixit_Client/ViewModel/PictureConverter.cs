@@ -20,13 +20,23 @@ namespace Dixit_Client.ViewModel
     class PictureConverter : IValueConverter
     {
         private ICardAccess ca = DataInjector.Container.GetInstance<ICardAccess>();
-
+        
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null)
             {
                 return Binding.DoNothing;
             }
+
+            /* //it is Brigi's commit
+            if ((int)value == 0) {
+                return System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+                ca.GetCardBack().GetHbitmap(),
+                IntPtr.Zero,
+                Int32Rect.Empty,
+                BitmapSizeOptions.FromEmptyOptions());
+            }*/
+
 
             return System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
                 ca.GetImageById((int)value).GetHbitmap(),

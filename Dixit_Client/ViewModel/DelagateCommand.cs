@@ -61,5 +61,12 @@ namespace Dixit_Client.ViewModel
         {
             _Execute(parameter);
         }
+
+        public void RaiseCanExecuteChanged()
+        {
+            if (CanExecuteChanged != null) {
+                System.Windows.Application.Current.Dispatcher.Invoke((Action)(() => { CanExecuteChanged(this, EventArgs.Empty); }));
+            }
+        }
     }
 }
