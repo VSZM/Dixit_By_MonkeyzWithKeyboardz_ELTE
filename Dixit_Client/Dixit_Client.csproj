@@ -63,6 +63,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\ClientCard.cs" />
     <Compile Include="Model\ClientPlayer.cs" />
     <Compile Include="ViewModel\DelagateCommand.cs" />
     <Compile Include="View\PlayerData.xaml.cs">

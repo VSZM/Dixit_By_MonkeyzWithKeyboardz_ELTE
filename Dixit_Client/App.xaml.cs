@@ -41,7 +41,7 @@ namespace Dixit_Client
 
         private void ViewModel_LoginFailed(object sender, String e)
         {
-            MessageBox.Show("Login failed!.", e, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("Login failed!", e, MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         private void ViewModel_StartGame(object sender, EventArgs e)

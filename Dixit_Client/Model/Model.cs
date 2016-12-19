@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Dixit_Client.DixitService1;
 using System.ServiceModel;
 
+using Dixit_Logic.Interfaces;
+
 namespace Dixit_Client.Model
 {
     public class Model
@@ -77,9 +79,28 @@ namespace Dixit_Client.Model
             PuttingPhaseEndEvent?.Invoke(this, EventArgs.Empty);
         }
 
-        public JoinGameResult JoinGame()
+        internal JoinGameResult JoinGame()
         {
             return serviceclient.JoinGame();
+        }
+
+        internal void PutCard(ICard card)
+        {
+            Dixit_Client.DixitService1.Card c = new Card();
+            c.Id = card.Id;
+            serviceclient.PutCardAsync(c);
+        }
+
+        internal void GuessCard(ICard card)
+        {
+            Dixit_Client.DixitService1.Card c = new Card();
+            c.Id = card.Id;
+            serviceclient.NewGuessAsync(c);
+        }
+
+        internal void StartGame()
+        {
+            serviceclient.StartGameAsync();
         }
     }
 
