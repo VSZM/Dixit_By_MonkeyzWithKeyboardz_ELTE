@@ -102,6 +102,11 @@ namespace Dixit_Client.Model
         {
             serviceclient.StartGameAsync();
         }
+
+        internal void sendClue(string clue)
+        {
+            serviceclient.AddAssociationTextAsync(clue);
+        }
     }
 
     public class GameStateEventArgs
