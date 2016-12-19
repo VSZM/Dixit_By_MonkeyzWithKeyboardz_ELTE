@@ -47,9 +47,31 @@ namespace Dixit_Logic.Classes
             }
         }
 
+        /// <summary>
+        /// Give back the minimum number of player who can playe in a dixt game
+        /// </summary>
+        public int MinPlayerNumber
+        {
+            get
+            {
+                return _minPlayerNumber;
+            }
+        }
+
+        /// <summary>
+        /// Give back the maximum number of player who can playe in a dixt game 
+        /// </summary>
+        public int MaxPlayerNumber
+        {
+            get
+            {
+                return _maxPlayerNumber;
+            }
+        }
+
         /// <summary>     
         /// This event is triggered when one of the players reach the maximum obtainable point or
-        /// all cards are consumed from the MainDeck and players have no more cards too.
+        /// the main deck has less cards then number of players of the game and players have no more cards too.
         /// </summary>
         public event EventHandler GameEnd;
 
@@ -139,7 +161,7 @@ namespace Dixit_Logic.Classes
 
                         //deal out six cards to each player
                         Hand hand = new Hand();
-                        for (int i = 0; i < 5; i++)
+                        for (int i = 0; i < 6; i++)
                         {
                             Card drawnCard = (Card)mainDeck.DrawCard();
                             drawnCard.Owner = (Player) player;
@@ -180,13 +202,13 @@ namespace Dixit_Logic.Classes
                 {
                     
                     int goodGuess = 0;
-                    foreach (var guessedCard in _actGameState.Guesses)
+                    foreach (var guess in _actGameState.Guesses)
                     {
-                        Player guessedCardOwner = ((Card)guessedCard.Value).Owner;
+                        Player guessedCardOwner = ((Card)guess.Value).Owner;
 
-                        if (originalCard.Equals(guessedCard.Value))
+                        if (originalCard.Equals(guess.Value))
                         {                           
-                            _actGameState.Points[guessedCard.Key] = _actGameState.Points[guessedCard.Key] + 3;
+                            _actGameState.Points[guess.Key] = _actGameState.Points[guess.Key] + 3;
                             goodGuess++;
                         }
                         else
@@ -194,11 +216,12 @@ namespace Dixit_Logic.Classes
                             _actGameState.Points[guessedCardOwner] = _actGameState.Points[guessedCardOwner] + 1;
                         }
                     }
-                    
-                    
 
-                    //This section cheks whether all players has figured out the original card
-                    if (goodGuess != (_actGameState.Players.Count - 1))
+
+
+                    //if some players did not figure out the original card and some players figure out
+                    // than the story teller get points                    
+                    if (goodGuess < (_actGameState.Players.Count - 1) && goodGuess > 0)
                     {                        
                         _actGameState.Points[_actGameState.ActualPlayer] = _actGameState.Points[_actGameState.ActualPlayer] + 3;
                     }
@@ -218,6 +241,7 @@ namespace Dixit_Logic.Classes
                 if (isGameOver)
                 {
                     //if one of the players reach the maximum obtainable point than it raises the game end event.
+                    _actGameState.RoundStatus = PhaseStatus.GameOver;
                     GameEnd?.Invoke(this, new EventArgs());
                 }
                 else
@@ -228,46 +252,37 @@ namespace Dixit_Logic.Classes
                     _actGameState.CardAssociationText = "";
 
 
-                    if (_actGameState.MainDeck.Cards.Count < _actGameState.Players.Count)
+                    if (_actGameState.MainDeck.Cards.Count < _actGameState.Players.Count
+                        && _actGameState.Hands.First().Value.Cards.Count <= 0)
                     {
-                        if (_actGameState.Hands.First().Value.Cards.Count <= 0)
-                        {
-                            _actGameState.RoundStatus = PhaseStatus.GameOver;
-                            //if all cards are consumed from the MainDeck and players have no more cards too than it raises the game end event.
-                            GameEnd?.Invoke(this, new EventArgs());
-                        }
-
+                        _actGameState.RoundStatus = PhaseStatus.GameOver;
+                        //if all cards are consumed from the MainDeck and players have no more cards too than it raises the game end event.
+                        GameEnd?.Invoke(this, new EventArgs());
                     }
                     else
                     {
-                        MainDeck mainDeck = (MainDeck)_actGameState.MainDeck;
-
-                        //draw a card to each player
-                        foreach (var playerHand in _actGameState.Hands)
+                        if (_actGameState.MainDeck.Cards.Count >= _actGameState.Players.Count)
                         {
-                            Hand hand = (Hand)playerHand.Value;
-                            Card drawnCard = (Card)mainDeck.DrawCard();
-                            drawnCard.Owner = (Player)playerHand.Key;
-                            hand.AddCard(drawnCard);
+                            MainDeck mainDeck = (MainDeck)_actGameState.MainDeck;
+
+                            //draw a card to each player
+                            foreach (var playerHand in _actGameState.Hands)
+                            {
+                                Hand hand = (Hand)playerHand.Value;
+                                Card drawnCard = (Card)mainDeck.DrawCard();
+                                drawnCard.Owner = (Player)playerHand.Key;
+                                hand.AddCard(drawnCard);
+                            }
                         }
-                    }
+                                                
+                        int actPlayerIndex = (_actGameState.Players.IndexOf(_actGameState.ActualPlayer) + 1) % _actGameState.Players.Count;
 
-                    int actPlayerIndex = _actGameState.Players.IndexOf(_actGameState.ActualPlayer);
+                        _actGameState.ActualPlayer = _actGameState.Players.ElementAt(actPlayerIndex);
+                        _actGameState.RoundStatus = PhaseStatus.AssociationTelling;
 
-                    if (actPlayerIndex >= (_actGameState.Players.Count - 1))
-                    {
-                        actPlayerIndex = 0;
-                    }
-                    else
-                    {
-                        actPlayerIndex++;
-                    }
-
-                    _actGameState.ActualPlayer = _actGameState.Players.ElementAt(actPlayerIndex);
-                    _actGameState.RoundStatus = PhaseStatus.AssociationTelling;
-
-                    //if it prepares the new round than it raises the new round event
-                    NewRound?.Invoke(this, new EventArgs());
+                        //if it prepares the new round than it raises the new round event
+                        NewRound?.Invoke(this, new EventArgs());
+                    }                    
                 }                
             }
         }
@@ -282,7 +297,8 @@ namespace Dixit_Logic.Classes
         /// is runing. Otherwise return false.  </returns>
         public bool AddAssociationText(string storyText, IPlayer player)
         {
-            if(_actGameState.ActualPlayer.Equals(player) && _actGameState.RoundStatus == PhaseStatus.AssociationTelling)
+            if(_actGameState.ActualPlayer.Equals(player) && _actGameState.RoundStatus == PhaseStatus.AssociationTelling
+                && storyText != null)
             {
                 _actGameState.CardAssociationText = storyText;                
                 _actGameState.RoundStatus = PhaseStatus.Putting;
@@ -304,7 +320,7 @@ namespace Dixit_Logic.Classes
         {
             if (player != null && !player.Equals(_actGameState.ActualPlayer) 
                 && _actGameState.RoundStatus == PhaseStatus.Guessing 
-                && _actGameState.BoardDeck.Cards.Contains(card))
+                && _actGameState.BoardDeck.Cards.Contains(card) && !((Card)card).Owner.Equals(player))
             {
                 bool playerAlreadyGuess = false;
 
