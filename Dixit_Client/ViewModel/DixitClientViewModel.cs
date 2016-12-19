@@ -37,7 +37,7 @@ namespace Dixit_Client.ViewModel
         /// <summary>
         /// Storing the actual player's name
         /// </summary>
-        public String _actPlayerName { get; private set; }
+        private String _actPlayerName;
 
         public String ActPlayerName
         {
@@ -48,7 +48,7 @@ namespace Dixit_Client.ViewModel
             set
             {
                 _actPlayerName = value;
-                //todo
+                SendClueCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -75,6 +75,7 @@ namespace Dixit_Client.ViewModel
             StartGameCommand = new DelegateCommand(param => start());
             PutCardCommand = new DelegateCommand(param => PutCard((Card)param));
             GuessCardCommand  = new DelegateCommand(param => GuessCard((ICard)param));
+            SendClueCommand = new DelegateCommand(_ => (UserName.Equals(ActPlayerName) && !String.IsNullOrEmpty(ClueSentence)), param => SendClue());
         }
 
 
@@ -172,6 +173,11 @@ namespace Dixit_Client.ViewModel
         public DelegateCommand GuessCardCommand { get; private set; }
 
         /// <summary>
+        /// Command to send clue sentence
+        /// </summary>
+        public DelegateCommand SendClueCommand { get; private set; }
+
+        /// <summary>
         /// Cards held in the player's hand
         /// </summary>
         public ObservableCollection<ICard> CardsInHand { get; private set; }
@@ -185,7 +191,17 @@ namespace Dixit_Client.ViewModel
         /// <summary>
         /// Sentence given by the actual player who put the first card.
         /// </summary>
-        public String ClueSentence { get; private set; }
+        private String _clueSentence;
+        public String ClueSentence
+        {
+            get{ return _clueSentence; }
+            set{
+                if (UserName.Equals(ActPlayerName)) {
+                    _clueSentence = value;
+                    SendClueCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
 
         /// <summary>
         /// Put own card on table
@@ -205,6 +221,11 @@ namespace Dixit_Client.ViewModel
             model.GuessCard(card);
         }
 
+        private void SendClue()
+        {
+            model.sendClue(ClueSentence);
+        }
+
         private void OnGameStateChanged(object sender, GameStateEventArgs e)
         {
             foreach (var point in e.State.Points) {
@@ -218,6 +239,7 @@ namespace Dixit_Client.ViewModel
             OnPropertyChanged("Players");
             
             ActPlayerName = e.State.ActualPlayer.Name;
+            OnPropertyChanged("ActPlayerName");
 
             ClueSentence = e.State.CardAssociationText;
             OnPropertyChanged("ClueSentence");
@@ -269,9 +291,12 @@ namespace Dixit_Client.ViewModel
                 }
             }
 
+            ActPlayerName = e.State.ActualPlayer.Name;
+
             OnPropertyChanged("Players");
             OnPropertyChanged("CardsOnTable");
             OnPropertyChanged("CardsInHand");
+            OnPropertyChanged("ActPlayerName");
 
             StartGame?.Invoke(this, EventArgs.Empty);
         }
