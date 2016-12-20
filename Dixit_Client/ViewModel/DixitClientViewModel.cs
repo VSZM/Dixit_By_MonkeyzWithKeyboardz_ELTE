@@ -12,15 +12,46 @@ using Dixit_Data.Interfaces;
 
 namespace Dixit_Client.ViewModel
 {
-
     /// <summary>
     /// Viewmodel class to maintain the interaction between the view and the game logic
     /// </summary>
     class DixitClientViewModel : ViewModelBase
     {
         //////////////////////////////////////// common part ////////////////////////////////////////
+        /// <summary>
+        /// own username, because we cannot ask from the service who we are
+        /// but get the whole gamestate
+        /// </summary>
+        private String _username;
 
-        private String _userName;
+        public String UserName {
+            get {
+                return _username;
+            }
+            set {
+                _username = value;
+                HostJoinGameCommand.RaiseCanExecuteChanged();
+            }
+        }
+
+        /// <summary>
+        /// Storing the actual player's name
+        /// </summary>
+        private String _actPlayerName;
+
+        public String ActPlayerName
+        {
+            get
+            {
+                return _actPlayerName;
+            }
+            set
+            {
+                _actPlayerName = value;
+                SendClueCommand.RaiseCanExecuteChanged();
+            }
+        }
+
         /// <summary>
         /// Model instance to get interaction with the game logic.
         /// </summary>
@@ -33,16 +64,18 @@ namespace Dixit_Client.ViewModel
 
         public DixitClientViewModel()
         {
-            _userName = null;
+            Players = new ObservableCollection<ClientPlayer>();
             model = new Model.Model();
             model.LoginFailedEvent += new EventHandler<Exception>(OnLoginFailed);
             model.LoginSuccessEvent += new EventHandler<String>(OnLoginSuccess);
             model.GameStartEvent += new EventHandler<GameStateEventArgs>(OnGameStart);
             model.GameStateChangedEvent += new EventHandler<GameStateEventArgs>(OnGameStateChanged);
-            HostGameCommand = new DelegateCommand(param => host());
-            JoinGameCommand = new DelegateCommand(param => join());
+            model.GuessPhaseEndEvent += new EventHandler(OnGuessPhaseEnd);
+            HostJoinGameCommand = new DelegateCommand(_ => !String.IsNullOrEmpty(UserName), param => hostOrJoin());
             StartGameCommand = new DelegateCommand(param => start());
-            SelectCardCommand = new DelegateCommand(param => SelectCard((int)param));
+            PutCardCommand = new DelegateCommand(param => PutCard((Card)param));
+            GuessCardCommand  = new DelegateCommand(param => GuessCard((ICard)param));
+            SendClueCommand = new DelegateCommand(_ => (UserName.Equals(ActPlayerName) && !String.IsNullOrEmpty(ClueSentence)), param => SendClue());
         }
 
 
@@ -51,14 +84,12 @@ namespace Dixit_Client.ViewModel
         /// <summary>
         /// Event to fire when login failed
         /// </summary>
-        /// TODO: use EventHandler that contains the reason of the failure
         public event EventHandler<String> Failed;
 
         /// <summary>
         /// Event to fire when login was successful
         /// </summary>
-        /// TODO: use EventHandler that contains the initial gamestate
-        public event EventHandler Success;
+        public event EventHandler StartGame;
 
         /// <summary>
         /// EventHandler to handle failed login attempt
@@ -77,62 +108,74 @@ namespace Dixit_Client.ViewModel
         /// <param name="e">Username</param>
         private void OnLoginSuccess(object sender, String e)
         {
-            _userName = e;
-            Success?.Invoke(this, EventArgs.Empty);
+            UserName = e;
         }
 
         /// <summary>
-        /// Command to host a new game
+        /// Command to host or join a game
         /// </summary>
-        public DelegateCommand HostGameCommand { get; private set; }
+        public DelegateCommand HostJoinGameCommand { get; private set; }
 
         /// <summary>
-        /// Command to host a new game
-        /// </summary>
-        public DelegateCommand JoinGameCommand { get; private set; }
-
-        /// <summary>
-        /// Command to host a new game
+        /// Command to start the actual game
         /// </summary>
         public DelegateCommand StartGameCommand { get; private set; }
 
         /// <summary>
-        /// Function to host a game
+        /// Function to host a game or join an existing one
         /// </summary>
-        public void host()
+        private void hostOrJoin()
         {
-            // todo
-        }
-
-        /// <summary>
-        /// Function to join an existing game
-        /// </summary>
-        public void join()
-        {
-            // todo
+            if (String.IsNullOrEmpty(_username)) { return; }
+            model.Login(UserName);
+            var join = model.JoinGame();
+            if (!join.Success) {
+                Failed?.Invoke(this, join.ErrorMessage);
+            }
         }
 
         /// <summary>
         /// Start a game
         /// </summary>
-        public void start()
+        private void start()
         {
-            if (Players.Count < 3) {
-                // todo use EventArgs with string inside it to deliver a reason why it failed
-                // Failed(this, new EventArgs());
-            }
-            // todo
+            model.StartGame();
         }
-
-
-
 
         //////////////////////////////////////// GameWindow part ////////////////////////////////////////
 
         /// <summary>
-        /// Command to set selected card
+        /// phasestatus to set constraints on interactions
         /// </summary>
-        public DelegateCommand SelectCardCommand { get; private set; }
+        private PhaseStatus _status;
+
+        private PhaseStatus Status
+        {
+            get
+            {
+                return _status;
+            }
+            set
+            {
+                _status = value;
+                //todo
+            }
+        }
+
+        /// <summary>
+        /// Command to put card on table
+        /// </summary>
+        public DelegateCommand PutCardCommand { get; private set; }
+
+        /// <summary>
+        /// Command to set guessed card
+        /// </summary>
+        public DelegateCommand GuessCardCommand { get; private set; }
+
+        /// <summary>
+        /// Command to send clue sentence
+        /// </summary>
+        public DelegateCommand SendClueCommand { get; private set; }
 
         /// <summary>
         /// Cards held in the player's hand
@@ -148,11 +191,39 @@ namespace Dixit_Client.ViewModel
         /// <summary>
         /// Sentence given by the actual player who put the first card.
         /// </summary>
-        public String ClueSentence { get; private set; }
-
-        private void SelectCard(int id)
+        private String _clueSentence;
+        public String ClueSentence
         {
-            // call some function in the model to tell which card is selected
+            get{ return _clueSentence; }
+            set{
+                if (UserName.Equals(ActPlayerName)) {
+                    _clueSentence = value;
+                    SendClueCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Put own card on table
+        /// </summary>
+        /// <param name="card"></param>
+        private void PutCard(ICard card)
+        {
+            model.PutCard(card);
+        }
+
+        /// <summary>
+        /// Set guessed card
+        /// </summary>
+        /// <param name="card"></param>
+        private void GuessCard(ICard card)
+        {
+            model.GuessCard(card);
+        }
+
+        private void SendClue()
+        {
+            model.sendClue(ClueSentence);
         }
 
         private void OnGameStateChanged(object sender, GameStateEventArgs e)
@@ -166,6 +237,9 @@ namespace Dixit_Client.ViewModel
                 }
             }
             OnPropertyChanged("Players");
+            
+            ActPlayerName = e.State.ActualPlayer.Name;
+            OnPropertyChanged("ActPlayerName");
 
             ClueSentence = e.State.CardAssociationText;
             OnPropertyChanged("ClueSentence");
@@ -176,7 +250,7 @@ namespace Dixit_Client.ViewModel
             }
 
             foreach (var hand in e.State.Hands) {
-                if (hand.Key.Name.Equals(_userName)) {
+                if (hand.Key.Name.Equals(UserName)) {
                     foreach (var card in hand.Value.Cards) {
                         CardsInHand.Add(new Card(card.Id));
                     }
@@ -189,6 +263,11 @@ namespace Dixit_Client.ViewModel
             OnPropertyChanged("CardsInHand");
         }
 
+        /// <summary>
+        /// sets up initial gamestate when game starts
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnGameStart(object sender, GameStateEventArgs e)
         {
             Players = new ObservableCollection<ClientPlayer>();
@@ -200,11 +279,11 @@ namespace Dixit_Client.ViewModel
             }
 
             foreach (var card in e.State.BoardDeck.Cards) {
-                CardsOnTable.Add(new Card(card.Id));
+                CardsOnTable.Add(new ClientCard(card.Id));
             }
             
             foreach (var hand in e.State.Hands) {
-                if (hand.Key.Name.Equals(_userName)) {
+                if (hand.Key.Name.Equals(UserName)) {
                     foreach (var card in hand.Value.Cards) {
                         CardsInHand.Add(new Card(card.Id));
                     }
@@ -212,10 +291,28 @@ namespace Dixit_Client.ViewModel
                 }
             }
 
+            ActPlayerName = e.State.ActualPlayer.Name;
+
             OnPropertyChanged("Players");
             OnPropertyChanged("CardsOnTable");
             OnPropertyChanged("CardsInHand");
+            OnPropertyChanged("ActPlayerName");
 
+            StartGame?.Invoke(this, EventArgs.Empty);
+        }
+
+        /// <summary>
+        /// When guessing phase ends, we set visible all cards on the table
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnGuessPhaseEnd(object sender, EventArgs e)
+        {
+            foreach (var card in CardsOnTable) {
+                var cc = card as ClientCard;
+                cc.isVisible = true;
+            }
+            OnPropertyChanged("CardsOnTable");
         }
     }
 }

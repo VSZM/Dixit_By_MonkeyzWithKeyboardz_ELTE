@@ -36,15 +36,15 @@ namespace Dixit_Client
         {
             _viewModel = new DixitClientViewModel();
             _viewModel.Failed += new EventHandler<String>(ViewModel_LoginFailed);
-            _viewModel.Success += new EventHandler(ViewModel_LoginSuccess);
+            _viewModel.StartGame += new EventHandler(ViewModel_StartGame);
         }
 
         private void ViewModel_LoginFailed(object sender, String e)
         {
-            MessageBox.Show("Login failed!.", e, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("Login failed!", e, MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
-        private void ViewModel_LoginSuccess(object sender, EventArgs e)
+        private void ViewModel_StartGame(object sender, EventArgs e)
         {
             _mainWindow = new MainWindow();
             _mainWindow.DataContext = _viewModel;
