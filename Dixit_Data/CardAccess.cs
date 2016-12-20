@@ -29,8 +29,10 @@ namespace Dixit_Data
             foreach (DictionaryEntry entry in resourceSet)
             {
                 string resourceKey = entry.Key.ToString();
-                int idName = Int32.Parse(resourceKey);
-                tempList.Add(idName);
+                try {
+                    int idName = Int32.Parse(resourceKey);
+                    tempList.Add(idName);
+                } catch (FormatException) { }
             }
 
             return tempList;
