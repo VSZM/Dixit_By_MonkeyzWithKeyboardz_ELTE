@@ -37,6 +37,12 @@ namespace Dixit_Client
             _viewModel = new DixitClientViewModel();
             _viewModel.Failed += new EventHandler<String>(ViewModel_LoginFailed);
             _viewModel.StartGame += new EventHandler(ViewModel_StartGame);
+            _viewModel.GameEndEvent += new EventHandler<string>(ViewModel_GameEnd);
+        }
+
+        private void ViewModel_GameEnd(object sender, String e)
+        {
+            MessageBox.Show("Game over!", e, MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void ViewModel_LoginFailed(object sender, String e)

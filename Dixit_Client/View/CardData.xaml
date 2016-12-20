@@ -28,7 +28,7 @@
                             Padding="0,0,0,0"
                             BorderBrush="Black"
                             BorderThickness="1"
-                            Background="{Binding Path, Converter={StaticResource ColorConverter}}">
+                            Background="{Binding Path='', Converter={StaticResource ColorConverter}}">
                     </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

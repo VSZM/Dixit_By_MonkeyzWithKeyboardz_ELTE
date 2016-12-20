@@ -59,7 +59,7 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <TextBox x:Name="guessPhraseText" HorizontalAlignment="Left" Height="35" TextWrapping="Wrap" Text="{Binding ClueSentence, UpdateSourceTrigger=PropertyChanged}" FontSize="26" VerticalAlignment="Top" Width="378" Margin="483,517,0,0"/>
+        <TextBox x:Name="guessPhraseText" HorizontalAlignment="Left" Height="35" TextWrapping="Wrap" Text="{Binding ClueSentence, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="26" VerticalAlignment="Top" Width="378" Margin="483,517,0,0"/>
         <Button x:Name="guessPhraseButton" Content="Küldés" Command="{Binding SendClueCommand}" HorizontalAlignment="Left" FontSize="20" VerticalAlignment="Top" Width="65" Margin="866,517,0,0" Height="35"/>
         <Label x:Name="actPlayerLabel" Content="{Binding ActPlayerName}" FontSize="22" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Top" Margin="10,31,0,0" Height="34" Width="259"/>
         <Label x:Name="userNameLabel" Content="{Binding UserName}" FontSize="22" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Top" Margin="10,679,0,0" Height="48" Width="259"/>
