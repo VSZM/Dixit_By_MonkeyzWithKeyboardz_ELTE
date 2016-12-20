@@ -32,6 +32,8 @@ namespace Dixit_ServiceLibrary.DataContracts
         public Dictionary<Player, int> Points { get; internal set; }
         [DataMember]
         public Dictionary<Player, Card> Guesses { get; internal set; }
+        [DataMember]
+        public PhaseStatus RoundStatus;
 
         public GameState() { }
         public GameState(IGameState igamestate)
@@ -48,6 +50,7 @@ namespace Dixit_ServiceLibrary.DataContracts
             Hands = igamestate.Hands.ToDictionary(x => new Player(x.Key), x => new Deck(x.Value));
             Points = igamestate.Points.ToDictionary(x => new Player(x.Key), x => x.Value);
             Guesses = igamestate.Guesses.ToDictionary(x => new Player(x.Key), x => new Card(x.Value));
+            RoundStatus = igamestate.RoundStatus;
         }
 
         public GameState ToPlayerState(IPlayer player)
@@ -65,6 +68,7 @@ namespace Dixit_ServiceLibrary.DataContracts
                 typeof(Dictionary<Player, Deck>),
                 typeof(Dictionary<Player, int>),
                 typeof(Dictionary<Player, Card>),
+                typeof(PhaseStatus)
             };
         }
     }

@@ -37,8 +37,16 @@ namespace Dixit_Client.ViewModel
                 BitmapSizeOptions.FromEmptyOptions());
             }*/
 
+            if ((int)value == 0) {
+                return System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+                ca.GetImageById(1).GetHbitmap(),
+                IntPtr.Zero,
+                Int32Rect.Empty,
+                BitmapSizeOptions.FromEmptyOptions());
+            }
 
-            return System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+
+                return System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
                 ca.GetImageById((int)value).GetHbitmap(),
                 IntPtr.Zero,
                 Int32Rect.Empty,

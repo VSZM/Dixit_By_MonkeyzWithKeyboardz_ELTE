@@ -3,38 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:Dixit_Client.ViewModel"
              mc:Ignorable="d"
              x:Name="PlayerDataUC"
              d:DesignHeight="120" d:DesignWidth="120">
     <UserControl.Resources>
-        <Style x:Key="backgroundStyle" TargetType="Border">
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding Path=Player.Id, ElementName=PlayerDataUC}" Value="1000">
-                    <Setter Property="Background" Value="Aquamarine" />
-                </DataTrigger>
-                <DataTrigger Binding="{Binding Path=Player.Id, ElementName=PlayerDataUC}" Value="1001">
-                    <Setter Property="Background" Value="Purple" />
-                </DataTrigger>
-                <DataTrigger Binding="{Binding Path=Player.Id, ElementName=PlayerDataUC}" Value="1002">
-                    <Setter Property="Background" Value="Green" />
-                </DataTrigger>
-                <DataTrigger Binding="{Binding Path=Player.Id, ElementName=PlayerDataUC}" Value="1003">
-                    <Setter Property="Background" Value="Yellow" />
-                </DataTrigger>
-                <DataTrigger Binding="{Binding Path=Player.Id, ElementName=PlayerDataUC}" Value="1004">
-                    <Setter Property="Background" Value="Blue" />
-                </DataTrigger>
-                <DataTrigger Binding="{Binding Path=Player.Id, ElementName=PlayerDataUC}" Value="1005">
-                    <Setter Property="Background" Value="Red" />
-                </DataTrigger>
-                <DataTrigger Binding="{Binding Path=Player.Id, ElementName=PlayerDataUC}" Value="1006">
-                    <Setter Property="Background" Value="Orange" />
-                </DataTrigger>
-                <DataTrigger Binding="{Binding Path=Player.Id, ElementName=PlayerDataUC}" Value="1007">
-                    <Setter Property="Background" Value="Cyan" />
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
+        <vm:ColorConverter x:Key="ColorConverter" />
     </UserControl.Resources>
     <Border CornerRadius="60"
         Width="120"
@@ -43,7 +17,7 @@
         Padding="0,0,0,0"
         BorderBrush="Black"
         BorderThickness="1"
-        Style="{StaticResource ResourceKey=backgroundStyle}">
+        Background="{Binding Path=Id, Converter={StaticResource ColorConverter}}">
         <Grid>
             <Label x:Name="Player_score" Content="{Binding Path=Player.Score, ElementName=PlayerDataUC}" Margin="18,8,20,60" FontSize="32" Width="80" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Background="Transparent" FontFamily="Arial"/>
             <Label x:Name="Player_name" Content="{Binding Path=Player.Name, ElementName=PlayerDataUC}" Margin="10,52,10,16" FontSize="26.667" Width="98" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Background="Transparent" FontFamily="Arial"/>

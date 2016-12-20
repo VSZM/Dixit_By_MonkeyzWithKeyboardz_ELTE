@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Dixit_Logic.Interfaces" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Dixit_Logic.Interfaces" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="PhaseStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="BeforeStart" />
+      <xs:enumeration value="AssociationTelling" />
+      <xs:enumeration value="Putting" />
+      <xs:enumeration value="Guessing" />
+      <xs:enumeration value="RoundEnd" />
+      <xs:enumeration value="GameOver" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="PhaseStatus" nillable="true" type="tns:PhaseStatus" />
+</xs:schema>

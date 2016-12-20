@@ -63,8 +63,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Model\ClientCard.cs" />
-    <Compile Include="Model\ClientPlayer.cs" />
+    <Compile Include="ViewModel\ClientCard.cs" />
+    <Compile Include="ViewModel\ClientPlayer.cs" />
+    <Compile Include="ViewModel\ColorConverter.cs" />
     <Compile Include="ViewModel\DelagateCommand.cs" />
     <Compile Include="View\PlayerData.xaml.cs">
       <DependentUpon>PlayerData.xaml</DependentUpon>
@@ -148,6 +149,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\DixitService1\DixitService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\DixitService1\DixitService5.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\DixitService1\Dixit_Client.DixitService1.JoinGameResult.datasource">

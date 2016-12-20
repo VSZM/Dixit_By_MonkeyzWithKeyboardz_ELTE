@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace Dixit_Logic.Interfaces
 {
+
+    public enum PhaseStatus { BeforeStart = 0, AssociationTelling = 1, Putting = 2, Guessing = 3, RoundEnd = 4, GameOver = 5 };
     /// <summary>
     /// It describe a state of game. So, it keep every necessary information about a game's moment.
     /// </summary>

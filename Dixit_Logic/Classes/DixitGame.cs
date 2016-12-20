@@ -343,7 +343,7 @@ namespace Dixit_Logic.Classes
                                                 
                         //if all players guessed a card in a turn than it raise the guess phase end event.
                         GuessPhaseEnd?.Invoke(this, new EventArgs());
-                    }                    
+                    }
                 }               
             }
         }

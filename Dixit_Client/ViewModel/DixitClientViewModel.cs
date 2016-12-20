@@ -70,12 +70,16 @@ namespace Dixit_Client.ViewModel
             model.LoginSuccessEvent += new EventHandler<String>(OnLoginSuccess);
             model.GameStartEvent += new EventHandler<GameStateEventArgs>(OnGameStart);
             model.GameStateChangedEvent += new EventHandler<GameStateEventArgs>(OnGameStateChanged);
+            model.PuttingPhaseEndEvent += new EventHandler(OnPutPhaseEnd);
             model.GuessPhaseEndEvent += new EventHandler(OnGuessPhaseEnd);
-            HostJoinGameCommand = new DelegateCommand(_ => !String.IsNullOrEmpty(UserName), param => hostOrJoin());
-            StartGameCommand = new DelegateCommand(param => start());
-            PutCardCommand = new DelegateCommand(param => PutCard((Card)param));
-            GuessCardCommand  = new DelegateCommand(param => GuessCard((ICard)param));
-            SendClueCommand = new DelegateCommand(_ => (UserName.Equals(ActPlayerName) && !String.IsNullOrEmpty(ClueSentence)), param => SendClue());
+            HostJoinGameCommand = new DelegateCommand(_ => !String.IsNullOrEmpty(UserName), _ => hostOrJoin());
+            StartGameCommand = new DelegateCommand(_ => start());
+            PutCardCommand = new DelegateCommand(_ => Status.Equals(PhaseStatus.Putting), param => PutCard((Card)param));
+            GuessCardCommand  = new DelegateCommand(_ => Status.Equals(PhaseStatus.Guessing), param => GuessCard((ICard)param));
+            SendClueCommand = new DelegateCommand(_ => UserName.Equals(ActPlayerName) 
+                                                       && !String.IsNullOrEmpty(ClueSentence)
+                                                       && Status.Equals(PhaseStatus.AssociationTelling),
+                                                  _ => SendClue());
         }
 
 
@@ -158,7 +162,9 @@ namespace Dixit_Client.ViewModel
             set
             {
                 _status = value;
-                //todo
+                PutCardCommand.RaiseCanExecuteChanged();
+                GuessCardCommand.RaiseCanExecuteChanged();
+                SendClueCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -199,6 +205,7 @@ namespace Dixit_Client.ViewModel
                 if (UserName.Equals(ActPlayerName)) {
                     _clueSentence = value;
                     SendClueCommand.RaiseCanExecuteChanged();
+                    OnPropertyChanged("ClueSentence");
                 }
             }
         }
@@ -228,9 +235,10 @@ namespace Dixit_Client.ViewModel
 
         private void OnGameStateChanged(object sender, GameStateEventArgs e)
         {
+            Status = e.State.RoundStatus;
             foreach (var point in e.State.Points) {
                 foreach (var player in Players) {
-                    if (point.Key.Id == player.Id) {
+                    if (point.Key.Id.Equals(player.Id)) {
                         player.Score = point.Value;
                         break;
                     }
@@ -246,7 +254,7 @@ namespace Dixit_Client.ViewModel
             CardsOnTable = new ObservableCollection<ICard>();
             CardsInHand = new ObservableCollection<ICard>();
             foreach (var card in e.State.BoardDeck.Cards) {
-                CardsOnTable.Add(new Card(card.Id));
+                CardsOnTable.Add(new ClientCard(card.Id, Status.Equals(PhaseStatus.Guessing)));
             }
 
             foreach (var hand in e.State.Hands) {
@@ -258,7 +266,14 @@ namespace Dixit_Client.ViewModel
                 }
             }
 
-
+            foreach (var guess in e.State.Guesses) {
+                foreach (var card in CardsOnTable) {
+                    if (guess.Value.Id.Equals(card.Id)) {
+                        ((ClientCard)card).AddGuessingPlayer(guess.Key.Id);
+                    }
+                }
+            }
+            
             OnPropertyChanged("CardsOnTable");
             OnPropertyChanged("CardsInHand");
         }
@@ -270,16 +285,13 @@ namespace Dixit_Client.ViewModel
         /// <param name="e"></param>
         private void OnGameStart(object sender, GameStateEventArgs e)
         {
+            Status = e.State.RoundStatus;
             Players = new ObservableCollection<ClientPlayer>();
             CardsOnTable = new ObservableCollection<ICard>();
             CardsInHand = new ObservableCollection<ICard>();
 
             foreach (var player in e.State.Players) {
                 Players.Add(new ClientPlayer(player.Id, player.Name));
-            }
-
-            foreach (var card in e.State.BoardDeck.Cards) {
-                CardsOnTable.Add(new ClientCard(card.Id));
             }
             
             foreach (var hand in e.State.Hands) {
@@ -306,12 +318,15 @@ namespace Dixit_Client.ViewModel
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnGuessPhaseEnd(object sender, EventArgs e)
+        private void OnPutPhaseEnd(object sender, EventArgs e)
         {
-            foreach (var card in CardsOnTable) {
-                var cc = card as ClientCard;
-                cc.isVisible = true;
+            foreach (ClientCard card in CardsOnTable) {
+                card.isVisible = true;
             }
+            OnPropertyChanged("CardsOnTable");
+        }
+
+        private void OnGuessPhaseEnd(object sender, EventArgs e) {
             OnPropertyChanged("CardsOnTable");
         }
     }
