@@ -68,6 +68,7 @@ namespace Dixit_Client.ViewModel
             model = new Model.Model();
             model.LoginFailedEvent += new EventHandler<Exception>(OnLoginFailed);
             model.LoginSuccessEvent += new EventHandler<String>(OnLoginSuccess);
+            model.GameEndEvent += new EventHandler<GameStateEventArgs>(OnGameEnd);
             model.GameStartEvent += new EventHandler<GameStateEventArgs>(OnGameStart);
             model.GameStateChangedEvent += new EventHandler<GameStateEventArgs>(OnGameStateChanged);
             model.PuttingPhaseEndEvent += new EventHandler(OnPutPhaseEnd);
@@ -148,6 +149,8 @@ namespace Dixit_Client.ViewModel
 
         //////////////////////////////////////// GameWindow part ////////////////////////////////////////
 
+
+        public event EventHandler<String> GameEndEvent;
         /// <summary>
         /// phasestatus to set constraints on interactions
         /// </summary>
@@ -200,9 +203,9 @@ namespace Dixit_Client.ViewModel
         private String _clueSentence;
         public String ClueSentence
         {
-            get{ return _clueSentence; }
-            set{
-                if (UserName.Equals(ActPlayerName)) {
+            get { return _clueSentence; }
+            set {
+                if (UserName.Equals(ActPlayerName) && Status.Equals(PhaseStatus.AssociationTelling)) {
                     _clueSentence = value;
                     SendClueCommand.RaiseCanExecuteChanged();
                     OnPropertyChanged("ClueSentence");
@@ -228,14 +231,30 @@ namespace Dixit_Client.ViewModel
             model.GuessCard(card);
         }
 
+        /// <summary>
+        /// Sending new cluesentence for the model
+        /// </summary>
         private void SendClue()
         {
             model.sendClue(ClueSentence);
         }
 
+        /// <summary>
+        /// update the client gamestate to correspond the actual gamestate
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnGameStateChanged(object sender, GameStateEventArgs e)
         {
             Status = e.State.RoundStatus;
+            if (Status.Equals(PhaseStatus.BeforeStart)) {
+                Players.Clear();
+                foreach (var player in e.State.Players) {
+                    Players.Add(new ClientPlayer(player.Id, player.Name));
+                }
+                OnPropertyChanged("Players");
+                return;
+            }
             foreach (var point in e.State.Points) {
                 foreach (var player in Players) {
                     if (point.Key.Id.Equals(player.Id)) {
@@ -249,12 +268,12 @@ namespace Dixit_Client.ViewModel
             ActPlayerName = e.State.ActualPlayer.Name;
             OnPropertyChanged("ActPlayerName");
 
-            ClueSentence = e.State.CardAssociationText;
+            _clueSentence = e.State.CardAssociationText;
             OnPropertyChanged("ClueSentence");
             CardsOnTable = new ObservableCollection<ICard>();
             CardsInHand = new ObservableCollection<ICard>();
             foreach (var card in e.State.BoardDeck.Cards) {
-                CardsOnTable.Add(new ClientCard(card.Id, Status.Equals(PhaseStatus.Guessing)));
+                CardsOnTable.Add(new ClientCard(card.Id, !Status.Equals(PhaseStatus.Putting)));
             }
 
             foreach (var hand in e.State.Hands) {
@@ -276,6 +295,14 @@ namespace Dixit_Client.ViewModel
             
             OnPropertyChanged("CardsOnTable");
             OnPropertyChanged("CardsInHand");
+        }
+
+        /// <summary>
+        /// Event handler for game ending
+        /// </summary>
+        private void OnGameEnd(object sender, GameStateEventArgs e)
+        {
+            GameEndEvent?.Invoke(this, "Game over");
         }
 
         /// <summary>
@@ -326,6 +353,13 @@ namespace Dixit_Client.ViewModel
             OnPropertyChanged("CardsOnTable");
         }
 
+        /// <summary>
+        /// Eventhandler for guessphase end
+        /// fire property changed event to show who
+        /// guessed which card
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnGuessPhaseEnd(object sender, EventArgs e) {
             OnPropertyChanged("CardsOnTable");
         }

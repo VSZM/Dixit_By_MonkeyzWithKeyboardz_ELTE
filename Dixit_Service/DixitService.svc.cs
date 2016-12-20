@@ -97,6 +97,7 @@ namespace Dixit_Service
                 GameInfo.AddPlayer(ui);
                 r.Success = true;
             }
+            Task.Delay(0).ContinueWith(_ => GameStateChanged());
             return r;
         }
         private void CreateGame()
