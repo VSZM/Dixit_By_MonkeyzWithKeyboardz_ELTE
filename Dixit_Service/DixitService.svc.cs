@@ -11,6 +11,7 @@ using System.Reflection;
 using Dixit_Service.DataContracts;
 using Dixit_ServiceLibrary.DataContracts;
 using Dixit.Injectors;
+using System.Threading.Tasks;
 
 namespace Dixit_Service
 {
@@ -153,7 +154,7 @@ namespace Dixit_Service
             if (CurrentGame == null) { return; }
             var player = GetPlayer();
             CurrentGame.NewGuess(player, GetCard(card));
-            GameStateChanged();
+            //GameStateChanged();
         }
         private void CurrentGame_GuessPhaseEnd(object sender, EventArgs e)
         {
@@ -161,6 +162,13 @@ namespace Dixit_Service
             {
                 ui.Callback.GuessPhaseEnd();
             }
+            GameStateChanged();
+
+            // 5 seconds delay so everyone can see the guesses
+            Task.Delay(5000).ContinueWith(t=> {
+                CurrentGame.EvaluatePoints();
+                GameStateChanged();
+            });
         }
         private void CurrentGame_PuttingPhaseEnd(object sender, EventArgs e)
         {
@@ -168,6 +176,7 @@ namespace Dixit_Service
             {
                 ui.Callback.PuttingPhaseEnd();
             }
+            GameStateChanged();
         }
         private void CurrentGame_GameEnd(object sender, EventArgs e)
         {

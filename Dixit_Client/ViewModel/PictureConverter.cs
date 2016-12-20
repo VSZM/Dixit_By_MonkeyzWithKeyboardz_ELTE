@@ -28,21 +28,19 @@ namespace Dixit_Client.ViewModel
                 return Binding.DoNothing;
             }
 
-            /* //it is Brigi's commit
             if ((int)value == 0) {
                 return System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
                 ca.GetCardBack().GetHbitmap(),
                 IntPtr.Zero,
                 Int32Rect.Empty,
                 BitmapSizeOptions.FromEmptyOptions());
-            }*/
-
+            }
 
             return System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
-                ca.GetImageById((int)value).GetHbitmap(),
-                IntPtr.Zero,
-                Int32Rect.Empty,
-                BitmapSizeOptions.FromEmptyOptions());
+            ca.GetImageById((int)value).GetHbitmap(),
+            IntPtr.Zero,
+            Int32Rect.Empty,
+            BitmapSizeOptions.FromEmptyOptions());
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

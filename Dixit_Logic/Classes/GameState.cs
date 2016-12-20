@@ -10,7 +10,6 @@ using Dixit_Data.Interfaces;
 
 namespace Dixit_Logic.Classes
 {
-    public enum PhaseStatus { BeforeStart = 0, AssociationTelling = 1, Putting = 2, Guessing = 3, RoundEnd = 4, GameOver = 5 };
 
     /// <summary>
     /// This class describes a state of game. Every property have internal set method

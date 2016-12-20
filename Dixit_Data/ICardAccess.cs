@@ -19,6 +19,12 @@ namespace Dixit_Data.Interfaces
         /// </summary>
         /// <param name="id">id of an image</param>
         /// <returns>image</returns>
-        Bitmap GetImageById(int id);       
+        Bitmap GetImageById(int id);
+
+        /// <summary>
+        /// Get the back of the card to show whe it is turned down
+        /// </summary>
+        /// <returns></returns>
+        Bitmap GetCardBack();
     }
 }

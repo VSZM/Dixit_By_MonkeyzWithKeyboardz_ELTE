@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Dixit_ServiceLibrary.DataContracts" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Dixit_ServiceLibrary.DataContracts" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:61203/DixitService.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://localhost:61203/DixitService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Dixit_Logic.Interfaces" />
   <xs:import schemaLocation="http://localhost:61203/DixitService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Dixit_Service.DataContracts" />
   <xs:complexType name="JoinGameResult">
     <xs:sequence>
@@ -20,6 +21,7 @@
       <xs:element minOccurs="0" name="MainDeck" nillable="true" type="tns:Deck" />
       <xs:element minOccurs="0" name="Players" nillable="true" type="tns:ArrayOfPlayer" />
       <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Points" nillable="true" type="q3:ArrayOfKeyValueOfPlayerintf4z7L7Yg" />
+      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Dixit_Logic.Interfaces" minOccurs="0" name="RoundStatus" type="q4:PhaseStatus" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="GameState" nillable="true" type="tns:GameState" />
@@ -32,7 +34,7 @@
   <xs:element name="Player" nillable="true" type="tns:Player" />
   <xs:complexType name="Deck">
     <xs:sequence>
-      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Dixit_Service.DataContracts" minOccurs="0" name="Cards" nillable="true" type="q4:ArrayOfCard" />
+      <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Dixit_Service.DataContracts" minOccurs="0" name="Cards" nillable="true" type="q5:ArrayOfCard" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Deck" nillable="true" type="tns:Deck" />

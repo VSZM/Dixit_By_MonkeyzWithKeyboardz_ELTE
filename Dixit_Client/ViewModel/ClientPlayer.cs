@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 using Dixit_Logic.Classes;
 
-namespace Dixit_Client.Model
+namespace Dixit_Client.ViewModel
 {
-    public class ClientPlayer
+    public class ClientPlayer : ViewModelBase
     {
         public ClientPlayer(int id, String name)
         {
@@ -16,7 +16,19 @@ namespace Dixit_Client.Model
             Name = name;
             Score = 0;
         }
-        public int Score { get; set; }
+
+        private int _score;
+        public int Score {
+            get
+            {
+                return _score;
+            }
+            set
+            {
+                _score = value;
+                OnPropertyChanged("Score");
+            }
+        }
 
         public int Id { get; private set; }
         public String Name { get; }

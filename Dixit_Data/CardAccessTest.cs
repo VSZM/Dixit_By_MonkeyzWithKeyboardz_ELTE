@@ -41,5 +41,15 @@ namespace Dixit_Data
             }
         }
 
+        [TestMethod]
+        public void TestGetCardBack()
+        {
+            CardAccess ca = new CardAccess();
+            
+            Bitmap cardBack = ca.GetCardBack();
+            Assert.IsNotNull(cardBack);
+
+        }
+
     }
 }

@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-using Dixit_Client.Model;
+using Dixit_Client.ViewModel;
 
 namespace Dixit_Client.View
 {

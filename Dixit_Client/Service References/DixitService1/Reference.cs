@@ -155,6 +155,9 @@ namespace Dixit_Client.DixitService1 {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Collections.Generic.Dictionary<Dixit_Client.DixitService1.Player, int> PointsField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Dixit_Logic.Interfaces.PhaseStatus RoundStatusField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -278,6 +281,19 @@ namespace Dixit_Client.DixitService1 {
                 if ((object.ReferenceEquals(this.PointsField, value) != true)) {
                     this.PointsField = value;
                     this.RaisePropertyChanged("Points");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Dixit_Logic.Interfaces.PhaseStatus RoundStatus {
+            get {
+                return this.RoundStatusField;
+            }
+            set {
+                if ((this.RoundStatusField.Equals(value) != true)) {
+                    this.RoundStatusField = value;
+                    this.RaisePropertyChanged("RoundStatus");
                 }
             }
         }

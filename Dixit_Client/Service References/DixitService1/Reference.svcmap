@@ -27,6 +27,7 @@
     <MetadataFile FileName="DixitService.disco" MetadataType="Disco" ID="0e5b2210-191e-4c6f-8ce9-372bacf9d919" SourceId="1" SourceUrl="http://localhost:61203/DixitService.svc?disco" />
     <MetadataFile FileName="DixitService.xsd" MetadataType="Schema" ID="2986372a-2e3c-45b8-8965-9a781fb85c9d" SourceId="1" SourceUrl="http://localhost:61203/DixitService.svc?xsd=xsd1" />
     <MetadataFile FileName="DixitService1.xsd" MetadataType="Schema" ID="c67eea40-c2b1-47f4-be16-a52951ef3507" SourceId="1" SourceUrl="http://localhost:61203/DixitService.svc?xsd=xsd4" />
+    <MetadataFile FileName="DixitService5.xsd" MetadataType="Schema" ID="f6caf259-d89d-4225-b4c4-1573ecedecfd" SourceId="1" SourceUrl="http://localhost:61203/DixitService.svc?xsd=xsd5" />
     <MetadataFile FileName="DixitService2.xsd" MetadataType="Schema" ID="e152e7e3-d53b-4590-b70f-ca3652d11bd1" SourceId="1" SourceUrl="http://localhost:61203/DixitService.svc?xsd=xsd0" />
     <MetadataFile FileName="DixitService.wsdl" MetadataType="Wsdl" ID="59dd8cbd-3a36-4481-98f9-1830d9e8c22e" SourceId="1" SourceUrl="http://localhost:61203/DixitService.svc?wsdl" />
     <MetadataFile FileName="DixitService3.xsd" MetadataType="Schema" ID="bd3667d7-189b-4826-bd13-95562bc019d6" SourceId="1" SourceUrl="http://localhost:61203/DixitService.svc?xsd=xsd2" />
