@@ -13,7 +13,7 @@ namespace Integration_Tests
     {
         public void SetUpGame(out IDixitGame game, out List<IPlayer> players)
         {
-            game = LogicInjector.Container.GetInstance<IDixitGame>();
+            game = new DixitGame();
             players = new List<IPlayer>();
 
             players.Add(game.AddPlayer("player1"));
