@@ -81,6 +81,21 @@ namespace Dixit_Client.ViewModel
                                                        && !String.IsNullOrEmpty(ClueSentence)
                                                        && Status.Equals(PhaseStatus.AssociationTelling),
                                                   _ => SendClue());
+            /*
+            UserName = "Gyurija";
+            ActPlayerName = "Hugija";
+            _clueSentence = "asd";
+            CardsOnTable = new ObservableCollection<ICard>();
+            var card = new ClientCard(1, true);
+            var card2 = new ClientCard(1, true);
+            card.Players.Add(1000);
+            card.Players.Add(1001);
+            CardsOnTable.Add(card);
+            CardsOnTable.Add(card2);
+            Players = new ObservableCollection<ClientPlayer>();
+            Players.Add(new ClientPlayer(1002, "Geri"));
+            OnPropertyChanged("CardsOnTable"); ;
+            OnPropertyChanged("Players");*/
         }
 
 
@@ -302,6 +317,16 @@ namespace Dixit_Client.ViewModel
         /// </summary>
         private void OnGameEnd(object sender, GameStateEventArgs e)
         {
+            foreach (var point in e.State.Points) {
+                foreach (var player in Players) {
+                    if (point.Key.Id.Equals(player.Id)) {
+                        player.Score = point.Value;
+                        break;
+                    }
+                }
+            }
+            OnPropertyChanged("Players");
+
             GameEndEvent?.Invoke(this, "Game over");
         }
 

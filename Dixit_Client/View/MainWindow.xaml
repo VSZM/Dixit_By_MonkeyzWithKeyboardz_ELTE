@@ -17,7 +17,7 @@
 
     <Grid>
         <!-- Getting the cards put on the table-->
-        <ItemsControl ItemsSource="{Binding CardsOnTable}" Width="700"  Height="495" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,10,10,0">
+        <ItemsControl ItemsSource="{Binding CardsOnTable}" Width="700"  Height="370" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,125,10,0">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <UniformGrid Rows="2" Columns="4" />
@@ -25,7 +25,7 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <local:CardData Width="300" Height="210" Margin="0,0,5,5" Card="{Binding}" Command="{Binding Path=DataContext.GuessCardCommand, ElementName=GameWindow}" CommandParameter="{Binding}"/>
+                    <local:CardData Width="170" Height="180" Margin="0,0,5,5" Card="{Binding}" Command="{Binding Path=DataContext.GuessCardCommand, ElementName=GameWindow}" CommandParameter="{Binding}"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
@@ -61,10 +61,11 @@
         </ItemsControl>
         <TextBox x:Name="guessPhraseText" HorizontalAlignment="Left" Height="35" TextWrapping="Wrap" Text="{Binding ClueSentence, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="26" VerticalAlignment="Top" Width="378" Margin="483,517,0,0"/>
         <Button x:Name="guessPhraseButton" Content="Küldés" Command="{Binding SendClueCommand}" HorizontalAlignment="Left" FontSize="20" VerticalAlignment="Top" Width="65" Margin="866,517,0,0" Height="35"/>
-        <Label x:Name="actPlayerLabel" Content="{Binding ActPlayerName}" FontSize="22" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Top" Margin="10,31,0,0" Height="34" Width="259"/>
+        <Label x:Name="actPlayerLabel" Content="{Binding ActPlayerName}" FontSize="22" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Top" Margin="10,25,0,0" Height="48" Width="259"/>
         <Label x:Name="userNameLabel" Content="{Binding UserName}" FontSize="22" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Top" Margin="10,679,0,0" Height="48" Width="259"/>
         <Label x:Name="actPlayerStatLabel" Content="Aktuális játékos:" FontSize="16"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Width="259"/>
         <Label x:Name="userNameStatLabel" Content="Saját név:" FontSize="16"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,653,0,0" Width="259"/>
-        <Label x:Name="clueSentenceStatLabel" Content="Utalás:" FontSize="20"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="361,518,0,0" Height="34" Width="117" RenderTransformOrigin="1.031,0.396"/>
+        <Label x:Name="clueSentenceStatLabel" Content="Utalás:" FontSize="20"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="394,516,0,0" Height="34" Width="84" RenderTransformOrigin="1.031,0.396"/>
+        <Label x:Name="statLabel" Content="Játéktábla" FontSize="34" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="448,29,0,0" Height="48" Width="454"/>
     </Grid>
 </Window>
